@@ -1,0 +1,15 @@
+.path {
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+
+}
+.body{
+    background-color: #f0f0f0;
+
+}
+
+.navbar{
+    background-color: rgb(191, 175, 175);
+    padding: 10px;
+}
