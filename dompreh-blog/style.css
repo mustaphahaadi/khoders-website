@@ -34,7 +34,7 @@ img {
 /* HEADER */
 header {
   min-height: 100vh;
-  background: linear-gradient(to left, rgba(42, 78, 109, 0.336), rgba(241, 182, 33, 0.61)),
+  background: linear-gradient(to right, rgba(0, 66, 124, 0.37), rgba(253, 182, 4, 0.404)),
             url(images/banner-bg.jpg) center/cover no-repeat fixed;
   display:flex;
   flex-direction: column;
@@ -91,5 +91,64 @@ header {
 .banner-title{
   font-size : 3rem;
   font-family: var(--Playfair);
+  line-height: 1.2;
+}
+
+.banner-title span {
+  color: var(--secondary-color);
+  font-family: var(--Playfair);
+}
+
+.banner p {
+  padding : 0 0 2rem 0;
+  font-size: 1.2rem;
+  text-transform: capitalize;
+  font:  var(--Robot);
+  font-weight: 300;
+  word-spacing: 1px;
+  letter-spacing: 2px;
+}
+
+.banner form{
+  background-color: var(--primary-color);
+  border-radius: 3rem;
+  padding: 0.6rem 1.2rem;
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  box-shadow: #1a1a1aab 1px 2px 2px 0;   
+}
+
+.search-input {
+  font-family: var(--Robot);
+  font-size: 1.1rem;
+  width: 100%;
+  outline:0;
+  border: none;
+  padding: 0.3rem 0rem;
+  background-color: #2A4E6D;
+  color: white;
+  font-size: 15px;
   
+}
+
+.search-input::placeholder {
+  color: white;
+  font-weight: 300rem;
+  font-size: 15px;
+}
+
+.search-btn {
+  width: 50px;
+  font-size : 1.2rem;
+  background-color: var(--primary-color) ;
+  color: white;
+  border: none;
+  cursor: pointer;
+  outline: 0;
+}
+
+.search-btn:hover {
+  transition: 0.5s ease-in;
+  transform: scale(1.2);
 }
