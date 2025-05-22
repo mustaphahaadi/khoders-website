@@ -4,36 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Khoders-website</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://kit.fontawesome.com/b11ff89fd9.js" crossorigin="anonymous"></script>
+    
 </head>
 <body>
-    <div style="border: 1px solid color black;">
+    <div>
         <!-- Heading for registration forms -->
-        <header align="Middle" style="color: rgb(49, 49, 220);">
-            <img src="#" alt="Khoderslogo">
+        <header>
             <h1>Khoders World</h1>
             <h5>WE CODE TILL OUR LAST DROP</h5> 
             <p><u>Registration</u></p>
         </header>
-        <form align="Middle" style="color: rgb(49, 49, 220);">
+        <hr class="hr">
+        <form>
          <!-- Fist Name -->
-            <label for="fname">Fist Name </label>
+            <label id="fname" for="fname">Fist Name </label>
+            <br>
             <input type="text" name="fname" required>
+            <br><br>
+            
          <!-- Middle Name -->
-            <label for="Mname">Middle Name </label>
+            <label id="Mname" for="Mname">Middle Name </label>
+            <br>
             <input type="text" name="Mname" required>
+            <br><br>
          <!-- Last Name -->
-           <label for="Lname">Last Name </label>
+           <label id="Lname" for="Lname">Last Name </label>
+           <br>
            <input type="text" name="Lname" required>
            <br><br>
          <!-- Birthday -->
-           <label for="bdate">Birth Date</label>
+           <label id="bdate" for="bdate">Birth Date <i class="fa-solid fa-calendar" style="color: #74C0FC;"></i></label>
            <input type="date" name="bdate" required>
            <br><br>
          <!-- Gender -->
-           <label for="gender">Gender :</label>
+           <label id="gender" for="gender">Gender </label>
            <br>
          <!-- Male -->
-           <label for="male">Male</label>
+           <label id="male" for="male">Male</label>
            <input type="radio" value="male">
            
           <!-- Female -->
@@ -45,15 +54,15 @@
            <input type="radio" value="n/a">
            <br><br>
          <!-- Email -->
-           <label for="email">Email</label>
+           <label for="email">Email <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i></label>
            <input type="email" name="email" required placeholder="example@example.com">
            <br><br>
          <!-- Phone Numder -->
-           <label for="tel">Phone Number</label>
+           <label for="tel">Phone Number <i class="fa-solid fa-phone" style="color: #74C0FC;"></i></label>
            <input type="tel" name="email" required placeholder="+233 55 157 4627">
            <br><br>
          <!-- level In -->
-           <label for="level">Level</label>
+           <label for="level">Level <i class="fa-solid fa-user-graduate" style="color: #74C0FC;"></i></label>
            <select name="level">
             <option value="level 100">Level 100</option>
             <option value="level 200">Level 200</option>
@@ -62,11 +71,11 @@
            </select>
            <br><br>
          <!-- ID -->
-           <label for="id">Student ID</label>
+           <label for="id">Student ID <i class="fa-solid fa-id-card" style="color: #74C0FC;"></i></label>
            <input type="text" name="id" required>
            <br><br>
          <!-- course -->
-           <label for="course">Course/Program:</label>
+           <label for="course">Course/Program <i class="fa-solid fa-book" style="color: #74C0FC;"></i>:</label>
            <select name="course">
             <option value="computer technology">BTech Computer Technology</option>
             <option value="artifical intelligence">BTech Artifical Intelligence</option>
@@ -81,7 +90,7 @@
            </select>
            <br><br>
            <!-- nationality -->
-           <label for="nationality">Nationality</label>
+           <label for="nationality">Nationality <i class="fa-solid fa-globe" style="color: #74C0FC;"></i></label>
            <br>
            <label for="ghanaian">Ghanaian</label>
            <input type="checkbox" value="ghanaian">
@@ -91,15 +100,15 @@
            <input type="checkbox" value="for">
            <br><br>
            <!-- password -->
-           <label for="password1">Create Password</label>
+           <label for="password1">Create Password <i class="fa-solid fa-lock"style="color: #74C0FC;"></i></label>
            <input type="password" name="password" required> 
             <br>
-           <label for="password2">Comfirm Password</label>
+           <label for="password2">Comfirm Password <i class="fa-solid fa-lock"style="color: #74C0FC;"></i></label>
            <input type="password" name="password2" required>
            <br><br> 
            <!-- Agreement -->
            <input type="checkbox" name="agree" required> 
-           <label for="agree">I Agree With Terms & Conditions</label>
+           <label for="agree"><i class="fa-solid fa-file-contract" style="color: #74C0FC;"></i>  I Agree With Terms & Conditions</label>
            <br><br>
            <!-- submit -->
            <input type="submit"> 
