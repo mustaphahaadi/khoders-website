@@ -16,6 +16,11 @@
             <h5 >WE CODE TILL OUR LAST DROP</h5> 
             <p style="color: whitesmoke;"><u><b>Registration Form</b></u></p>
         </header>
+            <h1>Khoders World</h1>
+            <h5>WE CODE TILL OUR LAST DROP</h5> 
+            <p><u>Registration</u></p>
+        </header>
+        <hr class="hr">
         <form>
          <!-- Fist Name -->
             <label id="fname" for="fname">Fist Name </label>
@@ -34,11 +39,17 @@
            <input type="text" name="Lname" required>
            <br><br>
          <!-- Birthday -->
+
            <label id="bdate" for="bdate">Birth Date <i class="fa-solid fa-calendar" style="color: orangered;"></i></label>
            <input type="date" name="bdate" required>
            <br><br>
          <!-- Gender -->
            <label id="gender" for="gender">Gender <i class="fa-solid fa-mars" style="color: orangered;"></i></label>
+           <label id="bdate" for="bdate">Birth Date <i class="fa-solid fa-calendar" style="color: #74C0FC;"></i></label>
+           <input type="date" name="bdate" required>
+           <br><br>
+         <!-- Gender -->
+           <label id="gender" for="gender">Gender </label>
            <br>
          <!-- Male -->
            <label id="male" for="male">Male</label>
@@ -62,6 +73,16 @@
            <br><br>
          <!-- level In -->
            <label for="level">Level <i class="fa-solid fa-user-graduate" style="color: orangered;"></i></label>
+           <label for="email">Email <i class="fa-solid fa-envelope" style="color: #74C0FC;"></i></label>
+           <input type="email" name="email" required placeholder="example@example.com">
+           <br><br>
+         <!-- Phone Numder -->
+           <label for="tel">Phone Number <i class="fa-solid fa-phone" style="color: #74C0FC;"></i></label>
+           <input type="tel" name="email" required placeholder="+233 55 157 4627">
+           <br><br>
+         <!-- level In -->
+           <label for="level">Level <i class="fa-solid fa-user-graduate" style="color: #74C0FC;"></i></label>
+
            <select name="level">
             <option value="level 100">Level 100</option>
             <option value="level 200">Level 200</option>
@@ -75,6 +96,11 @@
            <br><br>
          <!-- course -->
            <label for="course">Course/Program <i class="fa-solid fa-book" style="color: orangered;"></i>:</label>
+           <label for="id">Student ID <i class="fa-solid fa-id-card" style="color: #74C0FC;"></i></label>
+           <input type="text" name="id" required>
+           <br><br>
+         <!-- course -->
+           <label for="course">Course/Program <i class="fa-solid fa-book" style="color: #74C0FC;"></i>:</label>
            <select name="course">
             <option value="computer technology">BTech Computer Technology</option>
             <option value="artifical intelligence">BTech Artifical Intelligence</option>
@@ -89,7 +115,10 @@
            </select>
            <br><br>
            <!-- nationality -->
+
            <label for="nationality">Nationality <i class="fa-solid fa-globe" style="color: orangered;"></i></label>
+           <label for="nationality">Nationality <i class="fa-solid fa-globe" style="color: #74C0FC;"></i></label>
+
            <br>
            <label for="ghanaian">Ghanaian</label>
            <input type="checkbox" value="ghanaian">
@@ -103,6 +132,10 @@
            <input type="password" name="password" required> 
             <br>
            <label for="password2">Comfirm Password <i class="fa-solid fa-lock"style="color: orangered;"></i></label>
+           <label for="password1">Create Password <i class="fa-solid fa-lock"style="color: #74C0FC;"></i></label>
+           <input type="password" name="password" required> 
+            <br>
+           <label for="password2">Comfirm Password <i class="fa-solid fa-lock"style="color: #74C0FC;"></i></label>
            <input type="password" name="password2" required>
            <br><br> 
            <!-- Agreement -->
@@ -117,6 +150,10 @@
            <label id="login" >Already have an account? 
            <a href="#">Login</a></label>
 
+           <label for="agree"><i class="fa-solid fa-file-contract" style="color: #74C0FC;"></i>  I Agree With Terms & Conditions</label>
+           <br><br>
+           <!-- submit -->
+           <input type="submit"> 
         </form> 
 
     </div>
