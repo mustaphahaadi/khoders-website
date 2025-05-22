@@ -1,0 +1,87 @@
+body{
+    background-image: url(Khoders.jpgcd);
+    background-attachment: fixed;
+    background-position: center;
+    background-size: cover;
+    align-content: center;
+}
+header{
+    border-style: solid;
+    width: 670px;
+    height: 200px;
+    border-width: 5px;
+    border-color: skyblue;
+    border-radius: 10px;
+    text-align: center;
+    padding-right: auto;
+    padding-left: auto;
+    background-color: #74C0FC;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    position: sticky;
+    top: 0px;
+
+        box-shadow: 0px 0px 100px skyblue;
+}
+form{
+    padding: 30px;
+    font-size: 25px;
+    color: blueviolet;
+}
+div{
+    border-style: solid;
+    width: 700px;
+    height: 1300px;
+    border-width: 5px;
+    border-color: skyblue;
+    border-radius: 10px;
+    padding: 10px;
+    font-size: larger;
+    background: linear-gradient( rgb(255, 255, 255));
+    margin-right: auto;
+    margin-left: auto;
+
+    box-shadow: 0px 0px 100px skyblue,0px 0px 100px rgb(3, 53, 72);
+}
+#login{
+    padding-left: 150px;
+    position: sticky;
+    top: 0px;
+}
+a:link{
+    color: darkslategray;
+}
+a:hover{
+    color: aqua;
+}
+a:active{
+    color: rgb(5, 110, 86);
+}
+
+button{
+    border-style: solid;
+    width: 670px;
+    height: 50px;
+    border-color: black;
+    border-radius: 50px;
+    text-align: center;
+    background-color: rgb(8, 12, 14);
+    
+
+    color: rgb(248, 241, 241);
+    box-shadow: 0px 0px 100px black;
+}
+button:hover{
+    background-color: skyblue;
+}
+button:active{
+    color: rgb(5, 110, 86);
+}
+input{
+    accent-color: orange;
+}
+
+
+
