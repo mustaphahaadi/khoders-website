@@ -1,5 +1,4 @@
 body{
-<<<<<<< HEAD
     display: block;
     position: relative;
     background: none;
@@ -27,32 +26,12 @@ header{
     
 }
 form{
-    padding: 30px;
-    font-size: 25px;
-    color: rgb(0, 0, 0);
-=======
-    background-image: url(Khoders.jpgcd);
-    background-attachment: fixed;
-    background-position: center;
-    background-size: cover;
-    align-content: center;
-}
-header{
-    margin: 10px;
-    position: sticky;
-    text-align: center;
-
-}
-form{
     padding: 5px;
     font-size: 25px;
-    
->>>>>>> 5cda5dd5a8f0b894c965ff49c79574663c5c0d93
 }
 div{
     border-style: solid;
     width: 700px;
-<<<<<<< HEAD
     height: 1300px;
     border-width: 5px;
     border-color: red;
@@ -106,23 +85,3 @@ input{
     accent-color: gold;
     color: orangered;
 }
-
-
-
-=======
-    height: 2s00px;
-    border-width: 5px;
-    border-color: skyblue;
-    border-radius: 10px;
-    padding: 10px;
-    font-size: larger;
-    background: linear-gradient( white);
-    margin-right: auto;
-    margin-left: auto;
-}
-.hr{
-    position: sticky;
-}
-
-
->>>>>>> 5cda5dd5a8f0b894c965ff49c79574663c5c0d93
