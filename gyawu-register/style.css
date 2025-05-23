@@ -2,26 +2,28 @@ body{
     display: block;
     position: relative;
     background: none;
-    background: linear-gradient(orangered , yellow);
+    background-color: skyblue;
 }
 header{
     border-style: solid;
     width: 670px;
     height: 200px;
     border-width: 5px;
-    border-color: red;
-    border-radius: 20px;
+    border-color: rgb(9, 141, 119);
+    border-radius: 5px;
     text-align: center;
     padding-right: auto;
     padding-left: auto;
-    background-color: orangered;
-    color: rgb(0, 0, 0);
+    background-color: rgb(159, 241, 241);
+    color: black;
 
     margin-right: auto;
     margin-left: auto;
 
     position: sticky;
     top: 0px;
+
+    box-shadow: 0px 0px 10px;
 
     
 }
@@ -34,16 +36,16 @@ div{
     width: 700px;
     height: 1300px;
     border-width: 5px;
-    border-color: red;
-    border-radius: 25px;
+    border-color: rgb(9, 141, 119);
+    border-radius: 0px;
     padding: 10px;
     font-size: larger;
-    background-color: rgb(243, 215, 163);
+    background-color: white;
     margin-right: auto;
     margin-left: auto;
     
 
-    box-shadow: 0px 0px 10px rgb(255, 1, 1) , 0px 0px 10px yellow;
+    box-shadow: 0px 0px 10px rgb(0, 0, 0) 
 }
 #login{
     padding-left: 150px;
@@ -54,12 +56,11 @@ a:link{
     color: #000;
 }
 a:hover{
-    color: yellow;
+    color: rgb(9, 141, 119);
 }
 a:active{
-    color: orangered;
+    color: skyblue;
 }
-
 button{
     border-style: solid;
     width: 670px;
@@ -74,14 +75,14 @@ button{
     box-shadow: 0px 0px 10px black;
 }
 button:hover{
-    background-color: yellow;
-    color: #fff;
+    background-color: rgb(9, 141, 119);
+    color: skyblue;
 }
 button:active{
-    background-color: orangered;
+    background-color: skyblue;
     color: black;
 }
 input{
-    accent-color: gold;
-    color: orangered;
+    accent-color: rgb(9, 141, 119);
+    color: rgb(9, 141, 119);
 }
