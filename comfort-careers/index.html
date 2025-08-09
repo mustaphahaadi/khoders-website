@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Khoders Club | Career Paths</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Career Paths at Khoders Club</h1>
+      <p>Explore opportunities and skills to shape your tech future</p>
+    </header>
+
+
+    <section class="career-section">
+      <div class="career-grid" id="careerGrid">
+        <!-- Cards will be added here dynamically -->
+      </div>
+    </section>
+
+
+    <footer>&copy; 2025 Khoders Club. All rights reserved.</footer>
+
+
+    <script>
+      const careerTopics = [
+        {
+          title: "In-demand Tech Skills",
+          description:
+            "Discover the most sought-after tech skills in today's job market including AI, Web Dev, DevOps, and more.",
+        },
+        {
+          title: "Internship Opportunities",
+          description:
+            "Get real-world experience with internships tailored for students and beginners.",
+        },
+        {
+          title: "Job Listings (Full-time / Part-time)",
+          description:
+            "Find available full-time and part-time roles curated for tech students and recent grads.",
+        },
+        {
+          title: "Freelance Platforms",
+          description:
+            "Explore platforms like Upwork, Fiverr, and Toptal to kickstart your freelancing career.",
+        },
+        {
+          title: "Campus Placement Jobs",
+          description:
+            "Prepare and apply for job offers through campus placement drives and company visits.",
+        },
+        {
+          title: "How to Be a Software Developer",
+          description:
+            "Step-by-step guide for becoming a professional software developer from zero to hired.",
+        },
+      ];
+
+
+      const container = document.getElementById("careerGrid");
+
+
+      careerTopics.forEach((topic) => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+
+        card.innerHTML = `
+        <h2>${topic.title}</h2>
+        <p>${topic.description}</p>
+      `;
+
+
+        container.appendChild(card);
+      });
+    </script>
+  </body>
+</html>
