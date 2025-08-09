@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Khoders Club | Career Paths</title>
-    <link rel="stylesheet" href="career.css" />
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <header>
@@ -12,13 +13,16 @@
       <p>Explore opportunities and skills to shape your tech future</p>
     </header>
 
+
     <section class="career-section">
       <div class="career-grid" id="careerGrid">
         <!-- Cards will be added here dynamically -->
       </div>
     </section>
 
+
     <footer>&copy; 2025 Khoders Club. All rights reserved.</footer>
+
 
     <script>
       const careerTopics = [
@@ -54,19 +58,24 @@
         },
       ];
 
+
       const container = document.getElementById("careerGrid");
+
 
       careerTopics.forEach((topic) => {
         const card = document.createElement("div");
         card.className = "card";
+
 
         card.innerHTML = `
         <h2>${topic.title}</h2>
         <p>${topic.description}</p>
       `;
 
+
         container.appendChild(card);
       });
     </script>
   </body>
 </html>
+
