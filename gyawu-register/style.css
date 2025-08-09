@@ -1,0 +1,88 @@
+body{
+    display: block;
+    position: relative;
+    background: none;
+    background-color: skyblue;
+}
+header{
+    border-style: solid;
+    width: 670px;
+    height: 200px;
+    border-width: 5px;
+    border-color: rgb(9, 141, 119);
+    border-radius: 5px;
+    text-align: center;
+    padding-right: auto;
+    padding-left: auto;
+    background-color: rgb(159, 241, 241);
+    color: black;
+
+    margin-right: auto;
+    margin-left: auto;
+
+    position: sticky;
+    top: 0px;
+
+    box-shadow: 0px 0px 10px;
+
+    
+}
+form{
+    padding: 30px;
+    font-size: 25px;
+}
+div{
+    border-style: solid;
+    width: 700px;
+    height: 1300px;
+    border-width: 5px;
+    border-color: rgb(9, 141, 119);
+    border-radius: 0px;
+    padding: 10px;
+    font-size: larger;
+    background-color: white;
+    margin-right: auto;
+    margin-left: auto;
+    
+
+    box-shadow: 0px 0px 10px rgb(0, 0, 0) 
+}
+#login{
+    padding-left: 150px;
+    position: sticky;
+    top: 0px;
+}
+a:link{
+    color: #000;
+}
+a:hover{
+    color: rgb(9, 141, 119);
+}
+a:active{
+    color: skyblue;
+}
+button{
+    border-style: solid;
+    width: 670px;
+    height: 50px;
+    border-color: black;
+    border-radius: 50px;
+    text-align: center;
+    background-color: rgb(8, 12, 14);
+    
+
+    color: rgb(248, 241, 241);
+    box-shadow: 0px 0px 10px black;
+}
+button:hover{
+    background-color: rgb(9, 141, 119);
+    color: skyblue;
+}
+button:active{
+    background-color: skyblue;
+    color: black;
+}
+input{
+    accent-color: rgb(9, 141, 119);
+    color: #004aad;
+}
