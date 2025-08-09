@@ -3,569 +3,999 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Khoders World - Campus Coding Club</title>
-    <meta name="description" content="KHODERS - Kumasi Technical University's premier coding club. Learn programming, build projects, and join our tech community.">
-    <meta name="keywords" content="coding club, programming, web development, KTU, Ghana, tech education">
-    <meta property="og:title" content="Khoders World - Campus Coding Club">
-    <meta property="og:description" content="Join KHODERS - Where coding dreams come true!">
+    <title>KHODERS World - Premier Campus Coding Club | Learn, Build, Innovate</title>
+    
+    <!-- Enhanced Meta Tags for SEO and Social Sharing -->
+    <meta name="description" content="Join KHODERS - Kumasi Technical University's premier coding club. Learn programming, build real-world projects, get mentorship, and launch your tech career. Free membership for all KTU students.">
+    <meta name="keywords" content="coding club, programming, web development, KTU, Ghana, tech education, software development, mentorship, computer science">
+    <meta name="author" content="KHODERS World Team">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#2A4E6D">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="KHODERS World - Premier Campus Coding Club">
+    <meta property="og:description" content="Join KHODERS - Where coding dreams come true! Learn programming, build projects, and connect with Ghana's next generation of developers.">
     <meta property="og:image" content="assets/qwe.png">
     <meta property="og:url" content="https://khodersworld.com">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
-    <link rel="stylesheet" href="style.css">
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="KHODERS World - Premier Campus Coding Club">
+    <meta name="twitter:description" content="Join KHODERS - Where coding dreams come true!">
+    <meta name="twitter:image" content="assets/qwe.png">
+    
+    <!-- Preload critical resources for performance -->
+    <link rel="preload" href="style.css" as="style">
+    <link rel="preload" href="assets/qwe.png" as="image">
+    
+    <!-- Favicon -->
     <link rel="icon" type="image/png" href="assets/qwe.png">
+    
+    <!-- Main Stylesheet -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Structured Data for SEO -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "KHODERS World",
+      "url": "https://khodersworld.com",
+      "logo": "https://khodersworld.com/assets/qwe.png",
+      "description": "Kumasi Technical University's premier coding club offering programming education, mentorship, and career development for students.",
+      "foundingDate": "2017",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Kumasi",
+        "addressCountry": "Ghana"
+      }
+    }
+    </script>
 </head>
 <body>
-    <!-- Navigation Bar (Kamal's contribution) -->
-    <nav class="navbar">
+    <!-- Skip Link for Accessibility -->
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+    
+    <!-- Enhanced Navigation Bar -->
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
         <div class="nav-container">
             <div class="nav-logo">
-                <img src="assets/qwe.png" alt="Khoders Logo">
-                <span>KHODERS WORLD</span>
+                <img src="assets/qwe.png" alt="KHODERS Logo" width="50" height="50">
+                <span class="logo-text">KHODERS WORLD</span>
             </div>
-            <ul class="nav-menu">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#careers">Careers</a></li>
-                <li><a href="#team">Team</a></li>
-                <li><a href="#blog">Blog</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#login" class="login-btn">Login</a></li>
+            
+            <ul class="nav-menu" role="menubar">
+                <li role="none"><a href="#home" role="menuitem" aria-current="page">Home</a></li>
+                <li role="none"><a href="about.html" role="menuitem">About</a></li>
+                <li role="none"><a href="services.html" role="menuitem">Services</a></li>
+                <li role="none"><a href="projects.html" role="menuitem">Projects</a></li>
+                <li role="none"><a href="team.html" role="menuitem">Team</a></li>
+                <li role="none"><a href="events.html" role="menuitem">Events</a></li>
+                <li role="none"><a href="contact.html" role="menuitem">Contact</a></li>
+                <li role="none"><a href="register.html" class="cta-nav-btn" role="menuitem">Join Now</a></li>
             </ul>
-            <div class="hamburger">
-                <span></span>
-                <span></span>
-                <span></span>
-            </div>
+            
+            <button class="hamburger" aria-label="Toggle navigation menu" aria-expanded="false">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
         </div>
     </nav>
 
-    <!-- Hero Section (Elvis's contribution) -->
-    <section id="home" class="hero">
-        <div class="hero-container">
-            <div class="hero-content">
-                <div class="hero-text">
-                    <h1>LEARN TO CODE<br>THE SMART<br>WAY</h1>
-                    <p>Whether you're a total beginner or leveling up, our platform makes learning to code fun, fast, and practical.</p>
-                    <button class="cta-button">Get Started</button>
-                </div>
-                <div class="hero-image">
-                    <img src="assets/qwe.png" alt="Khoders Hero">
-                </div>
+    <!-- Main Content -->
+    <main id="main-content">
+        <!-- Enhanced Hero Section -->
+        <section id="home" class="hero" aria-label="Welcome to KHODERS">
+            <div class="hero-background">
+                <div class="hero-particles"></div>
             </div>
-        </div>
-    </section>
-
-    <!-- Statistics Section -->
-    <section class="stats-section" data-aos="fade-up">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
-                    </div>
-                    <div class="stat-number" data-target="500">0</div>
-                    <div class="stat-label">Active Members</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-project-diagram"></i>
-                    </div>
-                    <div class="stat-number" data-target="150">0</div>
-                    <div class="stat-label">Projects Completed</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-graduation-cap"></i>
-                    </div>
-                    <div class="stat-number" data-target="200">0</div>
-                    <div class="stat-label">Students Mentored</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-briefcase"></i>
-                    </div>
-                    <div class="stat-number" data-target="80">0</div>
-                    <div class="stat-label">Job Placements</div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section (Sussana's contribution) -->
-    <section id="about" class="about" data-aos="fade-right">
-        <div class="main">
-            <div class="about-image">
-                <img src="assets/about-image.jpg" alt="Khoders Club">
-            </div>
-            <div class="about-text">
-                <h1>About Khoders</h1>
-                <h5>Coding<span> & Mentorship Club</span></h5>
-                <p>
-                    <b>Khoders Club</b> was formed in 2017 at <b>KUMASI TECHNICAL UNIVERSITY</b>.
-                    The <b>mission</b> is to <u><i>assist beginners</i></u> to get into the <b><u><i>Tech Space Smoothly</i></u></b>
-                    by offering <b><i>tuition and mentorship.</i></b>
-                </p>
-                <button type="button">
-                    <b><u><i>Motto:</i></u></b> We Code Till Our Last Drop.
-                </button>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section (Evans's contribution) -->
-    <section id="services" class="services">
-        <div class="container">
-            <h2>Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card">
-                    <i class="fas fa-code"></i>
-                    <h3>Web Development</h3>
-                    <p>Learn HTML, CSS, JavaScript, and modern frameworks like React and Vue.js</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-mobile-alt"></i>
-                    <h3>Mobile Development</h3>
-                    <p>Build native and cross-platform mobile apps with React Native and Flutter</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-database"></i>
-                    <h3>Backend Development</h3>
-                    <p>Master server-side programming with Node.js, Python, and database management</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-brain"></i>
-                    <h3>AI & Machine Learning</h3>
-                    <p>Explore artificial intelligence and machine learning with Python and TensorFlow</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-users"></i>
-                    <h3>Mentorship</h3>
-                    <p>Get personalized guidance from experienced developers and industry professionals</p>
-                </div>
-                <div class="service-card">
-                    <i class="fas fa-project-diagram"></i>
-                    <h3>Project Support</h3>
-                    <p>Work on real-world projects and build an impressive portfolio</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Projects Section (Akua's contribution) -->
-    <section id="projects" class="projects">
-        <div class="container">
-            <h2>Our Projects</h2>
-            <div class="projects-grid">
-                <div class="project-card">
-                    <img src="assets/project1.jpg" alt="E-commerce Website">
-                    <div class="project-info">
-                        <h3>E-commerce Platform</h3>
-                        <p>Full-stack e-commerce solution built with React and Node.js</p>
-                        <div class="project-tech">
-                            <span>React</span>
-                            <span>Node.js</span>
-                            <span>MongoDB</span>
+            <div class="hero-container">
+                <div class="hero-content">
+                    <div class="hero-text">
+                        <h1 class="hero-title">
+                            <span class="hero-title-line">LEARN TO CODE</span>
+                            <span class="hero-title-line">THE SMART</span>
+                            <span class="hero-title-line hero-highlight">WAY</span>
+                        </h1>
+                        <p class="hero-subtitle">Whether you're a total beginner or leveling up, our platform makes learning to code fun, fast, and practical. Join Ghana's most vibrant campus coding community.</p>
+                        
+                        <div class="hero-stats">
+                            <div class="hero-stat">
+                                <span class="stat-number">500+</span>
+                                <span class="stat-label">Active Members</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number">150+</span>
+                                <span class="stat-label">Projects Built</span>
+                            </div>
+                            <div class="hero-stat">
+                                <span class="stat-number">80+</span>
+                                <span class="stat-label">Job Placements</span>
+                            </div>
+                        </div>
+                        
+                        <div class="hero-actions">
+                            <a href="#join" class="btn btn-primary">
+                                <span>Get Started Free</span>
+                                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <a href="#about" class="btn btn-secondary">
+                                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polygon points="5,3 19,12 5,21"/>
+                                </svg>
+                                <span>Watch Our Story</span>
+                            </a>
+                        </div>
+                        
+                        <div class="hero-features">
+                            <div class="feature-item">
+                                <svg class="feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Free Membership</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Expert Mentorship</span>
+                            </div>
+                            <div class="feature-item">
+                                <svg class="feature-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Real Projects</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="project-card">
-                    <img src="assets/project2.jpg" alt="Mobile App">
-                    <div class="project-info">
-                        <h3>Learning Management App</h3>
-                        <p>Mobile app for course management and student tracking</p>
-                        <div class="project-tech">
-                            <span>React Native</span>
-                            <span>Firebase</span>
-                            <span>Redux</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="project-card">
-                    <img src="assets/project3.jpg" alt="AI Project">
-                    <div class="project-info">
-                        <h3>AI Chatbot</h3>
-                        <p>Intelligent chatbot for student support and queries</p>
-                        <div class="project-tech">
-                            <span>Python</span>
-                            <span>TensorFlow</span>
-                            <span>NLP</span>
+                    <div class="hero-image">
+                        <div class="hero-image-container">
+                            <img src="assets/image-1.png" alt="KHODERS coding community illustration" loading="eager" style="border-radius: 1.5rem; box-shadow: 0 8px 32px rgba(42,78,109,0.15);">
+                            <div class="floating-elements">
+                                <div class="floating-card floating-card-1">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polyline points="16,18 22,12 16,6"/>
+                                        <polyline points="8,6 2,12 8,18"/>
+                                    </svg>
+                                    <span>Live Coding</span>
+                                </div>
+                                <div class="floating-card floating-card-2">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                        <circle cx="9" cy="7" r="4"/>
+                                        <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                                    </svg>
+                                    <span>Community</span>
+                                </div>
+                                <div class="floating-card floating-card-3">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                        <line x1="3" y1="6" x2="21" y2="6"/>
+                                        <path d="M16 10a4 4 0 0 1-8 0"/>
+                                    </svg>
+                                    <span>Projects</span>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Careers Section (Comfort's contribution) -->
-    <section id="careers" class="careers">
-        <div class="container">
-            <h2>Career Paths at Khoders Club</h2>
-            <p class="careers-subtitle">Explore opportunities and skills to shape your tech future</p>
-            <div class="career-grid">
-                <div class="career-card">
-                    <h3>In-demand Tech Skills</h3>
-                    <p>Discover the most sought-after tech skills in today's job market including AI, Web Dev, DevOps, and more.</p>
-                </div>
-                <div class="career-card">
-                    <h3>Internship Opportunities</h3>
-                    <p>Get real-world experience with internships tailored for students and beginners.</p>
-                </div>
-                <div class="career-card">
-                    <h3>Job Listings (Full-time / Part-time)</h3>
-                    <p>Find available full-time and part-time roles curated for tech students and recent grads.</p>
-                </div>
-                <div class="career-card">
-                    <h3>Freelance Platforms</h3>
-                    <p>Explore platforms like Upwork, Fiverr, and Toptal to kickstart your freelancing career.</p>
-                </div>
-                <div class="career-card">
-                    <h3>Campus Placement Jobs</h3>
-                    <p>Prepare and apply for job offers through campus placement drives and company visits.</p>
-                </div>
-                <div class="career-card">
-                    <h3>How to Be a Software Developer</h3>
-                    <p>Step-by-step guide for becoming a professional software developer from zero to hired.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Team Section (Nadia's contribution) -->
-    <section id="team" class="team">
-        <div class="container">
-            <h2>Meet Our Team</h2>
-            <div class="team-grid">
-                <div class="team-member">
-                    <img src="assets/team1.jpg" alt="Team Member">
-                    <h3>Codeo</h3>
-                    <p>Project Manager & Full Stack Developer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <img src="assets/team2.jpg" alt="Team Member">
-                    <h3>Elvis</h3>
-                    <p>Frontend Developer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <img src="assets/team3.jpg" alt="Team Member">
-                    <h3>Sussana</h3>
-                    <p>UI/UX Designer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-                <div class="team-member">
-                    <img src="assets/team4.jpg" alt="Team Member">
-                    <h3>Kamal</h3>
-                    <p>Frontend Developer</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section (Amankwah's contribution) -->
-    <section id="testimonials" class="testimonials">
-        <div class="container">
-            <h2>What Our Members Say</h2>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Khoders Club transformed my coding journey. The mentorship and hands-on projects helped me land my first tech job!"</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="assets/testimonial1.jpg" alt="Student">
-                        <div>
-                            <h4>Sarah Johnson</h4>
-                            <span>Software Developer at TechCorp</span>
+        <!-- Enhanced About Section -->
+        <section id="about" class="about" aria-label="About KHODERS">
+            <div class="container">
+                <div class="about-content">
+                    <div class="about-image">
+                        <div class="image-container">
+                            <img src="assets/image-2.png" alt="KHODERS Club members collaborating on projects" loading="lazy" style="border-radius: 1.5rem; box-shadow: 0 8px 32px rgba(42,78,109,0.15);">
+                            <div class="image-overlay">
+                                <div class="play-button" aria-label="Play video about KHODERS">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <polygon points="5,3 19,12 5,21"/>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="about-achievements">
+                            <div class="achievement">
+                                <span class="achievement-number">7+</span>
+                                <span class="achievement-label">Years Strong</span>
+                            </div>
+                            <div class="achievement">
+                                <span class="achievement-number">15+</span>
+                                <span class="achievement-label">Technologies</span>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"The collaborative environment and real-world projects at Khoders gave me the confidence to pursue a career in tech."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="assets/testimonial2.jpg" alt="Student">
-                        <div>
-                            <h4>Michael Chen</h4>
-                            <span>Full Stack Developer</span>
+                    <div class="about-text">
+                        <div class="section-badge">About Us</div>
+                        <h2>Empowering the Next Generation of Developers</h2>
+                        <h3>Coding <span class="highlight">& Mentorship</span> Club</h3>
+                        <p class="about-description">
+                            <strong>KHODERS Club</strong> was formed in 2017 at <strong>Kumasi Technical University</strong>.
+                            Our <strong>mission</strong> is to <em>assist beginners</em> to get into the <strong>Tech Space Smoothly</strong>
+                            by offering <strong>tuition and mentorship.</strong>
+                        </p>
+                        
+                        <div class="about-features">
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 6L9 17l-5-5"/>
+                                    </svg>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Expert Mentorship</h4>
+                                    <p>Learn from industry professionals and experienced developers</p>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 6L9 17l-5-5"/>
+                                    </svg>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Hands-on Projects</h4>
+                                    <p>Build real-world applications that matter</p>
+                                </div>
+                            </div>
+                            <div class="feature">
+                                <div class="feature-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M20 6L9 17l-5-5"/>
+                                    </svg>
+                                </div>
+                                <div class="feature-content">
+                                    <h4>Career Support</h4>
+                                    <p>Get help with job placement and career development</p>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-                <div class="testimonial-card">
-                    <div class="testimonial-content">
-                        <p>"Best decision I made in university was joining Khoders. The skills I learned here are invaluable in my career."</p>
-                    </div>
-                    <div class="testimonial-author">
-                        <img src="assets/testimonial3.jpg" alt="Student">
-                        <div>
-                            <h4>Emily Davis</h4>
-                            <span>Frontend Developer at StartupXYZ</span>
+                        
+                        <div class="about-actions">
+                            <a href="#join" class="btn btn-primary">
+                                <span>Join Our Community</span>
+                                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </a>
+                            <div class="motto">
+                                <svg class="quote-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
+                                    <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
+                                </svg>
+                                <span><strong>Motto:</strong> We Code Till Our Last Drop.</span>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Blog Section (Dompreh's contribution) -->
-    <section id="blog" class="blog">
-        <div class="container">
-            <h2>Latest from Our Blog</h2>
-            <div class="blog-grid">
-                <article class="blog-card">
-                    <img src="assets/blog1.jpg" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span class="date">Jan 15, 2025</span>
-                            <span class="category">Web Development</span>
-                        </div>
-                        <h3>Getting Started with React: A Beginner's Guide</h3>
-                        <p>Learn the fundamentals of React and build your first component-based application.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="assets/blog2.jpg" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span class="date">Jan 12, 2025</span>
-                            <span class="category">Career</span>
-                        </div>
-                        <h3>5 Tips for Landing Your First Tech Job</h3>
-                        <p>Essential advice for new graduates entering the competitive tech job market.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
-                <article class="blog-card">
-                    <img src="assets/blog3.jpg" alt="Blog Post">
-                    <div class="blog-content">
-                        <div class="blog-meta">
-                            <span class="date">Jan 10, 2025</span>
-                            <span class="category">AI/ML</span>
-                        </div>
-                        <h3>Introduction to Machine Learning with Python</h3>
-                        <p>Explore the basics of machine learning and build your first predictive model.</p>
-                        <a href="#" class="read-more">Read More</a>
-                    </div>
-                </article>
-            </div>
-        </div>
-    </section>
-
-    <!-- Portfolio Section (Mensah's contribution) -->
-    <section id="portfolio" class="portfolio">
-        <div class="container">
-            <h2>Student Portfolio Showcase</h2>
-            <div class="portfolio-grid">
-                <div class="portfolio-item">
-                    <img src="assets/portfolio1.jpg" alt="Portfolio Project">
-                    <div class="portfolio-overlay">
-                        <h3>E-learning Platform</h3>
-                        <p>Built by: John Mensah</p>
-                        <a href="#" class="portfolio-link">View Project</a>
-                    </div>
+        <!-- Enhanced Services Section -->
+        <section id="services" class="services" aria-label="Our services">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">What We Offer</div>
+                    <h2>Comprehensive Learning Programs</h2>
+                    <p>From beginner to expert, we have the right program for your coding journey</p>
                 </div>
-                <div class="portfolio-item">
-                    <img src="assets/portfolio2.jpg" alt="Portfolio Project">
-                    <div class="portfolio-overlay">
-                        <h3>Task Management App</h3>
-                        <p>Built by: Grace Akua</p>
-                        <a href="#" class="portfolio-link">View Project</a>
-                    </div>
-                </div>
-                <div class="portfolio-item">
-                    <img src="assets/portfolio3.jpg" alt="Portfolio Project">
-                    <div class="portfolio-overlay">
-                        <h3>Weather Dashboard</h3>
-                        <p>Built by: Evans Kwame</p>
-                        <a href="#" class="portfolio-link">View Project</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Newsletter Section -->
-    <section class="newsletter-section" data-aos="fade-up">
-        <div class="container">
-            <div class="newsletter-content">
-                <div class="newsletter-text">
-                    <h2>Stay Updated with KHODERS</h2>
-                    <p>Get the latest news, coding tips, job opportunities, and event updates delivered to your inbox.</p>
-                </div>
-                <form class="newsletter-form" id="newsletterForm">
-                    <input type="email" placeholder="Enter your email address" required>
-                    <button type="submit">Subscribe</button>
-                </form>
-            </div>
-        </div>
-    </section>
-
-    <!-- Events Section -->
-    <section class="events-section" data-aos="fade-left">
-        <div class="container">
-            <h2>Upcoming Events</h2>
-            <div class="events-grid">
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="day">25</span>
-                        <span class="month">JAN</span>
-                    </div>
-                    <div class="event-info">
-                        <h3>React Workshop</h3>
-                        <p>Learn React fundamentals and build your first app</p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 2:00 PM - 5:00 PM</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Computer Lab A</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="day">02</span>
-                        <span class="month">FEB</span>
-                    </div>
-                    <div class="event-info">
-                        <h3>Tech Career Fair</h3>
-                        <p>Meet with top tech companies and explore job opportunities</p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> 10:00 AM - 4:00 PM</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Main Auditorium</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="event-card">
-                    <div class="event-date">
-                        <span class="day">15</span>
-                        <span class="month">FEB</span>
-                    </div>
-                    <div class="event-info">
-                        <h3>Hackathon 2025</h3>
-                        <p>48-hour coding challenge with amazing prizes</p>
-                        <div class="event-meta">
-                            <span><i class="fas fa-clock"></i> All Weekend</span>
-                            <span><i class="fas fa-map-marker-alt"></i> Innovation Hub</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- FAQ Section -->
-    <section class="faq-section" data-aos="fade-up">
-        <div class="container">
-            <h2>Frequently Asked Questions</h2>
-            <div class="faq-container">
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>How do I join KHODERS Club?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Simply fill out our registration form, attend an orientation session, and you're in! We welcome students from all levels and backgrounds.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Do I need prior coding experience?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>Not at all! We have programs for complete beginners as well as advanced developers. Our mentors will guide you based on your current skill level.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>What programming languages do you teach?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>We cover a wide range including HTML/CSS, JavaScript, Python, Java, React, Node.js, and more. Our curriculum is updated regularly to match industry demands.</p>
-                    </div>
-                </div>
-                <div class="faq-item">
-                    <div class="faq-question">
-                        <h3>Are there any membership fees?</h3>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="faq-answer">
-                        <p>KHODERS Club membership is completely free for all KTU students. We believe in making tech education accessible to everyone.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Contact Section (Abonopaya's contribution) -->
-    <section id="contact" class="contact">
-        <div class="container">
-            <div class="contact-container">
-                <h2>Contact Us</h2>
-                <p style="text-align:center;">If you have any questions, want to join our community, or need assistance, please contact us using the form below. We're here to help!</p>
                 
-                <form action="#" method="post">
-                    <input type="text" name="name" placeholder="Your Full Name" required>
-                    <input type="email" name="email" placeholder="Your Email Address" required>
-                    <textarea name="message" rows="5" placeholder="Your Message Here..." required></textarea>
-                    <button type="submit">Send Message</button>
-                </form>
-
-                <div class="whatsapp-contact">
-                    <p>Need urgent help? Message us on WhatsApp:</p>
-                    <a href="https://wa.me/233XXXXXXXXX" target="_blank">
-                        <i class="fab fa-whatsapp"></i> Chat on WhatsApp
-                    </a>
-                </div>
-
-                <div class="social-icons">
-                    <h3>Reach Us on Social Media</h3>
-                    <a href="https://facebook.com/khodersworld" target="_blank"><i class="fab fa-facebook"></i></a>
-                    <a href="https://twitter.com/khodersworld" target="_blank"><i class="fab fa-twitter"></i></a>
-                    <a href="https://instagram.com/khodersworld" target="_blank"><i class="fab fa-instagram"></i></a>
-                    <a href="https://github.com/khodersworld" target="_blank"><i class="fab fa-github"></i></a>
-                    <a href="https://linkedin.com/company/khodersworld" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <div class="services-grid">
+                    <div class="service-card featured">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="16,18 22,12 16,6"/>
+                                <polyline points="8,6 2,12 8,18"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Web Development</h3>
+                            <p>Master modern web technologies including HTML5, CSS3, JavaScript, React, Vue.js, and Node.js</p>
+                            <ul class="service-features">
+                                <li>Frontend Development</li>
+                                <li>Backend Development</li>
+                                <li>Full-Stack Projects</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge beginner">Beginner Friendly</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                                <line x1="8" y1="21" x2="16" y2="21"/>
+                                <line x1="12" y1="17" x2="12" y2="21"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Mobile Development</h3>
+                            <p>Build native and cross-platform mobile apps with React Native, Flutter, and native technologies</p>
+                            <ul class="service-features">
+                                <li>iOS Development</li>
+                                <li>Android Development</li>
+                                <li>Cross-Platform Apps</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <ellipse cx="12" cy="5" rx="9" ry="3"/>
+                                <path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/>
+                                <path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Backend Development</h3>
+                            <p>Learn server-side programming with Node.js, Python, Java, and database management systems</p>
+                            <ul class="service-features">
+                                <li>API Development</li>
+                                <li>Database Design</li>
+                                <li>Cloud Integration</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge intermediate">Intermediate</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9.5 2A2.5 2.5 0 0 1 12 4.5v15a2.5 2.5 0 0 1-4.96.44 2.5 2.5 0 0 1-2.96-3.08 3 3 0 0 1-.34-5.58 2.5 2.5 0 0 1 1.32-4.24 2.5 2.5 0 0 1 1.98-3A2.5 2.5 0 0 1 9.5 2Z"/>
+                                <path d="M14.5 2A2.5 2.5 0 0 0 12 4.5v15a2.5 2.5 0 0 0 4.96.44 2.5 2.5 0 0 0 2.96-3.08 3 3 0 0 0 .34-5.58 2.5 2.5 0 0 0-1.32-4.24 2.5 2.5 0 0 0-1.98-3A2.5 2.5 0 0 0 14.5 2Z"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>AI & Machine Learning</h3>
+                            <p>Explore artificial intelligence and machine learning with Python, TensorFlow, and PyTorch</p>
+                            <ul class="service-features">
+                                <li>Data Science</li>
+                                <li>Neural Networks</li>
+                                <li>Computer Vision</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge advanced">Advanced</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+                                <circle cx="9" cy="7" r="4"/>
+                                <path d="M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Mentorship Program</h3>
+                            <p>Get personalized guidance from experienced developers and industry professionals</p>
+                            <ul class="service-features">
+                                <li>1-on-1 Sessions</li>
+                                <li>Career Guidance</li>
+                                <li>Code Reviews</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge all-levels">All Levels</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">
+                            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+                                <line x1="3" y1="6" x2="21" y2="6"/>
+                                <path d="M16 10a4 4 0 0 1-8 0"/>
+                            </svg>
+                        </div>
+                        <div class="service-content">
+                            <h3>Project Incubator</h3>
+                            <p>Work on real-world projects and build an impressive portfolio with team collaboration</p>
+                            <ul class="service-features">
+                                <li>Team Projects</li>
+                                <li>Portfolio Building</li>
+                                <li>Industry Partnerships</li>
+                            </ul>
+                            <div class="service-level">
+                                <span class="level-badge all-levels">All Levels</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Footer Section (William's contribution) -->
-    <footer class="footer">
+        <!-- Enhanced Projects Section -->
+        <section id="projects" class="projects" aria-label="Featured projects">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">Portfolio</div>
+                    <h2>Featured Student Projects</h2>
+                    <p>Discover amazing projects built by our talented community members</p>
+                </div>
+                
+                <div class="projects-grid">
+                        <!-- Slick Image Carousel for Projects -->
+                        <div class="project-carousel">
+                            <div class="carousel-slide"><img src="assets/image-1.png" alt="Project Showcase 1" style="border-radius:1rem; box-shadow:0 4px 24px rgba(42,78,109,0.12);"></div>
+                            <div class="carousel-slide"><img src="assets/image-2.png" alt="Project Showcase 2" style="border-radius:1rem; box-shadow:0 4px 24px rgba(42,78,109,0.12);"></div>
+                        </div>
+                        <!-- End Carousel -->
+                        <!-- Example Project Cards (using available images) -->
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/image-1.png" alt="E-commerce Platform project screenshot" loading="lazy" style="border-radius:1rem;">
+                                <div class="project-overlay">
+                                    <div class="project-actions">
+                                        <a href="#" class="project-btn" aria-label="View project details">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </a>
+                                        <a href="#" class="project-btn" aria-label="View live demo">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                                <polyline points="15,3 21,3 21,9"/>
+                                                <line x1="10" y1="14" x2="21" y2="3"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-meta">
+                                    <span class="project-category">Web Development</span>
+                                    <span class="project-date">Dec 2024</span>
+                                </div>
+                                <h3>E-commerce Platform</h3>
+                                <p>Full-stack e-commerce solution with payment integration, inventory management, and admin dashboard</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React</span>
+                                    <span class="tech-tag">Node.js</span>
+                                    <span class="tech-tag">MongoDB</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <div class="project-image">
+                                <img src="assets/image-2.png" alt="Mobile Learning App project screenshot" loading="lazy" style="border-radius:1rem;">
+                                <div class="project-overlay">
+                                    <div class="project-actions">
+                                        <a href="#" class="project-btn" aria-label="View project details">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                                                <circle cx="12" cy="12" r="3"/>
+                                            </svg>
+                                        </a>
+                                        <a href="#" class="project-btn" aria-label="View live demo">
+                                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
+                                                <polyline points="15,3 21,3 21,9"/>
+                                                <line x1="10" y1="14" x2="21" y2="3"/>
+                                            </svg>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="project-info">
+                                <div class="project-meta">
+                                    <span class="project-category">Mobile Development</span>
+                                    <span class="project-date">Nov 2024</span>
+                                </div>
+                                <h3>Learning Management App</h3>
+                                <p>Mobile app for course management and student tracking with offline capabilities</p>
+                                <div class="project-tech">
+                                    <span class="tech-tag">React Native</span>
+                                    <span class="tech-tag">Firebase</span>
+                                    <span class="tech-tag">Redux</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Team Section -->
+        <section id="team" class="team" aria-label="Meet our team">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">Our Team</div>
+                    <h2>Meet the KHODERS Leaders</h2>
+                    <p>Passionate developers and mentors dedicated to your success</p>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/team1.jpg" alt="Codeo - Project Manager" loading="lazy">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="#" aria-label="Codeo's GitHub profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" aria-label="Codeo's LinkedIn profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                            <rect x="2" y="9" width="4" height="12"/>
+                                            <circle cx="4" cy="4" r="2"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Codeo</h3>
+                            <p class="member-role">Project Manager & Full Stack Developer</p>
+                            <p class="member-bio">Leading KHODERS with passion for mentoring and building amazing projects.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/team2.jpg" alt="Elvis - Frontend Developer" loading="lazy">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="#" aria-label="Elvis's GitHub profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" aria-label="Elvis's LinkedIn profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                            <rect x="2" y="9" width="4" height="12"/>
+                                            <circle cx="4" cy="4" r="2"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Elvis</h3>
+                            <p class="member-role">Frontend Developer</p>
+                            <p class="member-bio">Crafting beautiful user experiences with modern web technologies.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/team3.jpg" alt="Sussana - UI/UX Designer" loading="lazy">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="#" aria-label="Sussana's GitHub profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" aria-label="Sussana's LinkedIn profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                            <rect x="2" y="9" width="4" height="12"/>
+                                            <circle cx="4" cy="4" r="2"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Sussana</h3>
+                            <p class="member-role">UI/UX Designer</p>
+                            <p class="member-bio">Designing intuitive interfaces that users love to interact with.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-image">
+                            <img src="assets/team4.jpg" alt="Kamal - Frontend Developer" loading="lazy">
+                            <div class="member-overlay">
+                                <div class="social-links">
+                                    <a href="#" aria-label="Kamal's GitHub profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                        </svg>
+                                    </a>
+                                    <a href="#" aria-label="Kamal's LinkedIn profile">
+                                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                            <rect x="2" y="9" width="4" height="12"/>
+                                            <circle cx="4" cy="4" r="2"/>
+                                        </svg>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="member-info">
+                            <h3>Kamal</h3>
+                            <p class="member-role">Frontend Developer</p>
+                            <p class="member-bio">Building responsive and accessible web applications with attention to detail.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Events Section -->
+        <section id="events" class="events" aria-label="Upcoming events">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-badge">What's Coming</div>
+                    <h2>Upcoming Events</h2>
+                    <p>Join us for workshops, hackathons, and networking opportunities</p>
+                </div>
+                
+                <div class="events-grid">
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">25</span>
+                            <span class="month">JAN</span>
+                        </div>
+                        <div class="event-info">
+                            <h3>React Workshop</h3>
+                            <p>Learn React fundamentals and build your first interactive web application</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                    <span>2:00 PM - 5:00 PM</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <span>Computer Lab A</span>
+                                </div>
+                            </div>
+                            <a href="#" class="event-btn">Register Now</a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">02</span>
+                            <span class="month">FEB</span>
+                        </div>
+                        <div class="event-info">
+                            <h3>Tech Career Fair</h3>
+                            <p>Meet with top tech companies and explore job opportunities in the industry</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                    <span>10:00 AM - 4:00 PM</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <span>Main Auditorium</span>
+                                </div>
+                            </div>
+                            <a href="#" class="event-btn">Learn More</a>
+                        </div>
+                    </div>
+                    
+                    <div class="event-card">
+                        <div class="event-date">
+                            <span class="day">15</span>
+                            <span class="month">FEB</span>
+                        </div>
+                        <div class="event-info">
+                            <h3>Hackathon 2025</h3>
+                            <p>48-hour coding challenge with amazing prizes and networking opportunities</p>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <circle cx="12" cy="12" r="10"/>
+                                        <polyline points="12,6 12,12 16,14"/>
+                                    </svg>
+                                    <span>All Weekend</span>
+                                </div>
+                                <div class="meta-item">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                    <span>Innovation Hub</span>
+                                </div>
+                            </div>
+                            <a href="#" class="event-btn">Join Hackathon</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Enhanced Contact Section -->
+        <section id="contact" class="contact" aria-label="Contact us">
+            <div class="container">
+                <div class="contact-content">
+                    <div class="contact-info">
+                        <div class="section-badge">Get In Touch</div>
+                        <h2>Ready to Start Your Coding Journey?</h2>
+                        <p>Have questions about joining KHODERS? Want to learn more about our programs? We're here to help you take the next step in your tech career.</p>
+                        
+                        <div class="contact-methods">
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                        <circle cx="12" cy="10" r="3"/>
+                                    </svg>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Visit Us</h4>
+                                    <p>Kumasi Technical University<br>Computer Science Department</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                        <polyline points="22,6 12,13 2,6"/>
+                                    </svg>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Email Us</h4>
+                                    <p>info@khodersworld.com<br>support@khodersworld.com</p>
+                                </div>
+                            </div>
+                            
+                            <div class="contact-method">
+                                <div class="method-icon">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                                    </svg>
+                                </div>
+                                <div class="method-info">
+                                    <h4>Call Us</h4>
+                                    <p>+233 XX XXX XXXX<br>Mon-Fri 9AM-5PM</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="social-links">
+                            <h4>Follow Us</h4>
+                            <div class="social-icons">
+                                <a href="#" aria-label="Follow us on Facebook">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" aria-label="Follow us on Twitter">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                                    </svg>
+                                </a>
+                                <a href="#" aria-label="Follow us on Instagram">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                                    </svg>
+                                </a>
+                                <a href="#" aria-label="Follow us on GitHub">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                                    </svg>
+                                </a>
+                                <a href="#" aria-label="Follow us on LinkedIn">
+                                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                        <rect x="2" y="9" width="4" height="12"/>
+                                        <circle cx="4" cy="4" r="2"/>
+                                    </svg>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="contact-form-container">
+                        <form class="contact-form" action="#" method="post">
+                            <div class="form-group">
+                                <label for="name">Full Name</label>
+                                <input type="text" id="name" name="name" required aria-describedby="name-error">
+                                <span class="error-message" id="name-error"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="email">Email Address</label>
+                                <input type="email" id="email" name="email" required aria-describedby="email-error">
+                                <span class="error-message" id="email-error"></span>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="subject">Subject</label>
+                                <select id="subject" name="subject" required>
+                                    <option value="">Select a topic</option>
+                                    <option value="membership">Membership Inquiry</option>
+                                    <option value="mentorship">Mentorship Program</option>
+                                    <option value="events">Events & Workshops</option>
+                                    <option value="projects">Project Collaboration</option>
+                                    <option value="other">Other</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="message">Message</label>
+                                <textarea id="message" name="message" rows="5" required aria-describedby="message-error"></textarea>
+                                <span class="error-message" id="message-error"></span>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <span>Send Message</span>
+                                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <line x1="22" y1="2" x2="11" y2="13"/>
+                                    <polygon points="22,2 15,22 11,13 2,9"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Join Section -->
+        <section id="join" class="join" aria-label="Join KHODERS">
+            <div class="container">
+                <div class="join-content">
+                    <div class="join-text">
+                        <h2>Ready to Join the KHODERS Family?</h2>
+                        <p>Take the first step towards an exciting career in technology. Join hundreds of students who have transformed their lives through coding.</p>
+                        <div class="join-benefits">
+                            <div class="benefit">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Free membership for all KTU students</span>
+                            </div>
+                            <div class="benefit">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Access to exclusive workshops and events</span>
+                            </div>
+                            <div class="benefit">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Mentorship from industry professionals</span>
+                            </div>
+                            <div class="benefit">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M20 6L9 17l-5-5"/>
+                                </svg>
+                                <span>Career support and job placement assistance</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="join-form-container">
+                        <form class="join-form" action="#" method="post">
+                            <h3>Join KHODERS Today</h3>
+                            <div class="form-group">
+                                <label for="join-name">Full Name</label>
+                                <input type="text" id="join-name" name="name" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-email">Email Address</label>
+                                <input type="email" id="join-email" name="email" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-level">Programming Experience</label>
+                                <select id="join-level" name="level" required>
+                                    <option value="">Select your level</option>
+                                    <option value="beginner">Complete Beginner</option>
+                                    <option value="some-experience">Some Experience</option>
+                                    <option value="intermediate">Intermediate</option>
+                                    <option value="advanced">Advanced</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="join-interests">Areas of Interest</label>
+                                <div class="checkbox-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="interests[]" value="web-development">
+                                        <span class="checkmark"></span>
+                                        Web Development
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="interests[]" value="mobile-development">
+                                        <span class="checkmark"></span>
+                                        Mobile Development
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="interests[]" value="ai-ml">
+                                        <span class="checkmark"></span>
+                                        AI & Machine Learning
+                                    </label>
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" name="interests[]" value="data-science">
+                                        <span class="checkmark"></span>
+                                        Data Science
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-full">
+                                <span>Join KHODERS Now</span>
+                                <svg class="btn-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M5 12h14M12 5l7 7-7 7"/>
+                                </svg>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Enhanced Footer -->
+    <footer class="footer" role="contentinfo">
         <div class="container">
             <div class="footer-content">
-                <div class="footer-section">
-                    <h3>Khoders World</h3>
-                    <p>Empowering the next generation of developers through mentorship, collaboration, and hands-on learning.</p>
+                <div class="footer-section footer-brand">
+                    <div class="footer-logo">
+                        <img src="assets/qwe.png" alt="KHODERS Logo" width="40" height="40">
+                        <span>KHODERS WORLD</span>
+                    </div>
+                    <p class="footer-description">Empowering the next generation of developers through mentorship, collaboration, and hands-on learning at Kumasi Technical University.</p>
                     <div class="footer-social">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-github"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" aria-label="Follow us on Facebook">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Follow us on Twitter">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Follow us on Instagram">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+                                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+                                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Follow us on GitHub">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/>
+                            </svg>
+                        </a>
+                        <a href="#" aria-label="Follow us on LinkedIn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+                                <rect x="2" y="9" width="4" height="12"/>
+                                <circle cx="4" cy="4" r="2"/>
+                            </svg>
+                        </a>
                     </div>
                 </div>
+                
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
@@ -573,145 +1003,67 @@
                         <li><a href="#about">About</a></li>
                         <li><a href="#services">Services</a></li>
                         <li><a href="#projects">Projects</a></li>
-                        <li><a href="#careers">Careers</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h4>Resources</h4>
-                    <ul>
-                        <li><a href="#blog">Blog</a></li>
                         <li><a href="#team">Team</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                        <li><a href="#login">Login</a></li>
                     </ul>
                 </div>
+                
+                <div class="footer-section">
+                    <h4>Programs</h4>
+                    <ul>
+                        <li><a href="#services">Web Development</a></li>
+                        <li><a href="#services">Mobile Development</a></li>
+                        <li><a href="#services">AI & Machine Learning</a></li>
+                        <li><a href="#services">Mentorship</a></li>
+                        <li><a href="#events">Events</a></li>
+                    </ul>
+                </div>
+                
                 <div class="footer-section">
                     <h4>Contact Info</h4>
-                    <p><i class="fas fa-map-marker-alt"></i> Kumasi Technical University, Ghana</p>
-                    <p><i class="fas fa-phone"></i> +233 XX XXX XXXX</p>
-                    <p><i class="fas fa-envelope"></i> info@khodersworld.com</p>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Kumasi Technical University, Ghana</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+                            </svg>
+                            <span>+233 XX XXX XXXX</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>info@khodersworld.com</span>
+                        </div>
+                    </div>
                 </div>
             </div>
+            
             <div class="footer-bottom">
-                <p>&copy; 2025 Khoders World. All rights reserved. | Designed with ❤️ by Khoders Team</p>
+                <div class="footer-bottom-content">
+                    <p>&copy; 2025 KHODERS World. All rights reserved.</p>
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                        <a href="#">Code of Conduct</a>
+                    </div>
+                </div>
             </div>
         </div>
     </footer>
 
-    <!-- Login Modal (Frederick's contribution) -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="login-container">
-                <h2>Login to Khoders World</h2>
-                <form id="loginForm">
-                    <div class="form-group">
-                        <input type="email" id="email" name="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="password" name="password" placeholder="Password" required>
-                    </div>
-                    <button type="submit" class="login-submit">Login</button>
-                </form>
-                <div class="login-links">
-                    <a href="#" id="registerLink">Don't have an account? Register</a>
-                    <a href="#">Forgot Password?</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Register Modal (Gyawu's contribution) -->
-    <div id="registerModal" class="modal">
-        <div class="modal-content">
-            <span class="close">&times;</span>
-            <div class="register-container">
-                <h2>Join Khoders World</h2>
-                <form id="registerForm">
-                    <div class="form-group">
-                        <input type="text" id="fullName" name="fullName" placeholder="Full Name" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="email" id="regEmail" name="email" placeholder="Email Address" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="regPassword" name="password" placeholder="Password" required>
-                    </div>
-                    <div class="form-group">
-                        <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Confirm Password" required>
-                    </div>
-                    <button type="submit" class="register-submit">Register</button>
-                </form>
-                <div class="register-links">
-                    <a href="#" id="loginLink">Already have an account? Login</a>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Social Media Integration (Derrick's contribution) -->
-    <div class="social-feed">
-        <div class="social-widget">
-            <h3>Follow Us</h3>
-            <div class="social-buttons">
-                <a href="#" class="social-btn facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
-                <a href="#" class="social-btn twitter"><i class="fab fa-twitter"></i> Twitter</a>
-                <a href="#" class="social-btn instagram"><i class="fab fa-instagram"></i> Instagram</a>
-                <a href="#" class="social-btn github"><i class="fab fa-github"></i> GitHub</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Error Page Component (Addo's contribution) - Hidden by default -->
-    <div id="errorPage" class="error-page" style="display: none;">
-        <div class="error-container">
-            <h1>404</h1>
-            <h2>Page Not Found</h2>
-            <p>Sorry, the page you are looking for doesn't exist.</p>
-            <button onclick="hideError()" class="back-home">Back to Home</button>
-        </div>
-    </div>
-
-    <!-- Floating Action Buttons -->
-    <div class="floating-buttons">
-        <button id="backToTop" class="fab-btn back-to-top" title="Back to Top">
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        <button id="themeToggle" class="fab-btn theme-toggle" title="Toggle Theme">
-            <i class="fas fa-moon"></i>
-        </button>
-        <button id="chatBot" class="fab-btn chat-bot" title="Chat with us">
-            <i class="fas fa-comments"></i>
-        </button>
-    </div>
-
-    <!-- Notification Toast -->
-    <div id="notification" class="notification">
-        <div class="notification-content">
-            <i class="fas fa-check-circle"></i>
-            <span id="notificationText">Success!</span>
-        </div>
-    </div>
-
-    <!-- Loading Spinner -->
-    <div id="loadingSpinner" class="loading-spinner">
-        <div class="spinner"></div>
-        <p>Loading...</p>
-    </div>
-
-    <!-- Scripts -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
-    <script src="assets/placeholder-images.js"></script>
-    <script src="script.js"></script>
-    
-    <script>
-        // Initialize AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000,
-            once: true,
-            offset: 100
-        });
-    </script>
+    <!-- Back to Top Button -->
+    <button class="back-to-top" aria-label="Back to top" title="Back to top">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="19" x2="12" y2="5"/>
+            <polyline points="5,12 12,5 19,12"/>
+        </svg>
+    </button>
 </body>
 </html>
