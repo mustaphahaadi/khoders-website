@@ -80,37 +80,38 @@ class KhodersWebsite {
         const navLinks = document.querySelectorAll('.nav-menu a');
 
         if (hamburger && navMenu) {
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
+            hamburger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
                 
-                // Animate hamburger
-                const spans = hamburger.querySelectorAll('span');
-                spans.forEach((span, index) => {
-                    if (hamburger.classList.contains('active')) {
-                        if (index === 0) span.style.transform = 'rotate(45deg) translate(5px, 5px)';
-                        if (index === 1) span.style.opacity = '0';
-                        if (index === 2) span.style.transform = 'rotate(-45deg) translate(7px, -6px)';
-                    } else {
-                        span.style.transform = 'none';
-                        span.style.opacity = '1';
-                    }
-                });
+                const isActive = hamburger.classList.contains('active');
+                
+                if (isActive) {
+                    this.closeNavMenu(hamburger, navMenu);
+                } else {
+                    this.openNavMenu(hamburger, navMenu);
+                }
             });
 
             // Close mobile menu when clicking on links
             navLinks.forEach(link => {
                 link.addEventListener('click', () => {
-                    hamburger.classList.remove('active');
-                    navMenu.classList.remove('active');
-                    
-                    // Reset hamburger animation
-                    const spans = hamburger.querySelectorAll('span');
-                    spans.forEach(span => {
-                        span.style.transform = 'none';
-                        span.style.opacity = '1';
-                    });
+                    this.closeNavMenu(hamburger, navMenu);
                 });
+            });
+            
+            // Close menu when clicking outside
+            document.addEventListener('click', (e) => {
+                if (!hamburger.contains(e.target) && !navMenu.contains(e.target)) {
+                    this.closeNavMenu(hamburger, navMenu);
+                }
+            });
+            
+            // Close menu on escape key
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && hamburger.classList.contains('active')) {
+                    this.closeNavMenu(hamburger, navMenu);
+                }
             });
         }
 
@@ -118,15 +119,32 @@ class KhodersWebsite {
         window.addEventListener('scroll', () => {
             const navbar = document.querySelector('.navbar');
             if (navbar) {
-                if (window.scrollY > 100) {
-                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
-                    navbar.style.backdropFilter = 'blur(10px)';
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                    navbar.style.boxShadow = '0 2px 20px rgba(0, 0, 0, 0.1)';
                 } else {
-                    navbar.style.background = 'var(--white)';
-                    navbar.style.backdropFilter = 'none';
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.backdropFilter = 'blur(20px)';
+                    navbar.style.boxShadow = 'none';
                 }
             }
         });
+    }
+    
+    openNavMenu(hamburger, navMenu) {
+        hamburger.classList.add('active');
+        navMenu.classList.add('active');
+        hamburger.setAttribute('aria-expanded', 'true');
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    }
+    
+    closeNavMenu(hamburger, navMenu) {
+        hamburger.classList.remove('active');
+        navMenu.classList.remove('active');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = ''; // Restore scrolling
+    }
     }
 
     // Modal functionality (Frederick & Gyawu's contribution)
@@ -245,34 +263,63 @@ class KhodersWebsite {
         this.initFormValidation();
     }
 
-    handleContactForm(form) {
+    async handleContactForm(form) {
         this.showLoading();
         
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         
-        // Simulate API call
-        setTimeout(() => {
+        try {
+            const response = await fetch('api/contact.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.showNotification('Message sent successfully!', 'success');
+                form.reset();
+            } else {
+                this.showNotification(result.error || 'Failed to send message', 'error');
+            }
+        } catch (error) {
+            this.showNotification('Network error. Please try again.', 'error');
+        } finally {
             this.hideLoading();
-            this.showNotification('Message sent successfully! We\'ll get back to you soon.', 'success');
-            form.reset();
-        }, 2000);
+        }
     }
 
-    handleNewsletterForm(form) {
+    async handleNewsletterForm(form) {
         const email = form.querySelector('input[type="email"]').value;
         
-        if (this.validateEmail(email)) {
-            this.showLoading();
-            
-            // Simulate API call
-            setTimeout(() => {
-                this.hideLoading();
-                this.showNotification('Successfully subscribed to our newsletter!', 'success');
-                form.reset();
-            }, 1500);
-        } else {
+        if (!this.validateEmail(email)) {
             this.showNotification('Please enter a valid email address.', 'error');
+            return;
+        }
+        
+        this.showLoading();
+        
+        try {
+            const response = await fetch('api/newsletter.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({email})
+            });
+            
+            const result = await response.json();
+            
+            if (result.success) {
+                this.showNotification('Successfully subscribed!', 'success');
+                form.reset();
+            } else {
+                this.showNotification(result.error || 'Subscription failed', 'error');
+            }
+        } catch (error) {
+            this.showNotification('Network error. Please try again.', 'error');
+        } finally {
+            this.hideLoading();
         }
     }
 
@@ -295,20 +342,34 @@ class KhodersWebsite {
         }
     }
 
-    handleRegisterForm(form) {
+    async handleRegisterForm(form) {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         
-        if (this.validateRegistration(data)) {
-            this.showLoading();
+        if (!this.validateRegistration(data)) return;
+        
+        this.showLoading();
+        
+        try {
+            const response = await fetch('api/register.php', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            });
             
-            // Simulate API call
-            setTimeout(() => {
-                this.hideLoading();
+            const result = await response.json();
+            
+            if (result.success) {
                 this.closeModal(document.getElementById('registerModal'));
-                this.showNotification('Account created successfully! Welcome to KHODERS!', 'success');
+                this.showNotification('Registration successful! Welcome to KHODERS!', 'success');
                 form.reset();
-            }, 2000);
+            } else {
+                this.showNotification(result.error || 'Registration failed', 'error');
+            }
+        } catch (error) {
+            this.showNotification('Network error. Please try again.', 'error');
+        } finally {
+            this.hideLoading();
         }
     }
 
@@ -931,6 +992,18 @@ document.addEventListener('DOMContentLoaded', () => {
     try {
         window.khodersWebsite = new KhodersWebsite();
         console.log('KHODERS Website initialized successfully!');
+        
+        // Additional navbar initialization
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+        
+        if (hamburger && navMenu) {
+            // Ensure proper initial state
+            hamburger.setAttribute('aria-expanded', 'false');
+            navMenu.classList.remove('active');
+            hamburger.classList.remove('active');
+        }
+        
     } catch (error) {
         console.error('Failed to initialize KHODERS Website:', error);
     }

@@ -131,23 +131,61 @@ KHODERS/
 ├── style.css           # Main CSS file
 ├── script.js           # Main JavaScript file
 ├── assets/             # Images and media files
-│   ├── qwe.png         # Logo and main images
-│   ├── IMG-*.jpg       # Background images
-│   └── placeholder.txt # Asset information
+│   ├── images/         # Project images
+│   ├── icons/          # Icon files
+│   └── logos/          # Logo files
+├── components/         # Reusable components
+├── pages/              # Individual page files
 └── README.md           # Project documentation
 ```
 
+## 💻 System Requirements
+
+### Browser Support
+- **Chrome**: Version 80+
+- **Firefox**: Version 75+
+- **Safari**: Version 13+
+- **Edge**: Version 80+
+
+### Development Requirements
+- Modern web browser
+- Text editor or IDE
+- Local web server (recommended for development)
+
 ## 🚀 Getting Started
 
-1. **Clone or Download** the project files
-2. **Copy Images**: Copy all images from individual contributor folders to the `assets/` folder
-3. **Open in Browser**: Open `index.html` in your web browser
-4. **Local Server** (Optional): Use a local server for best experience
+### Quick Start
+1. **Clone the Repository**
+   ```bash
+   git clone https://github.com/khodersworld/khoders-website.git
+   cd khoders-website/KHODERS
+   ```
 
-### Required Images
-Copy these images from contributor folders to `assets/`:
-- `elvis-home/qwe.png` → `assets/qwe.png`
-- `elvis-home/IMG-*.jpg` → `assets/IMG-*.jpg`
+2. **Open the Project**
+   - Open `index.html` directly in your browser, or
+   - Use a local development server for best experience
+
+3. **Local Development Server** (Recommended)
+   ```bash
+   # Using Python
+   python -m http.server 8000
+   
+   # Using Node.js (if you have live-server installed)
+   npx live-server
+   
+   # Using PHP
+   php -S localhost:8000
+   ```
+
+4. **Access the Website**
+   - Direct file: Open `index.html` in your browser
+   - Local server: Navigate to `http://localhost:8000`
+
+### Development Setup
+1. Ensure all image assets are properly placed in the `assets/` directory
+2. Verify all CSS and JavaScript files are linked correctly
+3. Test responsive design across different screen sizes
+4. Validate HTML markup and CSS styles
 
 ## 🌟 Key Features Implemented
 
@@ -188,25 +226,110 @@ KHODERS Club was formed in 2017 at Kumasi Technical University. Our mission is t
 
 ## 🤝 Contributing
 
-This project represents the collaborative effort of our entire coding club. Each member contributed their unique skills and creativity to build this comprehensive website.
+We welcome contributions from all Khoders Club members and the broader community! This project represents the collaborative effort of our entire coding club.
+
+### How to Contribute
+
+1. **Fork the Repository**
+   ```bash
+   git fork https://github.com/khodersworld/khoders-website.git
+   ```
+
+2. **Create a Feature Branch**
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+3. **Make Your Changes**
+   - Follow our coding standards
+   - Test your changes thoroughly
+   - Ensure responsive design works
+
+4. **Commit Your Changes**
+   ```bash
+   git commit -m "Add: your descriptive commit message"
+   ```
+
+5. **Push and Create Pull Request**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+### Coding Standards
+- Use semantic HTML5 elements
+- Follow BEM methodology for CSS classes
+- Write clean, commented JavaScript
+- Ensure cross-browser compatibility
+- Test on mobile devices
+- Optimize images and assets
+
+### Areas for Contribution
+- Bug fixes and improvements
+- New features and sections
+- Performance optimizations
+- Accessibility enhancements
+- Documentation updates
+- Testing and quality assurance
+
+## 🚀 Deployment
+
+### GitHub Pages (Recommended)
+1. Push your code to a GitHub repository
+2. Go to repository Settings → Pages
+3. Select source branch (usually `main` or `gh-pages`)
+4. Your site will be available at `https://username.github.io/repository-name`
+
+### Netlify
+1. Connect your GitHub repository to Netlify
+2. Set build command: `# No build command needed for static site`
+3. Set publish directory: `KHODERS/`
+4. Deploy automatically on every push
+
+### Vercel
+1. Import your GitHub repository to Vercel
+2. Set framework preset to "Other"
+3. Set root directory to `KHODERS/`
+4. Deploy with zero configuration
+
+### Traditional Web Hosting
+1. Upload all files in the `KHODERS/` directory to your web server
+2. Ensure `index.html` is in the root directory
+3. Configure your domain to point to the hosting directory
 
 ## 📞 Contact Information
 
 - **Location**: Kumasi Technical University, Ghana
-- **Email**: info@khodersworld.com
-- **Phone**: +233 XX XXX XXXX
+- **Email**: contact@khodersclub.edu.gh
+- **Phone**: Contact us through our social media channels
+- **Office Hours**: Monday - Friday, 2:00 PM - 6:00 PM
 
 ## 🔗 Social Media
 
-- Facebook: [Khoders World](https://facebook.com/khodersworld)
-- Twitter: [@khodersworld](https://twitter.com/khodersworld)
-- Instagram: [@khodersworld](https://instagram.com/khodersworld)
-- GitHub: [khodersworld](https://github.com/khodersworld)
-- LinkedIn: [Khoders World](https://linkedin.com/company/khodersworld)
+*Follow us on our social media platforms for updates and announcements:*
+
+- **Facebook**: [KHODERS Club KsTU](https://facebook.com/khodersclub)
+- **Twitter**: [@khodersclub](https://twitter.com/khodersclub)
+- **Instagram**: [@khoders_kstu](https://instagram.com/khoders_kstu)
+- **GitHub**: [KHODERS-Club](https://github.com/khoders-club)
+- **LinkedIn**: [KHODERS Club](https://linkedin.com/company/khoders-club)
+
+*Note: Social media links are examples. Please verify actual social media presence.*
 
 ## 📄 License
 
-This project is created for educational purposes as part of our campus coding club activities.
+**MIT License**
+
+Copyright (c) 2024 KHODERS Club - Kumasi Technical University
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+---
+
+**Educational Use**: This project is primarily created for educational purposes as part of our campus coding club activities at Kumasi Technical University.
 
 ---
 
