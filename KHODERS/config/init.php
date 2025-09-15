@@ -4,6 +4,7 @@
  * Creates tables and sets up the database schema
  */
 
+require_once __DIR__ . '/env.php';
 require_once 'database.php';
 
 try {

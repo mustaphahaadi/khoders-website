@@ -32,6 +32,7 @@ CREATE TABLE events (
     date DATE NOT NULL,
     time TIME NOT NULL,
     location VARCHAR(200),
+    category VARCHAR(100),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

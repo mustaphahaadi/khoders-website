@@ -1,26 +1,27 @@
 // KHODERS World Service Worker
 // Provides offline functionality and caching
 
-const CACHE_NAME = 'khoders-world-v1.0.0';
-const urlsToCache = [
-  '/',
-  '/index.html',
-  '/about.html',
-  '/services.html',
-  '/projects.html',
-  '/team.html',
-  '/events.html',
-  '/blog.html',
-  '/contact.html',
-  '/register.html',
-  '/style.css',
-  '/missing-styles.css',
-  '/script.js',
-  '/assets/qwe.png',
-  '/assets/image-1.png',
-  '/assets/image-2.png',
-  '/manifest.json'
+const CACHE_NAME = 'khoders-world-v1.0.1';
+// Build cache URLs relative to the current scope so this works in subdirectories
+const RELATIVE_URLS = [
+  'index.html',
+  'about.html',
+  'services.html',
+  'projects.html',
+  'team.html',
+  'events.html',
+  'blog.html',
+  'contact.html',
+  'register.html',
+  'style.css',
+  'script.js',
+  'assets/qwe.png',
+  'assets/image-1.png',
+  'assets/image-2.png',
+  'manifest.json',
+  '404.html'
 ];
+const urlsToCache = RELATIVE_URLS.map(u => new URL(u, self.location).pathname);
 
 // Install event - cache resources
 self.addEventListener('install', (event) => {
@@ -103,7 +104,7 @@ self.addEventListener('fetch', (event) => {
       .catch(() => {
         // Return offline page for navigation requests
         if (event.request.destination === 'document') {
-          return caches.match('/404.html');
+          return caches.match(new URL('404.html', self.location).pathname);
         }
       })
   );
@@ -123,8 +124,8 @@ self.addEventListener('sync', (event) => {
 self.addEventListener('push', (event) => {
   const options = {
     body: event.data ? event.data.text() : 'New update from KHODERS!',
-    icon: '/assets/qwe.png',
-    badge: '/assets/qwe.png',
+    icon: new URL('assets/qwe.png', self.location).pathname,
+    badge: new URL('assets/qwe.png', self.location).pathname,
     vibrate: [100, 50, 100],
     data: {
       dateOfArrival: Date.now(),
@@ -134,12 +135,12 @@ self.addEventListener('push', (event) => {
       {
         action: 'explore',
         title: 'Explore',
-        icon: '/assets/qwe.png'
+        icon: new URL('assets/qwe.png', self.location).pathname
       },
       {
         action: 'close',
         title: 'Close',
-        icon: '/assets/qwe.png'
+        icon: new URL('assets/qwe.png', self.location).pathname
       }
     ]
   };
@@ -155,7 +156,7 @@ self.addEventListener('notificationclick', (event) => {
 
   if (event.action === 'explore') {
     event.waitUntil(
-      clients.openWindow('/')
+      clients.openWindow(new URL('index.html', self.location).href)
     );
   }
 });
@@ -165,7 +166,7 @@ async function syncContactForm() {
   try {
     const formData = await getStoredFormData('contact-form');
     if (formData) {
-      const response = await fetch('/api/contact', {
+      const response = await fetch(new URL('api/contact.php', self.location).href, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -187,7 +188,7 @@ async function syncRegistrationForm() {
   try {
     const formData = await getStoredFormData('registration-form');
     if (formData) {
-      const response = await fetch('/api/register', {
+      const response = await fetch(new URL('api/register.php', self.location).href, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

@@ -145,22 +145,32 @@ class KhodersWebsite {
         hamburger.setAttribute('aria-expanded', 'false');
         document.body.style.overflow = ''; // Restore scrolling
     }
-    }
+ 
 
     // Modal functionality (Frederick & Gyawu's contribution)
     bindModalEvents() {
         const loginModal = document.getElementById('loginModal');
         const registerModal = document.getElementById('registerModal');
         const loginBtn = document.querySelector('.login-btn');
+        const joinBtn = document.querySelector('.cta-nav-btn');
         const registerLink = document.getElementById('registerLink');
         const loginLink = document.getElementById('loginLink');
-        const closeBtns = document.querySelectorAll('.close');
+        const closeBtns = document.querySelectorAll('.close, .modal-close');
 
         // Open login modal
         if (loginBtn && loginModal) {
             loginBtn.addEventListener('click', (e) => {
                 e.preventDefault();
                 this.openModal(loginModal);
+            });
+        }
+
+        // Open register modal via the main CTA button if present
+        if (joinBtn && registerModal) {
+            joinBtn.addEventListener('click', (e) => {
+                // Only intercept if the register modal exists on the current page
+                e.preventDefault();
+                this.openModal(registerModal);
             });
         }
 
@@ -232,14 +242,14 @@ class KhodersWebsite {
             });
         }
 
-        // Newsletter form
-        const newsletterForm = document.getElementById('newsletterForm');
-        if (newsletterForm) {
-            newsletterForm.addEventListener('submit', (e) => {
+        // Newsletter form (support both ID on index and class on other pages)
+        const newsletterForms = document.querySelectorAll('#newsletterForm, .newsletter-form');
+        newsletterForms.forEach((form) => {
+            form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                this.handleNewsletterForm(newsletterForm);
+                this.handleNewsletterForm(form);
             });
-        }
+        });
 
         // Login form
         const loginForm = document.getElementById('loginForm');
@@ -250,8 +260,8 @@ class KhodersWebsite {
             });
         }
 
-        // Register form
-        const registerForm = document.getElementById('registerForm');
+        // Register form (support both legacy and current IDs)
+        const registerForm = document.getElementById('registerForm') || document.getElementById('registrationForm');
         if (registerForm) {
             registerForm.addEventListener('submit', (e) => {
                 e.preventDefault();
@@ -324,8 +334,10 @@ class KhodersWebsite {
     }
 
     handleLoginForm(form) {
-        const email = form.querySelector('#email').value;
-        const password = form.querySelector('#password').value;
+        const emailInput = form.querySelector('input[name="email"], #email, #loginEmail');
+        const passwordInput = form.querySelector('input[name="password"], #password, #loginPassword');
+        const email = emailInput ? emailInput.value : '';
+        const password = passwordInput ? passwordInput.value : '';
         
         if (this.validateEmail(email) && password.length >= 6) {
             this.showLoading();
@@ -346,7 +358,25 @@ class KhodersWebsite {
         const formData = new FormData(form);
         const data = Object.fromEntries(formData);
         
-        if (!this.validateRegistration(data)) return;
+        // Build payload expected by API: { name, email, level, interests }
+        const firstName = data.firstName || '';
+        const lastName = data.lastName || '';
+        const fullName = data.fullName || `${firstName} ${lastName}`.trim();
+        const email = data.email || '';
+        
+        // Map experience -> level enum used by backend (do not mix with academic "level")
+        let level = (data.experience || '').toLowerCase();
+        if (level === 'complete-beginner') level = 'beginner';
+        if (!['beginner', 'some-experience', 'intermediate', 'advanced'].includes(level)) {
+            level = 'some-experience';
+        }
+        
+        // Collect interests (checkboxes)
+        const interests = formData.getAll('interests[]');
+        
+        const payload = { name: fullName, email, level, interests };
+        
+        if (!this.validateRegistration(payload)) return;
         
         this.showLoading();
         
@@ -354,13 +384,15 @@ class KhodersWebsite {
             const response = await fetch('api/register.php', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
-                body: JSON.stringify(data)
+                body: JSON.stringify(payload)
             });
             
             const result = await response.json();
             
             if (result.success) {
-                this.closeModal(document.getElementById('registerModal'));
+                // If modal version exists, close it; otherwise, just show success
+                const modal = document.getElementById('registerModal');
+                if (modal) this.closeModal(modal);
                 this.showNotification('Registration successful! Welcome to KHODERS!', 'success');
                 form.reset();
             } else {
@@ -374,23 +406,18 @@ class KhodersWebsite {
     }
 
     validateRegistration(data) {
-        if (!data.fullName || data.fullName.length < 2) {
-            this.showNotification('Please enter your full name.', 'error');
+        if (!data.name || data.name.trim().length < 2) {
+            this.showNotification('Please enter your name.', 'error');
             return false;
         }
         
-        if (!this.validateEmail(data.email)) {
+        if (!this.validateEmail(data.email || '')) {
             this.showNotification('Please enter a valid email address.', 'error');
             return false;
         }
         
-        if (data.password.length < 6) {
-            this.showNotification('Password must be at least 6 characters long.', 'error');
-            return false;
-        }
-        
-        if (data.password !== data.confirmPassword) {
-            this.showNotification('Passwords do not match.', 'error');
+        if (!data.level) {
+            this.showNotification('Please select your experience level.', 'error');
             return false;
         }
         
@@ -1019,7 +1046,8 @@ function hideError() {
 // Service Worker registration for PWA capabilities
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/sw.js')
+        // Use relative path so SW scope works when the site is served from a subdirectory
+        navigator.serviceWorker.register('sw.js')
             .then(registration => {
                 console.log('SW registered: ', registration);
             })

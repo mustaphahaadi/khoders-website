@@ -14,22 +14,13 @@ KHODERS/
 ├── .htaccess                 # Server configuration
 ├── .env.example              # Environment variables template
 ├── 
-├── css/                      # Consolidated stylesheets
-│   └── style.css            # Main stylesheet with responsive design
+├── style.css                 # Main stylesheet (consolidated)
+├── script.js                 # Main JavaScript
 ├── 
-├── js/                       # JavaScript files
-│   ├── script.js            # Main functionality
-│   ├── script-enhanced.js   # Enhanced features
-│   └── update-navbar.js     # Navigation updates
-├── 
-├── images/                   # All image assets
-│   ├── qwe.png              # Logo
-│   ├── image-1.png          # Hero images
-│   ├── image-2.png          
-│   ├── team1.jpg            # Team photos
-│   ├── team2.jpg
-│   ├── team3.jpg
-│   └── team4.jpg
+├── assets/                   # Static assets (images, icons)
+│   ├── qwe.png              # Logo and favicon
+│   ├── image-1.png          # Illustrations/screenshots
+│   └── image-2.png          
 ├── 
 ├── pages/                    # Organized page sections
 │   ├── about/               # About section
@@ -121,16 +112,16 @@ KHODERS/
 - **Performance**: Reduced HTTP requests
 
 ### File Path Updates
-All pages now use correct relative paths:
+All pages use root-level assets for simplicity:
 ```html
 <!-- CSS -->
-<link rel="stylesheet" href="../../css/style.css">
+<link rel="stylesheet" href="style.css">
 
 <!-- JavaScript -->
-<script src="../../js/script.js"></script>
+<script src="script.js"></script>
 
 <!-- Images -->
-<img src="../../images/qwe.png" alt="KHODERS Logo">
+<img src="assets/qwe.png" alt="KHODERS Logo">
 ```
 
 ### Navigation Routes

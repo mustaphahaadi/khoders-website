@@ -38,42 +38,42 @@
 ```
 KHODERS/
 ├── index.html              # Main homepage
-├── style.css              # Consolidated styles
-├── script.js              # Main JavaScript
-├── script-enhanced.js     # Enhanced features
+├── style.css               # Consolidated styles (single source)
+├── script.js               # Main JavaScript
+├── sw.js                   # Service Worker
 ├── 
-├── api/                   # Backend API endpoints
-│   ├── contact.php        # Contact form handler
-│   ├── register.php       # Member registration
-│   ├── newsletter.php     # Newsletter subscription
-│   ├── events.php         # Events API
-│   └── projects.php       # Projects API
+├── api/                    # Backend API endpoints
+│   ├── contact.php         # Contact form handler
+│   ├── register.php        # Member registration
+│   ├── newsletter.php      # Newsletter subscription
+│   ├── events.php          # Events API
+│   └── projects.php        # Projects API
 ├── 
-├── config/                # Configuration files
-│   ├── database.php       # Database connection
-│   └── init.php          # Database initialization
+├── config/                 # Configuration files
+│   ├── database.php        # Database connection
+│   ├── env.php             # Lightweight .env loader
+│   └── init.php            # Database initialization
 ├── 
-├── admin/                 # Admin dashboard
-│   └── index.php         # Admin interface
+├── admin/                  # Admin dashboard
+│   └── index.php           # Admin interface
 ├── 
-├── assets/               # Static assets
-│   ├── qwe.png          # Logo
-│   ├── image-1.png      # Images
+├── assets/                 # Static assets
+│   ├── qwe.png             # Logo
+│   ├── image-1.png         # Images
 │   └── image-2.png
 ├── 
-├── pages/               # Individual pages
-│   ├── about.html
-│   ├── services.html
-│   ├── projects.html
-│   ├── team.html
-│   ├── events.html
-│   ├── blog.html
-│   ├── contact.html
-│   ├── careers.html
-│   ├── faq.html
-│   └── register.html
+├── about.html              # Individual pages (organized at root)
+├── services.html
+├── projects.html
+├── team.html
+├── events.html
+├── blog.html
+├── contact.html
+├── careers.html
+├── faq.html
+├── register.html
 └── 
-└── .env.example         # Environment template
+└── .env.example            # Environment template
 ```
 
 ## Features Fixed
