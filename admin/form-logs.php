@@ -3,6 +3,7 @@ session_start();
 require_once '../config/database.php';
 require_once '../config/auth.php';
 require_once '../config/security.php';
+require_once __DIR__ . '/includes/admin_helpers.php';
 
 // Require admin authentication
 Auth::requireAuth('login.php');
@@ -10,11 +11,7 @@ Auth::requireAuth('login.php');
 $database = new Database();
 $db = $database->getConnection();
 
-if (!$db) {
-    $error = 'Unable to connect to the database. Please verify database credentials and try again.';
-}
-
-// Initialize variables
+$currentPage = 'form-logs';
 $action = $_GET['action'] ?? 'list';
 $message = '';
 $error = '';
@@ -24,10 +21,14 @@ $date_from = $_GET['date_from'] ?? '';
 $date_to = $_GET['date_to'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $per_page = 20;
-
-// Only proceed with database operations when a connection is available
 $logs = [];
 $total_logs = 0;
+$total_pages = 1;
+$hasAdminRole = Auth::hasRole('admin');
+
+if (!$db) {
+    $error = 'Unable to connect to the database. Please verify database credentials and try again.';
+}
 
 if ($db) {
     // Handle delete action with admin role check

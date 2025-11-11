@@ -58,6 +58,27 @@ if (!function_exists('admin_time_ago')) {
     }
 }
 
+if (!function_exists('admin_table_exists')) {
+    function admin_table_exists($db, string $table): bool
+    {
+        if (!($db instanceof PDO)) {
+            return false;
+        }
+
+        if (!preg_match('/^[a-zA-Z0-9_]+$/', $table)) {
+            return false;
+        }
+
+        try {
+            $stmt = $db->prepare('SHOW TABLES LIKE :table');
+            $stmt->execute(['table' => $table]);
+            return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+        } catch (PDOException $e) {
+            return false;
+        }
+    }
+}
+
 if (!function_exists('admin_table_has_column')) {
     function admin_table_has_column($db, string $table, string $column): bool
     {
@@ -76,6 +97,23 @@ if (!function_exists('admin_table_has_column')) {
             return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
         } catch (PDOException $e) {
             return false;
+        }
+    }
+}
+
+if (!function_exists('admin_get_columns')) {
+    function admin_get_columns($db, string $table): array
+    {
+        if (!admin_table_exists($db, $table)) {
+            return [];
+        }
+
+        try {
+            $stmt = $db->prepare(sprintf('SHOW COLUMNS FROM `%s`', $table));
+            $stmt->execute();
+            return array_map(fn ($row) => $row['Field'], $stmt->fetchAll(PDO::FETCH_ASSOC));
+        } catch (PDOException $e) {
+            return [];
         }
     }
 }
@@ -131,5 +169,17 @@ if (!function_exists('admin_filter_columns')) {
         }
 
         return $available;
+    }
+}
+
+if (!function_exists('admin_preferred_order_field')) {
+    function admin_preferred_order_field(array $columns, array $preferred = ['created_at', 'updated_at', 'id']): string
+    {
+        foreach ($preferred as $field) {
+            if (in_array($field, $columns, true)) {
+                return $field;
+            }
+        }
+        return $columns[0] ?? 'id';
     }
 }

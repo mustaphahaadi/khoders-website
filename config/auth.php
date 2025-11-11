@@ -100,6 +100,7 @@ class Auth {
      */
     private static function updateLastLogin($username) {
         try {
+            require_once __DIR__ . '/database.php';
             $database = new Database();
             $db = $database->getConnection();
             
