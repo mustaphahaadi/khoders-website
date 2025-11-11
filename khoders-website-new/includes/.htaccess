@@ -1,0 +1,11 @@
+# Prevent direct access to PHP files in this directory
+<FilesMatch "\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Prevent direct access to HTML files in this directory
+<FilesMatch "\.html$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>

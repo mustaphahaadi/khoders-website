@@ -1,0 +1,57 @@
+# Enable URL rewriting
+RewriteEngine On
+
+# Set the base directory
+RewriteBase /
+
+# Handle 404 errors
+ErrorDocument 404 /404.html
+
+# Redirect to HTTPS (uncomment in production)
+# RewriteCond %{HTTPS} off
+# RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+# Redirect www to non-www (uncomment and adjust in production)
+# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+# RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+# Remove trailing slashes
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_URI} (.+)/$
+RewriteRule ^ %1 [L,R=301]
+
+# Pretty URLs for HTML files (allows /about instead of /about.html)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
+# Cache Control Headers
+<FilesMatch "\.(ico|pdf|jpg|jpeg|png|webp|gif|html|htm|xml|txt|xsl|css|js)$">
+  Header set Cache-Control "max-age=31536000, public"
+</FilesMatch>
+
+# Security Headers
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+# Allow cross-origin requests for fonts
+<FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font\.css)$">
+  Header set Access-Control-Allow-Origin "*"
+</FilesMatch>
+
+# Prevent directory listing
+Options -Indexes
+
+# Prevent access to specific files
+<FilesMatch "(^\.htaccess|\.env|\.git|composer\.json|composer\.lock|package\.json|package-lock\.json)">
+  Order Allow,Deny
+  Deny from all
+</FilesMatch>
+
+# Protect logs directory
+<IfModule mod_rewrite.c>
+  RewriteRule ^logs/.* - [F,L]
+</IfModule>

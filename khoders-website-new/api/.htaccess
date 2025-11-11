@@ -1,0 +1,20 @@
+# Enable cross-domain access when needed
+<IfModule mod_headers.c>
+    Header set Access-Control-Allow-Origin "*"
+    Header set Access-Control-Allow-Methods "GET, POST"
+    Header set Access-Control-Allow-Headers "Content-Type"
+</IfModule>
+
+# Prevent directory listing
+Options -Indexes
+
+# Set default content type
+<IfModule mod_headers.c>
+    Header set Content-Type "application/json"
+</IfModule>
+
+# Protect config files if any
+<FilesMatch "config\.php$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
