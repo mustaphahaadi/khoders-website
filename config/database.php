@@ -10,7 +10,7 @@ class Database {
     private $host = 'localhost';
     private $db_name = 'khoders_db';
     private $username = 'khoders_user'; // Use dedicated application user
-    private $password = 'khoders_password';
+    private $password = 'khoders123';
     public $conn;
     private static $instance = null;
     private $error = '';

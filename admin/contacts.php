@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 require_once '../config/database.php';
 require_once '../config/auth.php';
 require_once '../config/security.php';
@@ -7,61 +8,83 @@ require_once __DIR__ . '/includes/admin_helpers.php';
 
 Auth::requireAuth('login.php');
 
-
 $database = new Database();
 $db = $database->getConnection();
 
-$currentPage = 'members';
+$currentPage = 'contacts';
 $action = $_GET['action'] ?? 'list';
 $message = '';
 $error = '';
-$members = [];
+$contacts = [];
+$columns = [];
 
 if (!$db) {
     $error = 'Unable to connect to the database. Please verify database credentials and try again.';
 }
 
-// Handle delete action
-if ($db) {
-    if ($action === 'delete' && isset($_GET['id'])) {
-        try {
-            $stmt = $db->prepare("DELETE FROM members WHERE id = ?");
-            $stmt->execute([$_GET['id']]);
-            $message = 'Member deleted successfully';
-            $action = 'list';
-        } catch(PDOException $e) {
-            $error = 'Failed to delete member';
-        }
-    }
+$hasIdColumn = $db ? admin_table_has_column($db, 'contacts', 'id') : false;
 
-    // Handle edit action
-    if ($action === 'edit' && isset($_GET['id'])) {
-        // Update existing member with enhanced fields
-        $stmt = $db->prepare("UPDATE members SET first_name = ?, last_name = ?, 
-                              email = ?, phone = ?, student_id = ?, program = ?, 
-                              year = ?, experience = ?, interests = ?, 
-                              additional_info = ?, updated_at = NOW() 
-                              WHERE id = ?");
-        if ($stmt->execute([$first_name, $last_name, $email, $phone, $student_id, 
-                           $program, $year, $experience, $interests, 
-                           $additional_info, $_GET['id']])) {
-            $message = 'Member updated successfully';
-            $action = 'list'; // Return to list view
-        } else {
-            $error = 'Failed to update member';
-        }
-    }
-
-    // Get all members with enhanced fields from our updated schema
+if ($db && $action === 'delete' && $hasIdColumn && isset($_GET['id'])) {
     try {
-        // Query with our enhanced members table structure
-        $stmt = $db->prepare("SELECT id, first_name, last_name, email, phone, student_id, 
-                            program, year, experience, interests, registration_date, ip_address 
-                            FROM members ORDER BY registration_date DESC");
-        $stmt->execute();
-        $members = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    } catch(PDOException $e) {
-        $error = 'Failed to fetch members';
+        $stmt = $db->prepare('DELETE FROM contacts WHERE id = ?');
+        $stmt->execute([$_GET['id']]);
+        $message = 'Contact message deleted successfully';
+        $action = 'list';
+    } catch (PDOException $e) {
+        $error = 'Failed to delete contact message';
+    }
+}
+
+$columnLabels = [
+    'id' => 'ID',
+    'name' => 'Name',
+    'email' => 'Email',
+    'phone' => 'Phone',
+    'subject' => 'Subject',
+    'message' => 'Message',
+    'ip_address' => 'IP Address',
+    'created_at' => 'Received',
+    'updated_at' => 'Updated'
+];
+
+if ($db) {
+    $columns = admin_filter_columns(
+        $db,
+        'contacts',
+        ['id', 'name', 'email', 'phone', 'subject', 'message', 'ip_address', 'created_at', 'updated_at'],
+        ['id', 'name', 'email', 'subject', 'message', 'created_at']
+    );
+
+    if (empty($columns)) {
+        $columns = ['id', 'name', 'email'];
+    }
+
+    $selectClause = implode(', ', array_map(fn ($col) => "`$col`", $columns));
+    $orderField = in_array('created_at', $columns, true)
+        ? '`created_at`'
+        : (in_array('updated_at', $columns, true)
+            ? '`updated_at`'
+            : '`' . $columns[0] . '`');
+
+    try {
+        $stmt = $db->query("SELECT $selectClause FROM contacts ORDER BY $orderField DESC");
+        $contacts = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
+    } catch (PDOException $e) {
+        $error = 'Failed to fetch contact messages';
+    }
+}
+
+function format_contact_value(string $column, $value): string
+{
+    switch ($column) {
+        case 'message':
+        case 'subject':
+            return admin_excerpt($value, 80);
+        case 'created_at':
+        case 'updated_at':
+            return admin_safe(admin_format_date($value, 'M d, Y H:i'));
+        default:
+            return admin_safe($value ?? '');
     }
 }
 
@@ -72,12 +95,10 @@ $user = Auth::user();
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Members Management - KHODERS Admin</title>
+    <title>Contact Messages - KHODERS Admin</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background-color: #F3F4F6; }
-        
-        /* Sidebar - Same as dashboard */
         .sidebar { position: fixed; left: 0; top: 0; bottom: 0; width: 260px; background-color: #1F2937; color: #FFFFFF; overflow-y: auto; z-index: 1000; transition: transform 0.3s ease; }
         .sidebar-header { padding: 1.5rem; border-bottom: 1px solid #374151; }
         .sidebar-header h2 { font-size: 1.25rem; color: #FFFFFF; margin-bottom: 0.25rem; }
@@ -97,70 +118,46 @@ $user = Auth::user();
         .user-role { font-size: 0.75rem; color: #9CA3AF; }
         .logout-btn { width: 100%; padding: 0.5rem; background-color: #374151; color: #FFFFFF; border: none; border-radius: 0.375rem; font-size: 0.875rem; cursor: pointer; }
         .logout-btn:hover { background-color: #4B5563; }
-        
-        /* Main Content */
         .main-content { margin-left: 260px; min-height: 100vh; }
         .topbar { background-color: #FFFFFF; border-bottom: 1px solid #E5E7EB; padding: 1rem 2rem; display: flex; justify-content: space-between; align-items: center; }
         .topbar h1 { font-size: 1.5rem; color: #1F2937; }
         .content-area { padding: 2rem; }
-        
-        /* Alert Messages */
         .alert { padding: 1rem; border-radius: 0.5rem; margin-bottom: 1.5rem; }
         .alert-success { background-color: #D1FAE5; color: #065F46; }
         .alert-error { background-color: #FEE2E2; color: #991B1B; }
-        
-        /* Table */
         .table-container { background: #FFFFFF; border-radius: 0.75rem; box-shadow: 0 1px 3px rgba(0,0,0,0.1); overflow: hidden; }
         .table-header { padding: 1.5rem; border-bottom: 1px solid #E5E7EB; display: flex; justify-content: space-between; align-items: center; }
         .table-header h2 { font-size: 1.25rem; color: #1F2937; }
         table { width: 100%; border-collapse: collapse; }
         th { background-color: #F9FAFB; padding: 0.75rem 1.5rem; text-align: left; font-size: 0.875rem; font-weight: 600; color: #6B7280; }
-        td { padding: 1rem 1.5rem; border-top: 1px solid #E5E7EB; font-size: 0.875rem; color: #374151; }
+        td { padding: 1rem 1.5rem; border-top: 1px solid #E5E7EB; font-size: 0.875rem; color: #374151; vertical-align: top; }
         tr:hover { background-color: #F9FAFB; }
-        
-        /* Badges */
-        .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.75rem; font-weight: 600; }
-        .badge-beginner { background-color: #DBEAFE; color: #1E40AF; }
-        .badge-some-experience { background-color: #D1FAE5; color: #065F46; }
-        .badge-intermediate { background-color: #FEF3C7; color: #92400E; }
-        .badge-advanced { background-color: #E9D5FF; color: #6B21A8; }
-        
-        /* Buttons */
-        .btn { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.875rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s ease; border: none; }
-        .btn-primary { background-color: #2A4E6D; color: #FFFFFF; }
-        .btn-primary:hover { background-color: #1A3E5D; }
+        .actions { display: flex; gap: 0.5rem; }
+        .btn { padding: 0.5rem 1rem; border-radius: 0.375rem; font-size: 0.8125rem; font-weight: 600; cursor: pointer; text-decoration: none; display: inline-block; transition: all 0.2s ease; border: none; }
         .btn-danger { background-color: #EF4444; color: #FFFFFF; }
         .btn-danger:hover { background-color: #DC2626; }
-        .btn-sm { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }
-        
-        /* Mobile */
+        .message-full { margin-top: 0.5rem; padding: 0.75rem; background-color: #F9FAFB; border-radius: 0.5rem; color: #4B5563; }
+        details summary { cursor: pointer; color: #2563EB; }
         @media (max-width: 768px) {
             .sidebar { transform: translateX(-100%); }
             .sidebar.active { transform: translateX(0); }
             .main-content { margin-left: 0; }
             .content-area { padding: 1rem; }
-            .topbar { padding: 1rem; }
             table { font-size: 0.8125rem; }
             th, td { padding: 0.5rem; }
         }
-        
         .mobile-menu-toggle { display: none; position: fixed; bottom: 1rem; right: 1rem; width: 56px; height: 56px; background-color: #2A4E6D; color: #FFFFFF; border: none; border-radius: 50%; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 12px rgba(0,0,0,0.3); z-index: 999; }
         @media (max-width: 768px) {
             .mobile-menu-toggle { display: flex; align-items: center; justify-content: center; }
         }
-        
-        .interests-list { display: flex; flex-wrap: wrap; gap: 0.25rem; }
-        .interest-tag { background-color: #E5E7EB; color: #374151; padding: 0.125rem 0.5rem; border-radius: 0.25rem; font-size: 0.75rem; }
     </style>
 </head>
 <body>
-    <!-- Sidebar -->
     <aside class="sidebar" id="sidebar">
         <div class="sidebar-header">
             <h2>🎓 KHODERS</h2>
             <p>Admin Dashboard</p>
         </div>
-        
         <nav class="sidebar-menu">
             <div class="menu-section">
                 <div class="menu-section-title">Main</div>
@@ -169,7 +166,6 @@ $user = Auth::user();
                     Dashboard
                 </a>
             </div>
-            
             <div class="menu-section">
                 <div class="menu-section-title">Management</div>
                 <a href="members.php" class="menu-item<?= admin_nav_active($currentPage, 'members'); ?>">
@@ -197,7 +193,6 @@ $user = Auth::user();
                     Form Logs
                 </a>
             </div>
-            
             <div class="menu-section">
                 <div class="menu-section-title">System</div>
                 <a href="../test-db.php" target="_blank" class="menu-item">
@@ -210,7 +205,6 @@ $user = Auth::user();
                 </a>
             </div>
         </nav>
-        
         <div class="sidebar-footer">
             <div class="user-info">
                 <div class="user-avatar"><?php echo strtoupper(substr($user['username'] ?? 'A', 0, 1)); ?></div>
@@ -224,68 +218,64 @@ $user = Auth::user();
             </form>
         </div>
     </aside>
-    
-    <!-- Main Content -->
+
     <main class="main-content">
         <div class="topbar">
-            <h1>👥 Members Management</h1>
+            <h1>✉️ Contact Messages</h1>
+            <div style="color:#6B7280; font-size:0.95rem;">
+                <?php echo $user ? 'Logged in as ' . admin_safe($user['username']) : ''; ?>
+            </div>
         </div>
-        
         <div class="content-area">
             <?php if ($message): ?>
-                <div class="alert alert-success">✓ <?php echo htmlspecialchars($message); ?></div>
+                <div class="alert alert-success">✓ <?php echo admin_safe($message); ?></div>
             <?php endif; ?>
-            
             <?php if ($error): ?>
-                <div class="alert alert-error">⚠️ <?php echo htmlspecialchars($error); ?></div>
+                <div class="alert alert-error">⚠️ <?php echo admin_safe($error); ?></div>
             <?php endif; ?>
-            
+
             <div class="table-container">
                 <div class="table-header">
-                    <h2>All Members (<?php echo count($members); ?>)</h2>
+                    <h2>Messages (<?php echo count($contacts); ?>)</h2>
                 </div>
-                
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
-                            <th>Name</th>
-                            <th>Email</th>
-                            <th>Phone</th>
-                            <th>Program / Year</th>
-                            <th>Experience</th>
-                            <th>Joined</th>
-                            <th>Actions</th>
+                            <?php foreach ($columns as $column): ?>
+                                <th><?php echo admin_safe($columnLabels[$column] ?? ucfirst(str_replace('_', ' ', $column))); ?></th>
+                            <?php endforeach; ?>
+                            <?php if ($hasIdColumn): ?>
+                                <th>Actions</th>
+                            <?php endif; ?>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php if (empty($members)): ?>
+                        <?php if (empty($contacts)): ?>
                             <tr>
-                                <td colspan="8" style="text-align: center; padding: 2rem; color: #9CA3AF;">
-                                    No members found
+                                <td colspan="<?php echo count($columns) + ($hasIdColumn ? 1 : 0); ?>" style="text-align:center; padding:2rem; color:#9CA3AF;">
+                                    No contacts found.
                                 </td>
                             </tr>
                         <?php else: ?>
-                            <?php foreach ($members as $member): ?>
+                            <?php foreach ($contacts as $contact): ?>
                                 <tr>
-                                    <td><?php echo admin_safe($member['id']); ?></td>
-                                    <td><strong><?php echo admin_safe(trim(($member['first_name'] ?? '') . ' ' . ($member['last_name'] ?? ''))); ?></strong></td>
-                                    <td><?php echo admin_safe($member['email'] ?? ''); ?></td>
-                                    <td><?php echo admin_safe($member['phone'] ?? ''); ?></td>
-                                    <td><?php echo admin_safe(($member['program'] ?? '') . ' / ' . ($member['year'] ?? '')); ?></td>
-                                    <td>
-                                        <span class="badge badge-<?php echo admin_safe(strtolower($member['experience'])); ?>">
-                                            <?php echo admin_safe(ucfirst(str_replace('-', ' ', strtolower($member['experience'] ?? '')))); ?>
-                                        </span>
-                                    </td>
-                                    <td><?php echo admin_format_date($member['registration_date'] ?? null); ?></td>
-                                    <td>
-                                        <a href="?action=delete&id=<?php echo admin_safe($member['id']); ?>" 
-                                           class="btn btn-danger btn-sm"
-                                           onclick="return confirm('Are you sure you want to delete this member?')">
-                                            Delete
-                                        </a>
-                                    </td>
+                                    <?php foreach ($columns as $column): ?>
+                                        <td>
+                                            <?php if ($column === 'message'): ?>
+                                                <details>
+                                                    <summary><?php echo format_contact_value($column, $contact[$column] ?? ''); ?></summary>
+                                                    <div class="message-full"><?php echo admin_safe($contact[$column] ?? ''); ?></div>
+                                                </details>
+                                            <?php else: ?>
+                                                <?php echo format_contact_value($column, $contact[$column] ?? ''); ?>
+                                            <?php endif; ?>
+                                        </td>
+                                    <?php endforeach; ?>
+                                    <?php if ($hasIdColumn): ?>
+                                        <td class="actions">
+                                            <a href="?action=delete&id=<?php echo admin_safe($contact['id']); ?>" class="btn btn-danger" onclick="return confirm('Delete this message?');">Delete</a>
+                                        </td>
+                                    <?php endif; ?>
                                 </tr>
                             <?php endforeach; ?>
                         <?php endif; ?>
@@ -294,27 +284,19 @@ $user = Auth::user();
             </div>
         </div>
     </main>
-    
-    <!-- Mobile Menu Toggle -->
+
     <button class="mobile-menu-toggle" onclick="toggleSidebar()">☰</button>
-    
     <script>
         function toggleSidebar() {
             document.getElementById('sidebar').classList.toggle('active');
         }
-        
         document.addEventListener('click', function(event) {
             const sidebar = document.getElementById('sidebar');
             const toggle = document.querySelector('.mobile-menu-toggle');
-            
-            if (window.innerWidth <= 768 && 
-                !sidebar.contains(event.target) && 
-                !toggle.contains(event.target) &&
-                sidebar.classList.contains('active')) {
+            if (window.innerWidth <= 768 && !sidebar.contains(event.target) && !toggle.contains(event.target) && sidebar.classList.contains('active')) {
                 sidebar.classList.remove('active');
             }
         });
     </script>
 </body>
 </html>
-

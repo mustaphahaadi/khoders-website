@@ -25,7 +25,7 @@ class Auth {
     public static function login($username, $password) {
         // First try environment variables for backward compatibility
         $envUsername = getenv('ADMIN_USERNAME') ?: 'admin';
-        $envPassword = getenv('ADMIN_PASSWORD') ?: 'khoders2025';
+        $envPassword = getenv('ADMIN_PASSWORD') ?: 'admin123';
         
         // If environment credentials match, authenticate user (legacy mode)
         if ($username === $envUsername && $password === $envPassword) {

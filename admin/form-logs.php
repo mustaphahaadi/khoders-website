@@ -10,6 +10,10 @@ Auth::requireAuth('login.php');
 $database = new Database();
 $db = $database->getConnection();
 
+if (!$db) {
+    $error = 'Unable to connect to the database. Please verify database credentials and try again.';
+}
+
 // Initialize variables
 $action = $_GET['action'] ?? 'list';
 $message = '';
@@ -21,130 +25,133 @@ $date_to = $_GET['date_to'] ?? '';
 $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
 $per_page = 20;
 
-// Handle delete action with admin role check
-if ($action === 'delete' && isset($_GET['id'])) {
-    if (!Auth::hasRole('admin')) {
-        $error = 'You do not have permission to delete logs';
-    } else {
-        try {
-            $stmt = $db->prepare("DELETE FROM form_logs WHERE id = ?");
-            $stmt->execute([$_GET['id']]);
-            $message = 'Log entry deleted successfully';
-            $action = 'list'; // Return to list view
-        } catch(PDOException $e) {
-            $error = 'Failed to delete log entry: ' . $e->getMessage();
-        }
-    }
-}
-
-// Handle clear logs action with admin role check
-if ($action === 'clear' && isset($_POST['confirm_clear']) && $_POST['confirm_clear'] === 'yes') {
-    if (!Auth::hasRole('admin')) {
-        $error = 'You do not have permission to clear logs';
-    } else {
-        try {
-            // Build conditions for targeted clearing
-            $conditions = [];
-            $params = [];
-            
-            if (!empty($form_type_filter)) {
-                $conditions[] = "form_type = ?";
-                $params[] = $form_type_filter;
-            }
-            
-            if (!empty($status_filter)) {
-                $conditions[] = "status = ?";
-                $params[] = $status_filter;
-            }
-            
-            if (!empty($date_from)) {
-                $conditions[] = "created_at >= ?";
-                $params[] = $date_from . ' 00:00:00';
-            }
-            
-            if (!empty($date_to)) {
-                $conditions[] = "created_at <= ?";
-                $params[] = $date_to . ' 23:59:59';
-            }
-            
-            $sql = "DELETE FROM form_logs";
-            if (!empty($conditions)) {
-                $sql .= " WHERE " . implode(' AND ', $conditions);
-            }
-            
-            $stmt = $db->prepare($sql);
-            $stmt->execute($params);
-            
-            $message = 'Log entries cleared successfully';
-            $action = 'list';
-        } catch(PDOException $e) {
-            $error = 'Failed to clear logs: ' . $e->getMessage();
-        }
-    }
-}
-
-// Fetch form logs with filters and pagination
+// Only proceed with database operations when a connection is available
 $logs = [];
 $total_logs = 0;
 
-try {
-    // Build the query with filters
-    $conditions = [];
-    $params = [];
-    
-    if (!empty($form_type_filter)) {
-        $conditions[] = "form_type = ?";
-        $params[] = $form_type_filter;
+if ($db) {
+    // Handle delete action with admin role check
+    if ($action === 'delete' && isset($_GET['id'])) {
+        if (!Auth::hasRole('admin')) {
+            $error = 'You do not have permission to delete logs';
+        } else {
+            try {
+                $stmt = $db->prepare("DELETE FROM form_logs WHERE id = ?");
+                $stmt->execute([$_GET['id']]);
+                $message = 'Log entry deleted successfully';
+                $action = 'list'; // Return to list view
+            } catch(PDOException $e) {
+                $error = 'Failed to delete log entry: ' . $e->getMessage();
+            }
+        }
     }
-    
-    if (!empty($status_filter)) {
-        $conditions[] = "status = ?";
-        $params[] = $status_filter;
+
+    // Handle clear logs action with admin role check
+    if ($action === 'clear' && isset($_POST['confirm_clear']) && $_POST['confirm_clear'] === 'yes') {
+        if (!Auth::hasRole('admin')) {
+            $error = 'You do not have permission to clear logs';
+        } else {
+            try {
+                // Build conditions for targeted clearing
+                $conditions = [];
+                $params = [];
+                
+                if (!empty($form_type_filter)) {
+                    $conditions[] = "form_type = ?";
+                    $params[] = $form_type_filter;
+                }
+                
+                if (!empty($status_filter)) {
+                    $conditions[] = "status = ?";
+                    $params[] = $status_filter;
+                }
+                
+                if (!empty($date_from)) {
+                    $conditions[] = "created_at >= ?";
+                    $params[] = $date_from . ' 00:00:00';
+                }
+                
+                if (!empty($date_to)) {
+                    $conditions[] = "created_at <= ?";
+                    $params[] = $date_to . ' 23:59:59';
+                }
+                
+                $sql = "DELETE FROM form_logs";
+                if (!empty($conditions)) {
+                    $sql .= " WHERE " . implode(' AND ', $conditions);
+                }
+                
+                $stmt = $db->prepare($sql);
+                $stmt->execute($params);
+                
+                $message = 'Log entries cleared successfully';
+                $action = 'list';
+            } catch(PDOException $e) {
+                $error = 'Failed to clear logs: ' . $e->getMessage();
+            }
+        }
     }
-    
-    if (!empty($date_from)) {
-        $conditions[] = "created_at >= ?";
-        $params[] = $date_from . ' 00:00:00';
+
+    // Fetch form logs with filters and pagination
+    try {
+        // Build the query with filters
+        $conditions = [];
+        $params = [];
+        
+        if (!empty($form_type_filter)) {
+            $conditions[] = "form_type = ?";
+            $params[] = $form_type_filter;
+        }
+        
+        if (!empty($status_filter)) {
+            $conditions[] = "status = ?";
+            $params[] = $status_filter;
+        }
+        
+        if (!empty($date_from)) {
+            $conditions[] = "created_at >= ?";
+            $params[] = $date_from . ' 00:00:00';
+        }
+        
+        if (!empty($date_to)) {
+            $conditions[] = "created_at <= ?";
+            $params[] = $date_to . ' 23:59:59';
+        }
+        
+        // Count total for pagination
+        $count_sql = "SELECT COUNT(*) AS total FROM form_logs";
+        if (!empty($conditions)) {
+            $count_sql .= " WHERE " . implode(' AND ', $conditions);
+        }
+        
+        $count_stmt = $db->prepare($count_sql);
+        $count_stmt->execute($params);
+        $total_logs = $count_stmt->fetch(PDO::FETCH_ASSOC)['total'];
+        
+        // Calculate pagination
+        $total_pages = $total_logs > 0 ? ceil($total_logs / $per_page) : 1;
+        $page = max(1, min($page, $total_pages));
+        $offset = ($page - 1) * $per_page;
+        
+        // Get filtered logs with pagination
+        $sql = "SELECT * FROM form_logs";
+        if (!empty($conditions)) {
+            $sql .= " WHERE " . implode(' AND ', $conditions);
+        }
+        $sql .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
+        
+        $stmt = $db->prepare($sql);
+        
+        // Add pagination parameters
+        $params[] = $per_page;
+        $params[] = $offset;
+        
+        $stmt->execute($params);
+        $logs = $stmt->fetchAll();
+        
+    } catch(PDOException $e) {
+        $error = 'Error retrieving logs: ' . $e->getMessage();
     }
-    
-    if (!empty($date_to)) {
-        $conditions[] = "created_at <= ?";
-        $params[] = $date_to . ' 23:59:59';
-    }
-    
-    // Count total for pagination
-    $count_sql = "SELECT COUNT(*) AS total FROM form_logs";
-    if (!empty($conditions)) {
-        $count_sql .= " WHERE " . implode(' AND ', $conditions);
-    }
-    
-    $count_stmt = $db->prepare($count_sql);
-    $count_stmt->execute($params);
-    $total_logs = $count_stmt->fetch(PDO::FETCH_ASSOC)['total'];
-    
-    // Calculate pagination
-    $total_pages = ceil($total_logs / $per_page);
-    $page = max(1, min($page, $total_pages));
-    $offset = ($page - 1) * $per_page;
-    
-    // Get filtered logs with pagination
-    $sql = "SELECT * FROM form_logs";
-    if (!empty($conditions)) {
-        $sql .= " WHERE " . implode(' AND ', $conditions);
-    }
-    $sql .= " ORDER BY created_at DESC LIMIT ? OFFSET ?";
-    
-    $stmt = $db->prepare($sql);
-    
-    // Add pagination parameters
-    $params[] = $per_page;
-    $params[] = $offset;
-    
-    $stmt->execute($params);
-    $logs = $stmt->fetchAll();
-    
-} catch(PDOException $e) {
-    $error = 'Error retrieving logs: ' . $e->getMessage();
 }
 ?>
 
