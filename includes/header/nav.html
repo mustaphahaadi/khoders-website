@@ -2,45 +2,62 @@
 <nav class="navbar" role="navigation" aria-label="Main navigation">
     <div class="nav-container">
         <a href="index.html" class="nav-logo" aria-label="KHODERS Home">
-            <img src="assets/qwe.png" alt="" width="50" height="50">
+            <img src="assets/qwe.png" alt="KHODERS emblem" width="50" height="50">
             <span class="logo-text">KHODERS WORLD</span>
         </a>
-        
+
         <ul class="nav-menu" id="nav-menu" role="menubar">
             <li role="none">
-                <a href="index.html" role="menuitem" class="{% if page.url == '/' %}active{% endif %}">Home</a>
+                <a href="index.html" role="menuitem">Home</a>
             </li>
             <li role="none">
-                <a href="about.html" role="menuitem" class="{% if page.url == '/about.html' %}active{% endif %}">About</a>
+                <a href="about.html" role="menuitem">About</a>
             </li>
-            <li role="none">
-                <a href="services.html" role="menuitem" class="{% if page.url == '/services.html' %}active{% endif %}">Services</a>
+            <li role="none" class="dropdown">
+                <a href="#" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                    <span>Learn</span>
+                    <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="none"><a href="courses.html" role="menuitem">Programs</a></li>
+                    <li role="none"><a href="services.html" role="menuitem">Member Services</a></li>
+                    <li role="none"><a href="instructors.html" role="menuitem">Mentors</a></li>
+                </ul>
             </li>
-            <li role="none">
-                <a href="projects.html" role="menuitem" class="{% if page.url == '/projects.html' %}active{% endif %}">Projects</a>
+            <li role="none" class="dropdown">
+                <a href="#" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                    <span>Community</span>
+                    <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="none"><a href="projects.html" role="menuitem">Projects</a></li>
+                    <li role="none"><a href="team.html" role="menuitem">Leadership Team</a></li>
+                    <li role="none"><a href="events.html" role="menuitem">Events</a></li>
+                    <li role="none"><a href="blog.html" role="menuitem">Blog</a></li>
+                    <li role="none"><a href="careers.html" role="menuitem">Careers</a></li>
+                </ul>
             </li>
-            <li role="none">
-                <a href="team.html" role="menuitem" class="{% if page.url == '/team.html' %}active{% endif %}">Team</a>
-            </li>
-            <li role="none">
-                <a href="events.html" role="menuitem" class="{% if page.url == '/events.html' %}active{% endif %}">Events</a>
-            </li>
-            <li role="none">
-                <a href="blog.html" role="menuitem" class="{% if page.url == '/blog.html' %}active{% endif %}">Blog</a>
-            </li>
-            <li role="none" class="mobile-only">
-                <a href="faq.html" role="menuitem" class="{% if page.url == '/faq.html' %}active{% endif %}">FAQ</a>
-            </li>
-            <li role="none" class="mobile-only">
-                <a href="careers.html" role="menuitem" class="{% if page.url == '/careers.html' %}active{% endif %}">Careers</a>
-            </li>
-            <li role="none" class="mobile-only">
-                <a href="contact.html" role="menuitem" class="{% if page.url == '/contact.html' %}active{% endif %}">Contact</a>
+            <li role="none" class="dropdown">
+                <a href="#" role="menuitem" aria-haspopup="true" aria-expanded="false">
+                    <span>Resources</span>
+                    <i class="bi bi-chevron-down toggle-dropdown" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu" role="menu">
+                    <li role="none"><a href="resources.html" role="menuitem">Resource Library</a></li>
+                    <li role="none"><a href="faq.html" role="menuitem">FAQ</a></li>
+                    <li role="none"><a href="code-of-conduct.html" role="menuitem">Code of Conduct</a></li>
+                    <li role="none"><a href="membership-tiers.html" role="menuitem">Membership Tiers</a></li>
+                    <li role="none"><a href="privacy-policy.html" role="menuitem">Privacy Policy</a></li>
+                    <li role="none"><a href="terms-of-service.html" role="menuitem">Terms of Service</a></li>
+                </ul>
             </li>
             <li role="none" class="desktop-only">
-                <a href="contact.html" role="menuitem" class="contact-link {% if page.url == '/contact.html' %}active{% endif %}">
+                <a href="contact.html" role="menuitem" class="contact-link">
                     <span>Contact</span>
                 </a>
+            </li>
+            <li role="none" class="mobile-only">
+                <a href="contact.html" role="menuitem">Contact</a>
             </li>
             <li role="none">
                 <a href="register.html" class="cta-nav-btn" role="menuitem">Join Now</a>
