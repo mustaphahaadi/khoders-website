@@ -99,6 +99,15 @@ class SiteRouter {
             // Handle index page specially
             if (file_exists('pages/index.html')) {
                 $html_content = file_get_contents('pages/index.html');
+                
+                // Prefer extracting the main content to avoid duplicate headers/nav/footers
+                if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                    $html_content = $matches[1];
+                } else {
+                    // Fallback to body content
+                    preg_match('/<body.*?>(.*?)<\/body>/s', $html_content, $matches);
+                    $html_content = $matches[1] ?? $html_content;
+                }
             } else {
                 // Fallback to a default home page
                 $html_content = '<div class="container mt-5"><h1>Welcome to KHODERS WORLD</h1><p>The premier campus coding club.</p></div>';
@@ -107,16 +116,25 @@ class SiteRouter {
             // Get the HTML content from the file
             $html_content = file_get_contents(self::$pages[$page]);
             
-            // Extract the body content
-            preg_match('/<body.*?>(.*?)<\/body>/s', $html_content, $matches);
-            $html_content = $matches[1] ?? $html_content;
+            // Prefer extracting the main content to avoid duplicate headers/nav/footers
+            if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                $html_content = $matches[1];
+            } else {
+                // Fallback to body content
+                preg_match('/<body.*?>(.*?)<\/body>/s', $html_content, $matches);
+                $html_content = $matches[1] ?? $html_content;
+            }
         } else {
             // Page not found, show 404
             header('HTTP/1.0 404 Not Found');
-            if (file_exists(self::$pages['404'])) {
+            if (isset(self::$pages['404']) && file_exists(self::$pages['404'])) {
                 $html_content = file_get_contents(self::$pages['404']);
-                preg_match('/<body.*?>(.*?)<\/body>/s', $html_content, $matches);
-                $html_content = $matches[1] ?? $html_content;
+                if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                    $html_content = $matches[1];
+                } else {
+                    preg_match('/<body.*?>(.*?)<\/body>/s', $html_content, $matches);
+                    $html_content = $matches[1] ?? $html_content;
+                }
             } else {
                 // Fallback 404 content
                 $html_content = '<div class="container mt-5"><h1>404 - Page Not Found</h1><p>The page you requested could not be found.</p></div>';
@@ -151,7 +169,7 @@ class SiteRouter {
         // Check if page exists in our routing table
         if (isset(self::$pages[$page])) {
             // Use clean URLs for better SEO and user experience
-            return $page . '.php';
+            return 'index.php?page=' . urlencode($page);
         } else {
             return 'index.php'; // Default to index
         }
