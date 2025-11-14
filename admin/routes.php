@@ -1,0 +1,97 @@
+<?php
+/**
+ * KHODERS WORLD Admin Routes
+ * Define routes for the admin panel
+ */
+
+// Include router
+require_once __DIR__ . '/includes/router.php';
+
+// Set base URL - adjust this to match your actual server configuration
+// For local XAMPP, it's typically just the folder path
+Router::setBaseUrl('');
+
+// Define routes
+
+// Dashboard
+Router::register('index', 'pages/dashboard.php', [
+    'name' => 'dashboard',
+    'title' => 'Dashboard - KHODERS WORLD Admin'
+]);
+
+// Member Management
+Router::register('members', 'pages/members.php', [
+    'name' => 'members',
+    'title' => 'Members - KHODERS WORLD Admin'
+]);
+
+Router::register('contacts', 'pages/contacts.php', [
+    'name' => 'contacts',
+    'title' => 'Contact Messages - KHODERS WORLD Admin'
+]);
+
+Router::register('newsletter', 'pages/newsletter.php', [
+    'name' => 'newsletter',
+    'title' => 'Newsletter - KHODERS WORLD Admin'
+]);
+
+// Content Management
+Router::register('events', 'pages/events.php', [
+    'name' => 'events',
+    'title' => 'Events - KHODERS WORLD Admin'
+]);
+
+Router::register('event-editor', 'pages/event-editor.php', [
+    'name' => 'event-editor',
+    'title' => 'Event Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('projects', 'pages/projects.php', [
+    'name' => 'projects',
+    'title' => 'Projects - KHODERS WORLD Admin'
+]);
+
+Router::register('project-editor', 'pages/project-editor.php', [
+    'name' => 'project-editor',
+    'title' => 'Project Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('team', 'pages/team.php', [
+    'name' => 'team',
+    'title' => 'Team Members - KHODERS WORLD Admin'
+]);
+
+Router::register('team-editor', 'pages/team-editor.php', [
+    'name' => 'team-editor',
+    'title' => 'Team Member Editor - KHODERS WORLD Admin'
+]);
+
+// System
+Router::register('form-logs', 'pages/form-logs.php', [
+    'name' => 'form-logs',
+    'title' => 'Form Logs - KHODERS WORLD Admin',
+    'requiredRole' => 'admin'
+]);
+
+Router::register('settings', 'pages/settings.php', [
+    'name' => 'settings',
+    'title' => 'Settings - KHODERS WORLD Admin',
+    'requiredRole' => 'admin'
+]);
+
+Router::register('site-settings', 'pages/site-settings.php', [
+    'name' => 'site-settings',
+    'title' => 'Site Settings - KHODERS WORLD Admin',
+    'requiredRole' => 'admin'
+]);
+
+Router::register('profile', 'pages/profile.php', [
+    'name' => 'profile',
+    'title' => 'My Profile - KHODERS WORLD Admin'
+]);
+
+// Define 404 handler
+Router::notFound(function() {
+    header('HTTP/1.0 404 Not Found');
+    include 'pages/404.php';
+});

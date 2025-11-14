@@ -1,0 +1,130 @@
+/* KHODERS WORLD Custom Styles */
+
+/* Custom branding colors */
+:root {
+  --khoders-primary: #4B49AC;
+  --khoders-secondary: #98BDFF;
+  --khoders-success: #57B657;
+  --khoders-info: #248AFD;
+  --khoders-warning: #FFC100;
+  --khoders-danger: #FF4747;
+  --khoders-light: #F8F9FA;
+  --khoders-dark: #1F2937;
+}
+
+/* Logo sizing */
+.navbar .navbar-brand-wrapper .navbar-brand img {
+  max-width: 120px;
+  height: auto;
+}
+
+.navbar .navbar-brand-wrapper .navbar-brand.brand-logo-mini img {
+  max-width: 40px;
+  height: auto;
+}
+
+/* Custom profile image for avatars */
+.rounded-circle.profile-image-small {
+  width: 35px;
+  height: 35px;
+  margin-right: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Welcome text customization */
+.welcome-text {
+  color: var(--khoders-primary);
+}
+
+.welcome-sub-text {
+  color: var(--khoders-dark);
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+}
+
+/* Custom card styles */
+.card.card-rounded {
+  border-radius: 10px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+}
+
+.card-title-dash {
+  color: var(--khoders-dark);
+  font-weight: 600;
+}
+
+.card-subtitle-dash {
+  color: #6c757d;
+  font-size: 0.875rem;
+}
+
+/* Custom sidebar active link */
+.sidebar .nav .nav-item.active > .nav-link {
+  background-color: rgba(75, 73, 172, 0.1);
+}
+
+/* Custom footer */
+.footer {
+  background-color: #fff;
+  border-top: 1px solid #e9ecef;
+}
+
+/* Chart container */
+#memberGrowthChart {
+  min-height: 250px;
+}
+
+/* Circle progress indicators */
+.circle-progress-width {
+  width: 40px;
+  height: 40px;
+}
+
+.circle-progress-position {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid #ebedf2;
+  background-color: #f2f2f2;
+}
+
+.circle-progress-position-success {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 5px solid #ebedf2;
+  background-color: #e6ffee;
+}
+
+/* Custom badge colors to match KHODERS branding */
+.badge.bg-success {
+  background-color: var(--khoders-success) !important;
+}
+
+.badge.bg-danger {
+  background-color: var(--khoders-danger) !important;
+}
+
+.badge.bg-warning {
+  background-color: var(--khoders-warning) !important;
+}
+
+/* Custom button styles */
+.btn-primary {
+  background-color: var(--khoders-primary);
+  border-color: var(--khoders-primary);
+}
+
+.btn-primary:hover {
+  background-color: #3f3e8e;
+  border-color: #3f3e8e;
+}
+
+/* Remove promo banner */
+.proBanner {
+  display: none !important;
+}
