@@ -404,13 +404,60 @@ class AdminAPI {
         try {
             $data = json_decode(file_get_contents('php://input'), true) ?: $_POST;
             
-            if (!isset($data['name']) || !isset($data['email']) || !isset($data['level'])) {
-                return $this->error('Name, email, and experience level are required');
+            // Support both legacy and new field names
+            $firstName = $data['first_name'] ?? ($data['firstName'] ?? '');
+            $lastName  = $data['last_name'] ?? ($data['lastName'] ?? '');
+
+            // Legacy single name field: treat as first_name if other fields missing
+            if (!$firstName && isset($data['name'])) {
+                $firstName = $data['name'];
             }
-            
-            $stmt = $this->db->prepare("INSERT INTO members (name, email, level, interests, registration_date) VALUES (?, ?, ?, ?, NOW())");
-            $interests = isset($data['interests']) ? json_encode($data['interests']) : null;
-            $stmt->execute([$data['name'], $data['email'], $data['level'], $interests]);
+
+            $email     = $data['email'] ?? '';
+            $phone     = $data['phone'] ?? '';
+            $studentId = $data['student_id'] ?? ($data['studentId'] ?? '');
+            $program   = $data['program'] ?? '';
+            $year      = $data['year'] ?? '';
+
+            // Experience: accept legacy "level" or new "experience" and normalise
+            $experience = $data['experience'] ?? ($data['level'] ?? '');
+            $experience = ucfirst(strtolower($experience));
+
+            if (empty($firstName) || empty($lastName) || empty($email) || empty($experience)) {
+                return $this->error('First name, last name, email and experience level are required');
+            }
+
+            $validExperiences = ['Beginner', 'Intermediate', 'Advanced'];
+            if (!in_array($experience, $validExperiences, true)) {
+                return $this->error('Invalid experience level');
+            }
+
+            $interests = $data['interests'] ?? [];
+            if (!is_array($interests)) {
+                $interests = [$interests];
+            }
+            $interestsJson = json_encode($interests);
+
+            $additionalInfo = $data['additional_info'] ?? ($data['notes'] ?? '');
+            $ipAddress = $_SERVER['REMOTE_ADDR'] ?? null;
+
+            $stmt = $this->db->prepare(
+                "INSERT INTO members (first_name, last_name, email, phone, student_id, program, year, experience, interests, additional_info, ip_address)
+                 VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
+            );
+            $stmt->execute([
+                $firstName,
+                $lastName,
+                $email,
+                $phone,
+                $studentId,
+                $program,
+                $year,
+                $experience,
+                $interestsJson,
+                $additionalInfo,
+                $ipAddress
+            ]);
             
             $id = $this->db->lastInsertId();
             return $this->success('Member created successfully', ['id' => $id]);
@@ -424,13 +471,58 @@ class AdminAPI {
      */
     private function updateMember($id, $data) {
         try {
-            if (!isset($data['name']) || !isset($data['email']) || !isset($data['level'])) {
-                return $this->error('Name, email, and experience level are required');
+            // Support both legacy and new field names
+            $firstName = $data['first_name'] ?? ($data['firstName'] ?? '');
+            $lastName  = $data['last_name'] ?? ($data['lastName'] ?? '');
+
+            if (!$firstName && isset($data['name'])) {
+                $firstName = $data['name'];
             }
-            
-            $stmt = $this->db->prepare("UPDATE members SET name = ?, email = ?, level = ?, interests = ? WHERE id = ?");
-            $interests = isset($data['interests']) ? json_encode($data['interests']) : null;
-            $stmt->execute([$data['name'], $data['email'], $data['level'], $interests, $id]);
+
+            $email     = $data['email'] ?? '';
+            $phone     = $data['phone'] ?? '';
+            $studentId = $data['student_id'] ?? ($data['studentId'] ?? '');
+            $program   = $data['program'] ?? '';
+            $year      = $data['year'] ?? '';
+
+            $experience = $data['experience'] ?? ($data['level'] ?? '');
+            $experience = ucfirst(strtolower($experience));
+
+            if (empty($firstName) || empty($lastName) || empty($email) || empty($experience)) {
+                return $this->error('First name, last name, email and experience level are required');
+            }
+
+            $validExperiences = ['Beginner', 'Intermediate', 'Advanced'];
+            if (!in_array($experience, $validExperiences, true)) {
+                return $this->error('Invalid experience level');
+            }
+
+            $interests = $data['interests'] ?? [];
+            if (!is_array($interests)) {
+                $interests = [$interests];
+            }
+            $interestsJson = json_encode($interests);
+
+            $additionalInfo = $data['additional_info'] ?? ($data['notes'] ?? '');
+
+            $stmt = $this->db->prepare(
+                "UPDATE members
+                 SET first_name = ?, last_name = ?, email = ?, phone = ?, student_id = ?, program = ?, year = ?, experience = ?, interests = ?, additional_info = ?, updated_at = NOW()
+                 WHERE id = ?"
+            );
+            $stmt->execute([
+                $firstName,
+                $lastName,
+                $email,
+                $phone,
+                $studentId,
+                $program,
+                $year,
+                $experience,
+                $interestsJson,
+                $additionalInfo,
+                $id
+            ]);
             
             if ($stmt->rowCount() === 0) {
                 return $this->error('Member not found or no changes made', 404);

@@ -25,7 +25,7 @@
       <li class="nav-item dropdown d-none d-lg-block">
         <a class="nav-link dropdown-bordered dropdown-toggle dropdown-toggle-split" id="messageDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false"> Quick Actions </a>
         <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list pb-0" aria-labelledby="messageDropdown">
-          <a class="dropdown-item py-3" href="../index.html" target="_blank">
+          <a class="dropdown-item py-3" href="../index.php" target="_blank">
             <p class="mb-0 font-weight-medium float-left">View Website</p>
           </a>
           <div class="dropdown-divider"></div>

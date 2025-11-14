@@ -5,7 +5,7 @@ RewriteEngine On
 RewriteBase /
 
 # Handle 404 errors
-ErrorDocument 404 /404.php
+ErrorDocument 404 /khoders-website/404.php
 
 # Redirect to HTTPS (uncomment in production)
 # RewriteCond %{HTTPS} off

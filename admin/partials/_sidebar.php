@@ -71,7 +71,7 @@ function is_active($route) {
       </a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="../index.html" target="_blank">
+      <a class="nav-link" href="../index.php" target="_blank">
         <i class="menu-icon mdi mdi-web"></i>
         <span class="menu-title">View Website</span>
       </a>

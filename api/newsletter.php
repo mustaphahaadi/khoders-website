@@ -50,7 +50,7 @@ if (!$db) {
     exit;
 }
 
-$rawInput = file_get_contents('php:/input');
+$rawInput = file_get_contents('php://input');
 if (!Security::validateJSON($rawInput)) {
     http_response_code(400);
     echo json_encode([

@@ -161,8 +161,7 @@ try {
             <li>Ensure your MySQL server is running when using the website</li>
         </ol>
         <p>For security reasons, after setup is complete, consider changing the database password and updating the credentials in <code>config.php</code>.</p>
-        <p><a href="../index.html">Return to Website</a></p>
+        <p><a href="../index.php">Return to Website</a></p>
     </div>
 </body>
 </html>
-

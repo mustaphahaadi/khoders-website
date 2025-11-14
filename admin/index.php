@@ -146,7 +146,7 @@ function formatDate(?string $value): string {
                 <div class="nav-section">
                     <div class="nav-title">System</div>
                     <a href="../test-db.php" target="_blank" class="nav-link"><span>🛠</span>Database Test</a>
-                    <a href="../index.html" target="_blank" class="nav-link"><span>🌐</span>View Website</a>
+                    <a href="../index.php" target="_blank" class="nav-link"><span>🌐</span>View Website</a>
                 </div>
             </nav>
             <div class="sidebar-footer">

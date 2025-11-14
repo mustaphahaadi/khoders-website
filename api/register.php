@@ -68,19 +68,34 @@ if (!Security::validateJSON($rawInput)) {
 
 $input = json_decode($rawInput, true);
 
-// Extract and sanitize inputs
-$name = Security::sanitizeInput($input['name'] ?? '');
-$email = trim(strtolower($input['email'] ?? ''));
-$level = Security::sanitizeInput($input['level'] ?? '');
+// Extract and sanitize inputs (support both snake_case and camelCase keys)
+$firstName = Security::sanitizeInput($input['first_name'] ?? ($input['firstName'] ?? ''));
+$lastName  = Security::sanitizeInput($input['last_name'] ?? ($input['lastName'] ?? ''));
+$email     = trim(strtolower($input['email'] ?? ''));
+$phone     = Security::sanitizeInput($input['phone'] ?? '');
+$studentId = Security::sanitizeInput($input['student_id'] ?? ($input['studentId'] ?? ''));
+$program   = Security::sanitizeInput($input['program'] ?? '');
+$year      = Security::sanitizeInput($input['year'] ?? '');
+$experience = Security::sanitizeInput($input['experience'] ?? '');
 $interests = $input['interests'] ?? [];
+$additionalInfo = Security::sanitizeInput($input['additional_info'] ?? ($input['message'] ?? ''));
+
+// Capture client IP for auditing
+$ipAddress = Security::getClientIP();
 
 // Validate required fields
 $errors = [];
 
-if (empty($name)) {
-    $errors[] = 'Name is required';
-} elseif (!Security::validateLength($name, 2, 100)) {
-    $errors[] = 'Name must be between 2 and 100 characters';
+if (empty($firstName)) {
+    $errors[] = 'First name is required';
+} elseif (!Security::validateLength($firstName, 2, 50)) {
+    $errors[] = 'First name must be between 2 and 50 characters';
+}
+
+if (empty($lastName)) {
+    $errors[] = 'Last name is required';
+} elseif (!Security::validateLength($lastName, 2, 50)) {
+    $errors[] = 'Last name must be between 2 and 50 characters';
 }
 
 if (empty($email)) {
@@ -89,10 +104,16 @@ if (empty($email)) {
     $errors[] = 'Invalid email format';
 }
 
-if (empty($level)) {
+if (empty($experience)) {
     $errors[] = 'Experience level is required';
-} elseif (!in_array($level, ['beginner', 'some-experience', 'intermediate', 'advanced'])) {
-    $errors[] = 'Invalid experience level';
+} else {
+    // Normalise to match ENUM('Beginner','Intermediate','Advanced')
+    $normalizedExperience = ucfirst(strtolower($experience));
+    if (!in_array($normalizedExperience, ['Beginner', 'Intermediate', 'Advanced'])) {
+        $errors[] = 'Invalid experience level';
+    } else {
+        $experience = $normalizedExperience;
+    }
 }
 
 if (!is_array($interests)) {
@@ -130,12 +151,26 @@ try {
     }
     
     // Sanitize interests array
-    $sanitizedInterests = array_map([Security::class, 'sanitizeInput'], $interests);
+    $sanitizedInterests = array_map([Security::class, 'sanitizeInput'], (array) $interests);
+    $interestsJson = json_encode($sanitizedInterests);
     
-    // Insert new member
-    $query = "INSERT INTO members (name, email, level, interests, created_at) VALUES (?, ?, ?, ?, NOW())";
+    // Insert new member aligned with current schema
+    $query = "INSERT INTO members (first_name, last_name, email, phone, student_id, program, year, experience, interests, additional_info, ip_address)
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($query);
-    $success = $stmt->execute([$name, $email, $level, json_encode($sanitizedInterests)]);
+    $success = $stmt->execute([
+        $firstName,
+        $lastName,
+        $email,
+        $phone,
+        $studentId,
+        $program,
+        $year,
+        $experience,
+        $interestsJson,
+        $additionalInfo,
+        $ipAddress
+    ]);
     
     if ($success) {
         $memberId = $db->lastInsertId();
@@ -146,9 +181,10 @@ try {
             'message' => 'Registration successful! Welcome to KHODERS World.',
             'data' => [
                 'id' => $memberId,
-                'name' => $name,
+                'first_name' => $firstName,
+                'last_name' => $lastName,
                 'email' => $email,
-                'level' => $level
+                'experience' => $experience
             ]
         ]);
         

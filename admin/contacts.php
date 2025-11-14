@@ -199,7 +199,7 @@ $user = Auth::user();
                     <span class="menu-item-icon">🔍</span>
                     Database Test
                 </a>
-                <a href="../index.html" target="_blank" class="menu-item">
+                <a href="../index.php" target="_blank" class="menu-item">
                     <span class="menu-item-icon">🌐</span>
                     View Website
                 </a>
