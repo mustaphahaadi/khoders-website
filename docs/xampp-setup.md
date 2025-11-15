@@ -87,8 +87,8 @@ If you prefer not to run the site as root:
 ## 6. Verify the Application
 
 1. **Database connection test**
-   - Visit `http://localhost/khoders-website/test-db.php`.
-   - You should see “Database connection successful.” If not, recheck `.env` credentials and ensure MySQL is running.
+   - Visit `http://localhost/khoders-website/admin/login.php` and attempt to log in with your test credentials.
+   - Successful login confirms the database connection is working. If login fails, recheck `.env` credentials and ensure MySQL is running.
 2. **Frontend**
    - Navigate to `http://localhost/khoders-website/index.html` and browse the site.
 3. **Admin portal**
