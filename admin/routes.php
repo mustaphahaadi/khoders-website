@@ -7,16 +7,49 @@
 // Include router
 require_once __DIR__ . '/includes/router.php';
 
-// Set base URL - adjust this to match your actual server configuration
-// For local XAMPP, it's typically just the folder path
+// Set base URL
 Router::setBaseUrl('');
-
-// Define routes
 
 // Dashboard
 Router::register('index', 'pages/dashboard.php', [
     'name' => 'dashboard',
     'title' => 'Dashboard - KHODERS WORLD Admin'
+]);
+
+// Content Management
+Router::register('events', 'pages/events.php', [
+    'name' => 'events',
+    'title' => 'Events - KHODERS WORLD Admin'
+]);
+
+Router::register('event-editor', 'pages/event-editor.php', [
+    'name' => 'event-editor',
+    'title' => 'Event Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('team', 'pages/team.php', [
+    'name' => 'team',
+    'title' => 'Team Members - KHODERS WORLD Admin'
+]);
+
+Router::register('team-editor', 'pages/team-editor.php', [
+    'name' => 'team-editor',
+    'title' => 'Team Member Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('projects', 'pages/projects.php', [
+    'name' => 'projects',
+    'title' => 'Projects - KHODERS WORLD Admin'
+]);
+
+Router::register('project-editor', 'pages/project-editor.php', [
+    'name' => 'project-editor',
+    'title' => 'Project Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('courses', 'pages/courses.php', [
+    'name' => 'courses',
+    'title' => 'Programs/Courses - KHODERS WORLD Admin'
 ]);
 
 // Member Management
@@ -33,37 +66,6 @@ Router::register('contacts', 'pages/contacts.php', [
 Router::register('newsletter', 'pages/newsletter.php', [
     'name' => 'newsletter',
     'title' => 'Newsletter - KHODERS WORLD Admin'
-]);
-
-// Content Management
-Router::register('events', 'pages/events.php', [
-    'name' => 'events',
-    'title' => 'Events - KHODERS WORLD Admin'
-]);
-
-Router::register('event-editor', 'pages/event-editor.php', [
-    'name' => 'event-editor',
-    'title' => 'Event Editor - KHODERS WORLD Admin'
-]);
-
-Router::register('projects', 'pages/projects.php', [
-    'name' => 'projects',
-    'title' => 'Projects - KHODERS WORLD Admin'
-]);
-
-Router::register('project-editor', 'pages/project-editor.php', [
-    'name' => 'project-editor',
-    'title' => 'Project Editor - KHODERS WORLD Admin'
-]);
-
-Router::register('team', 'pages/team.php', [
-    'name' => 'team',
-    'title' => 'Team Members - KHODERS WORLD Admin'
-]);
-
-Router::register('team-editor', 'pages/team-editor.php', [
-    'name' => 'team-editor',
-    'title' => 'Team Member Editor - KHODERS WORLD Admin'
 ]);
 
 // System
