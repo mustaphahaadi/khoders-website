@@ -78,9 +78,7 @@ function get_page_url($page) {
                         <li><a href="<?php echo get_page_url('terms-of-service'); ?>" class="<?php echo is_active('terms-of-service') ? 'active' : ''; ?>">Terms of Service</a></li>
                     </ul>
                 </li>
-                <li class="desktop-only"><a href="<?php echo get_page_url('contact'); ?>" class="contact-link <?php echo is_active('contact') ? 'active' : ''; ?>"><span>Contact</span></a></li>
-                <li class="mobile-only"><a href="<?php echo get_page_url('contact'); ?>" class="<?php echo is_active('contact') ? 'active' : ''; ?>">Contact</a></li>
-                <li><a href="<?php echo get_page_url('register'); ?>" class="cta-nav-btn">Join Now</a></li>
+                <li><a href="<?php echo get_page_url('contact'); ?>" class="<?php echo is_active('contact') ? 'active' : ''; ?>">Contact</a></li>
             </ul>
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>

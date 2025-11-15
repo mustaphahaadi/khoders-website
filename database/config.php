@@ -9,7 +9,7 @@
 // IMPORTANT: In production, store these values in environment variables
 define('DB_SERVER', 'localhost');
 define('DB_USERNAME', 'khoders_user');
-define('DB_PASSWORD', 'khoders_password'); // Use a strong password in production
+define('DB_PASSWORD', 'khoders123'); // Unified with config/database.php
 define('DB_NAME', 'khoders_db');
 
 // Create database connection

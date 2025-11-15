@@ -5,7 +5,7 @@ RewriteEngine On
 RewriteBase /
 
 # Handle 404 errors
-ErrorDocument 404 /khoders-website/404.php
+ErrorDocument 404 /404.php
 
 # Redirect to HTTPS (uncomment in production)
 # RewriteCond %{HTTPS} off
@@ -30,6 +30,10 @@ Header always set X-Content-Type-Options "nosniff"
 Header always set X-XSS-Protection "1; mode=block"
 Header always set X-Frame-Options "SAMEORIGIN"
 Header always set Referrer-Policy "strict-origin-when-cross-origin"
+Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
+
+# Content Security Policy (adjust as needed)
+# Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'"
 
 # Allow cross-origin requests for fonts
 <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font\.css)$">

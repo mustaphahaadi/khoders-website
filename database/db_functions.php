@@ -33,20 +33,27 @@ function logFormSubmission($form_type, $email, $status, $error_message = '') {
     $conn = getDBConnection();
     if (!$conn) return false;
     
-    $form_type = $conn->real_escape_string($form_type);
-    $email = $conn->real_escape_string($email);
-    $status = $conn->real_escape_string($status);
-    $ip_address = $conn->real_escape_string($_SERVER['REMOTE_ADDR']);
-    $user_agent = $conn->real_escape_string($_SERVER['HTTP_USER_AGENT']);
-    $error_message = $conn->real_escape_string($error_message);
-    
     $query = "INSERT INTO form_logs (form_type, email, status, ip_address, user_agent, error_message) 
-              VALUES ('$form_type', '$email', '$status', '$ip_address', '$user_agent', '$error_message')";
+              VALUES (?, ?, ?, ?, ?, ?)";
     
-    if ($conn->query($query)) {
-        return $conn->insert_id;
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        error_log("Error preparing statement: " . $conn->error);
+        return false;
+    }
+    
+    $ip_address = $_SERVER['REMOTE_ADDR'];
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    
+    $stmt->bind_param('ssssss', $form_type, $email, $status, $ip_address, $user_agent, $error_message);
+    
+    if ($stmt->execute()) {
+        $insert_id = $stmt->insert_id;
+        $stmt->close();
+        return $insert_id;
     } else {
-        error_log("Error logging form submission: " . $conn->error);
+        error_log("Error logging form submission: " . $stmt->error);
+        $stmt->close();
         return false;
     }
 }
@@ -62,12 +69,12 @@ function saveContactForm($data) {
     if (!$conn) return false;
     
     // Sanitize input
-    $name = $conn->real_escape_string(sanitizeInput($data['name'] ?? ''));
-    $email = $conn->real_escape_string(sanitizeInput($data['email'] ?? ''));
-    $phone = $conn->real_escape_string(sanitizeInput($data['phone'] ?? ''));
-    $subject = $conn->real_escape_string(sanitizeInput($data['subject'] ?? ''));
-    $message = $conn->real_escape_string(sanitizeInput($data['message'] ?? ''));
-    $ip_address = $conn->real_escape_string($_SERVER['REMOTE_ADDR']);
+    $name = sanitizeInput($data['name'] ?? '');
+    $email = sanitizeInput($data['email'] ?? '');
+    $phone = sanitizeInput($data['phone'] ?? '');
+    $subject = sanitizeInput($data['subject'] ?? '');
+    $message = sanitizeInput($data['message'] ?? '');
+    $ip_address = $_SERVER['REMOTE_ADDR'];
     
     // Check for required fields
     if (empty($name) || empty($email) || empty($message)) {
@@ -76,13 +83,24 @@ function saveContactForm($data) {
     }
     
     $query = "INSERT INTO contacts (name, email, phone, subject, message, ip_address) 
-              VALUES ('$name', '$email', '$phone', '$subject', '$message', '$ip_address')";
+              VALUES (?, ?, ?, ?, ?, ?)";
     
-    if ($conn->query($query)) {
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        logFormSubmission('contact', $email, 'error', $conn->error);
+        return false;
+    }
+    
+    $stmt->bind_param('ssssss', $name, $email, $phone, $subject, $message, $ip_address);
+    
+    if ($stmt->execute()) {
+        $stmt->close();
         logFormSubmission('contact', $email, 'success');
         return true;
     } else {
-        logFormSubmission('contact', $email, 'error', $conn->error);
+        $error = $stmt->error;
+        $stmt->close();
+        logFormSubmission('contact', $email, 'error', $error);
         return false;
     }
 }
@@ -98,16 +116,16 @@ function saveRegistration($data) {
     if (!$conn) return false;
     
     // Sanitize input
-    $first_name = $conn->real_escape_string(sanitizeInput($data['firstName'] ?? ''));
-    $last_name = $conn->real_escape_string(sanitizeInput($data['lastName'] ?? ''));
-    $email = $conn->real_escape_string(sanitizeInput($data['email'] ?? ''));
-    $phone = $conn->real_escape_string(sanitizeInput($data['phone'] ?? ''));
-    $student_id = $conn->real_escape_string(sanitizeInput($data['studentId'] ?? ''));
-    $program = $conn->real_escape_string(sanitizeInput($data['program'] ?? ''));
-    $year = $conn->real_escape_string(sanitizeInput($data['year'] ?? ''));
-    $experience = $conn->real_escape_string(sanitizeInput($data['experience'] ?? ''));
-    $additional_info = $conn->real_escape_string(sanitizeInput($data['message'] ?? ''));
-    $ip_address = $conn->real_escape_string($_SERVER['REMOTE_ADDR']);
+    $first_name = sanitizeInput($data['firstName'] ?? '');
+    $last_name = sanitizeInput($data['lastName'] ?? '');
+    $email = sanitizeInput($data['email'] ?? '');
+    $phone = sanitizeInput($data['phone'] ?? '');
+    $student_id = sanitizeInput($data['studentId'] ?? '');
+    $program = sanitizeInput($data['program'] ?? '');
+    $year = sanitizeInput($data['year'] ?? '');
+    $experience = sanitizeInput($data['experience'] ?? '');
+    $additional_info = sanitizeInput($data['message'] ?? '');
+    $ip_address = $_SERVER['REMOTE_ADDR'];
     
     // Process interests as JSON
     $interests = [];
@@ -116,7 +134,7 @@ function saveRegistration($data) {
             $interests[] = sanitizeInput($interest);
         }
     }
-    $interests_json = $conn->real_escape_string(json_encode($interests));
+    $interests_json = json_encode($interests);
     
     // Check for required fields
     if (empty($first_name) || empty($last_name) || empty($email) || empty($experience)) {
@@ -125,24 +143,45 @@ function saveRegistration($data) {
     }
     
     // Check if email already exists
-    $check_query = "SELECT id FROM members WHERE email = '$email'";
-    $result = $conn->query($check_query);
-    
-    if ($result && $result->num_rows > 0) {
-        logFormSubmission('register', $email, 'error', 'Email already registered');
+    $check_query = "SELECT id FROM members WHERE email = ?";
+    $check_stmt = $conn->prepare($check_query);
+    if (!$check_stmt) {
+        logFormSubmission('register', $email, 'error', $conn->error);
         return false;
     }
     
+    $check_stmt->bind_param('s', $email);
+    $check_stmt->execute();
+    $check_stmt->store_result();
+    
+    if ($check_stmt->num_rows > 0) {
+        $check_stmt->close();
+        logFormSubmission('register', $email, 'error', 'Email already registered');
+        return false;
+    }
+    $check_stmt->close();
+    
     $query = "INSERT INTO members (first_name, last_name, email, phone, student_id, program, year, 
                                 experience, interests, additional_info, ip_address) 
-              VALUES ('$first_name', '$last_name', '$email', '$phone', '$student_id', '$program', 
-                      '$year', '$experience', '$interests_json', '$additional_info', '$ip_address')";
+              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     
-    if ($conn->query($query)) {
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        logFormSubmission('register', $email, 'error', $conn->error);
+        return false;
+    }
+    
+    $stmt->bind_param('sssssssssss', $first_name, $last_name, $email, $phone, $student_id, 
+                      $program, $year, $experience, $interests_json, $additional_info, $ip_address);
+    
+    if ($stmt->execute()) {
+        $stmt->close();
         logFormSubmission('register', $email, 'success');
         return true;
     } else {
-        logFormSubmission('register', $email, 'error', $conn->error);
+        $error = $stmt->error;
+        $stmt->close();
+        logFormSubmission('register', $email, 'error', $error);
         return false;
     }
 }
@@ -158,9 +197,9 @@ function saveNewsletter($data) {
     if (!$conn) return false;
     
     // Sanitize input
-    $email = $conn->real_escape_string(sanitizeInput($data['email'] ?? ''));
-    $source = $conn->real_escape_string(isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Direct');
-    $ip_address = $conn->real_escape_string($_SERVER['REMOTE_ADDR']);
+    $email = sanitizeInput($data['email'] ?? '');
+    $source = isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : 'Direct';
+    $ip_address = $_SERVER['REMOTE_ADDR'];
     
     // Check for required fields
     if (empty($email)) {
@@ -169,21 +208,42 @@ function saveNewsletter($data) {
     }
     
     // Check if email already exists
-    $check_query = "SELECT id FROM newsletter WHERE email = '$email'";
-    $result = $conn->query($check_query);
-    
-    if ($result && $result->num_rows > 0) {
-        logFormSubmission('newsletter', $email, 'error', 'Email already subscribed');
+    $check_query = "SELECT id FROM newsletter WHERE email = ?";
+    $check_stmt = $conn->prepare($check_query);
+    if (!$check_stmt) {
+        logFormSubmission('newsletter', $email, 'error', $conn->error);
         return false;
     }
     
-    $query = "INSERT INTO newsletter (email, source, ip_address) VALUES ('$email', '$source', '$ip_address')";
+    $check_stmt->bind_param('s', $email);
+    $check_stmt->execute();
+    $check_stmt->store_result();
     
-    if ($conn->query($query)) {
+    if ($check_stmt->num_rows > 0) {
+        $check_stmt->close();
+        logFormSubmission('newsletter', $email, 'error', 'Email already subscribed');
+        return false;
+    }
+    $check_stmt->close();
+    
+    $query = "INSERT INTO newsletter (email, source, ip_address) VALUES (?, ?, ?)";
+    
+    $stmt = $conn->prepare($query);
+    if (!$stmt) {
+        logFormSubmission('newsletter', $email, 'error', $conn->error);
+        return false;
+    }
+    
+    $stmt->bind_param('sss', $email, $source, $ip_address);
+    
+    if ($stmt->execute()) {
+        $stmt->close();
         logFormSubmission('newsletter', $email, 'success');
         return true;
     } else {
-        logFormSubmission('newsletter', $email, 'error', $conn->error);
+        $error = $stmt->error;
+        $stmt->close();
+        logFormSubmission('newsletter', $email, 'error', $error);
         return false;
     }
 }

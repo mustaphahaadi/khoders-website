@@ -5,7 +5,9 @@
  */
 
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: *');
+// CORS: Restrict in production to your domain
+$allowed_origin = getenv('APP_ENV') === 'production' ? 'https://khodersclub.com' : '*';
+header('Access-Control-Allow-Origin: ' . $allowed_origin);
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, X-CSRF-Token');
 

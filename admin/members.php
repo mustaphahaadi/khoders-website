@@ -200,10 +200,6 @@ $user = Auth::user();
             
             <div class="menu-section">
                 <div class="menu-section-title">System</div>
-                <a href="../test-db.php" target="_blank" class="menu-item">
-                    <span class="menu-item-icon">🔍</span>
-                    Database Test
-                </a>
                 <a href="../index.php" target="_blank" class="menu-item">
                     <span class="menu-item-icon">🌐</span>
                     View Website
