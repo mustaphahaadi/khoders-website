@@ -52,6 +52,21 @@ Router::register('courses', 'pages/courses.php', [
     'title' => 'Programs/Courses - KHODERS WORLD Admin'
 ]);
 
+Router::register('course-editor', 'pages/course-editor.php', [
+    'name' => 'course-editor',
+    'title' => 'Course Editor - KHODERS WORLD Admin'
+]);
+
+Router::register('blog', 'pages/blog.php', [
+    'name' => 'blog',
+    'title' => 'Blog Posts - KHODERS WORLD Admin'
+]);
+
+Router::register('blog-editor', 'pages/blog-editor.php', [
+    'name' => 'blog-editor',
+    'title' => 'Blog Editor - KHODERS WORLD Admin'
+]);
+
 // Member Management
 Router::register('members', 'pages/members.php', [
     'name' => 'members',
