@@ -222,6 +222,28 @@ h6 {
 /*--------------------------------------------------------------
 # Navigation Menu
 --------------------------------------------------------------*/
+
+/* Base defaults (mobile-first) */
+
+.navmenu li {
+  position: relative;
+}
+
+.navmenu ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navmenu .desktop-only {
+  display: none;
+}
+
+.navmenu .mobile-only,
+.navmenu .cta-nav-btn {
+  display: none;
+}
+
 /* Desktop Navigation */
 @media (min-width: 1200px) {
   .navmenu {
@@ -236,17 +258,36 @@ h6 {
     align-items: center;
   }
 
-  .navmenu li {
-    position: relative;
-  }
-
   .navmenu>ul>li {
     white-space: nowrap;
     padding: 15px 14px;
   }
 
+  .navmenu .desktop-only {
+    display: block;
+  }
+
+  .navmenu .mobile-only {
+    display: none;
+  }
+
+  .navmenu .cta-nav-btn {
+    display: none;
+  }
+
   .navmenu>ul>li:last-child {
     padding-right: 0;
+  }
+
+  .navmenu>ul>li.dropdown>a {
+    gap: 6px;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+  }
+
+  .navmenu>ul>li.dropdown>a span {
+    display: inline-flex;
+    align-items: center;
   }
 
   .navmenu a,
@@ -313,8 +354,22 @@ h6 {
     box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.1);
   }
 
+  .navmenu .dropdown ul::before {
+    content: "";
+    position: absolute;
+    top: -8px;
+    left: 24px;
+    width: 14px;
+    height: 14px;
+    background: inherit;
+    transform: rotate(45deg);
+    border-radius: 2px;
+    box-shadow: -4px -4px 12px rgba(0, 0, 0, 0.03);
+  }
+
   .navmenu .dropdown ul li {
     min-width: 200px;
+    position: relative;
   }
 
   .navmenu .dropdown ul a {
@@ -333,6 +388,10 @@ h6 {
   .navmenu .dropdown ul .active,
   .navmenu .dropdown ul li:hover>a {
     color: var(--nav-dropdown-hover-color);
+  }
+
+  .navmenu .dropdown ul li + li {
+    border-top: 1px solid color-mix(in srgb, var(--nav-dropdown-color), transparent 80%);
   }
 
   .navmenu .dropdown:hover>ul {
@@ -416,12 +475,6 @@ h6 {
     background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
   }
 
-  .navmenu a i:hover,
-  .navmenu a:focus i:hover {
-    background-color: var(--accent-color);
-    color: var(--contrast-color);
-  }
-
   .navmenu a:hover,
   .navmenu .active,
   .navmenu .active:focus {
@@ -435,6 +488,10 @@ h6 {
     transform: rotate(180deg);
   }
 
+  .navmenu .dropdown>a {
+    gap: 6px;
+  }
+
   .navmenu .dropdown ul {
     position: static;
     display: none;
@@ -442,16 +499,22 @@ h6 {
     padding: 10px 0;
     margin: 10px 20px;
     background-color: var(--nav-dropdown-background-color);
-    transition: all 0.5s ease-in-out;
+    transition: all 0.3s ease;
+    border-radius: 6px;
   }
 
-  .navmenu .dropdown ul ul {
-    background-color: rgba(33, 37, 41, 0.1);
+  .navmenu .dropdown ul li + li {
+    border-top: 1px solid color-mix(in srgb, var(--nav-dropdown-color), transparent 85%);
   }
 
   .navmenu .dropdown>.dropdown-active {
     display: block;
     background-color: rgba(33, 37, 41, 0.03);
+  }
+
+  .navmenu .dropdown.active>a,
+  .navmenu .dropdown.active>a:focus {
+    color: var(--nav-dropdown-hover-color);
   }
 
   .mobile-nav-active {
@@ -479,6 +542,40 @@ h6 {
   .mobile-nav-active .navmenu>ul {
     display: block;
   }
+}
+
+.mobile-nav-active .navmenu .mobile-only,
+.mobile-nav-active .navmenu .cta-nav-btn {
+  display: block;
+}
+
+.mobile-nav-active .cta-nav-btn {
+  margin: 12px 20px 20px;
+  text-align: center;
+}
+
+.mobile-nav-active .contact-link {
+  padding: 10px 20px;
+  border-radius: 4px;
+  background-color: color-mix(in srgb, var(--accent-color), transparent 90%);
+  margin: 12px 20px;
+}
+
+.mobile-nav-active .navmenu .dropdown ul {
+  margin: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  border: none;
+}
+
+.mobile-nav-active .navmenu .dropdown ul li + li {
+  border-top: 1px solid color-mix(in srgb, var(--nav-dropdown-color), transparent 85%);
+}
+
+.mobile-nav-active .navmenu .dropdown>.dropdown-active {
+  display: block;
+  padding: 0;
 }
 
 /*--------------------------------------------------------------
