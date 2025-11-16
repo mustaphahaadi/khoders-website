@@ -20,9 +20,9 @@ Use this guide to spin up the KHODERS website on a Windows machine using XAMPP. 
 
 ## 2. Start XAMPP Services
 
-1. Launch **XAMPP Control Panel** as Administrator (right-click → *Run as administrator*).
+1. Launch **XAMPP Control Panel** as Administrator (right-click → _Run as administrator_).
 2. Start **Apache** and **MySQL**. The module names turn green when running.
-   - If a service fails to start, click *Config → Service and Port Settings* and ensure the default ports (Apache: 80/443, MySQL: 3306) are free.
+   - If a service fails to start, click _Config → Service and Port Settings_ and ensure the default ports (Apache: 80/443, MySQL: 3306) are free.
 3. Confirm Apache serves content:
    - Visit `http://localhost/` in the browser. You should see the XAMPP welcome page.
 
@@ -35,6 +35,7 @@ Use this guide to spin up the KHODERS website on a Windows machine using XAMPP. 
    copy .env.example .env
    ```
 2. Edit `.env` with the credentials you plan to use while testing on XAMPP. For the default XAMPP MySQL installation (user `root`, empty password) you can use:
+
    ```dotenv
    DB_HOST=localhost
    DB_NAME=khoders_db
@@ -47,6 +48,7 @@ Use this guide to spin up the KHODERS website on a Windows machine using XAMPP. 
    APP_ENV=development
    APP_DEBUG=true
    ```
+
 3. Save the file. If you change the admin password later, update both the `.env` file and your notes.
 
 > **Tip:** XAMPP’s MySQL root account has no password by default. For better security create a dedicated user after testing (see Section 5).
@@ -56,6 +58,7 @@ Use this guide to spin up the KHODERS website on a Windows machine using XAMPP. 
 ## 4. Provision the Database
 
 ### Option A – phpMyAdmin (recommended)
+
 1. Open `http://localhost/phpmyadmin/`.
 2. Click **Databases → Create database** and enter `khoders_db` (Collation: `utf8mb4_general_ci`).
 3. Choose the new database, then use **Import** to upload:
@@ -64,6 +67,7 @@ Use this guide to spin up the KHODERS website on a Windows machine using XAMPP. 
 4. phpMyAdmin should report successful execution for both imports.
 
 ### Option B – Built-in Setup Script
+
 1. Visit `http://localhost/khoders-website/database/setup.php`.
 2. The script creates the database, runs the schema migrations, and provisions a limited MySQL user (`khoders_user` / `khoders123`).
 3. Remove or secure `database/setup.php` after a successful run (it is for installation only).
@@ -103,14 +107,14 @@ If you prefer not to run the site as root:
 
 ## 7. Troubleshooting
 
-| Issue | Fix |
-| --- | --- |
-| Apache won’t start | Close other services using port 80/443 (Skype, IIS) or change Apache’s port via XAMPP Control Panel → Config. |
-| MySQL won’t start | Stop external MySQL services or change the configured port to 3307 (update `.env` accordingly). |
-| “Access denied for user” | Verify `.env` credentials. If using root with no password, ensure `DB_PASS=""` (quoted empty string). |
-| 403 on `/admin/` | Ensure you’re logged in via `/admin/login.php`. The dashboard now requires authentication. |
-| Missing PHP extensions | Enable extensions in `php.ini`, restart Apache. |
-| Form submissions not saved | Confirm database tables were imported and review `admin/form-logs.php` for errors. |
+| Issue                      | Fix                                                                                                           |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------- |
+| Apache won’t start         | Close other services using port 80/443 (Skype, IIS) or change Apache’s port via XAMPP Control Panel → Config. |
+| MySQL won’t start          | Stop external MySQL services or change the configured port to 3307 (update `.env` accordingly).               |
+| “Access denied for user”   | Verify `.env` credentials. If using root with no password, ensure `DB_PASS=""` (quoted empty string).         |
+| 403 on `/admin/`           | Ensure you’re logged in via `/admin/login.php`. The dashboard now requires authentication.                    |
+| Missing PHP extensions     | Enable extensions in `php.ini`, restart Apache.                                                               |
+| Form submissions not saved | Confirm database tables were imported and review `admin/form-logs.php` for errors.                            |
 
 ---
 

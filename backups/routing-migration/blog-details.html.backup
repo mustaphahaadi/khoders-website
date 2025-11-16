@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Web Development Best Practices - KHODERS Campus Coding Community</title>
+  <meta name="description" content="Learn essential web development best practices for optimal performance, accessibility, and maintainability from KHODERS coding club. A comprehensive guide for student developers.">
+  <meta name="keywords" content="web development best practices, student developer guide, coding standards, KHODERS blog, frontend optimization, accessibility tips">
+
+  <!-- Favicons -->
+  <link href="assets/img/khoders/logo.png" rel="icon">
+  <link href="assets/img/khoders/logo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+ 
+</head>
+
+<body class="blog-details-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Using KHODERS logo -->
+        <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40">
+        <h1 class="sitename">KHODERS WORLD</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li class="dropdown"><a href="#"><span>Resources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="404.html">404</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="register.html">Join Now</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Blog Article</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="blog.html">Blog</a></li>
+            <li class="current">Web Development Best Practices</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Blog Details Section -->
+    <section id="blog-details" class="blog-details section">
+      <div class="container" data-aos="fade-up">
+
+        <article class="article">
+          <div class="article-header">
+            <div class="meta-categories" data-aos="fade-up">
+              <a href="#" class="category">Web Development</a>
+              <a href="#" class="category">Programming</a>
+              <a href="#" class="category">Best Practices</a>
+            </div>
+
+            <h1 class="title" data-aos="fade-up" data-aos-delay="100">Web Development Best Practices for Student Developers</h1>
+
+            <div class="article-meta" data-aos="fade-up" data-aos-delay="200">
+              <div class="author">
+                <img src="assets/img/person/person-f-5.webp" alt="Author" class="author-img">
+                <div class="author-info">
+                  <h4>Sarah Johnson</h4>
+                  <span>KHODERS Web Development Lead</span>
+                </div>
+              </div>
+              <div class="post-info">
+                <span><i class="bi bi-calendar4-week"></i> November 5, 2025</span>
+                <span><i class="bi bi-clock"></i> 12 min read</span>
+                <span><i class="bi bi-chat-square-text"></i> 18 Comments</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-featured-image" data-aos="zoom-in">
+            <img src="assets/img/blog/blog-1.webp" alt="Web Development Best Practices" class="img-fluid">
+          </div>
+
+          <div class="article-wrapper">
+            <aside class="table-of-contents" data-aos="fade-left">
+              <h3>Table of Contents</h3>
+              <nav>
+                <ul>
+                  <li><a href="#introduction" class="active">Introduction</a></li>
+                  <li><a href="#code-organization">Code Organization</a></li>
+                  <li><a href="#performance">Performance Optimization</a></li>
+                  <li><a href="#accessibility">Accessibility</a></li>
+                  <li><a href="#testing">Testing Strategies</a></li>
+                  <li><a href="#tools">Essential Tools</a></li>
+                </ul>
+              </nav>
+            </aside>
+
+            <div class="article-content">
+              <div class="content-section" id="introduction" data-aos="fade-up">
+                <p class="lead">
+                  Web development is an ever-evolving field where best practices change rapidly. For student developers looking to build professional, maintainable web applications, understanding these foundational principles is essential.
+                </p>
+
+                <p>
+                  This guide covers crucial web development best practices that will help student developers write better code, build more accessible applications, and prepare for professional development environments. Whether you're creating personal projects or preparing for internships, these principles will serve you well throughout your development journey.
+                </p>
+
+                <div class="highlight-quote">
+                  <blockquote>
+                    <p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand.</p>
+                    <cite>Martin Fowler</cite>
+                  </blockquote>
+                </div>
+              </div>
+
+              <div class="content-section" id="code-organization" data-aos="fade-up">
+                <h2>Code Organization & Architecture</h2>
+                <div class="image-with-caption right">
+                  <img src="assets/img/blog/blog-hero-2.webp" alt="Clean Code Architecture" class="img-fluid" loading="lazy">
+                  <figcaption>Example of well-organized project structure</figcaption>
+                </div>
+                <p>
+                  Proper code organization is the foundation of maintainable web applications. As projects grow, having a clear structure becomes increasingly important for collaboration, debugging, and adding new features.
+                </p>
+
+                <div class="feature-points">
+                  <div class="point">
+                    <i class="bi bi-folder"></i>
+                    <div>
+                      <h4>Logical Project Structure</h4>
+                      <p>Group files by feature or functionality rather than file type</p>
+                    </div>
+                  </div>
+                  <div class="point">
+                    <i class="bi bi-code-square"></i>
+                    <div>
+                      <h4>Component-Based Architecture</h4>
+                      <p>Build reusable, self-contained components with clear responsibilities</p>
+                    </div>
+                  </div>
+                </div>
+
+                <p>
+                  Consider adopting industry standards like the <strong>Separation of Concerns</strong> principle - separating your application into distinct sections (like data, presentation, and business logic), each addressing a specific concern.
+                </p>
+              </div>
+
+              <div class="content-section" id="performance" data-aos="fade-up">
+                <h2>Performance Optimization</h2>
+                <p>
+                  Website performance significantly impacts user experience and SEO rankings. Student developers should understand key performance principles to build applications that load quickly and run smoothly.
+                </p>
+
+                <div class="comparison-grid">
+                  <div class="row g-4">
+                    <div class="col-md-6">
+                      <div class="comparison-card">
+                        <div class="icon"><i class="bi bi-speedometer"></i></div>
+                        <h4>Frontend Optimization</h4>
+                        <ul>
+                          <li>Optimize image sizes and use modern formats (WebP)</li>
+                          <li>Minimize HTTP requests</li>
+                          <li>Implement lazy loading for images and components</li>
+                          <li>Bundle and minify CSS/JavaScript</li>
+                          <li>Use browser caching effectively</li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="comparison-card">
+                        <div class="icon"><i class="bi bi-server"></i></div>
+                        <h4>Backend Optimization</h4>
+                        <ul>
+                          <li>Implement proper database indexing</li>
+                          <li>Use caching strategies (Redis, Memcached)</li>
+                          <li>Optimize API responses</li>
+                          <li>Consider pagination for large datasets</li>
+                          <li>Implement efficient error handling</li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-section" id="accessibility" data-aos="fade-up">
+                <h2>Accessibility: Building for Everyone</h2>
+                <p>
+                  Web accessibility ensures that all users, including those with disabilities, can perceive, understand, navigate, and interact with websites. It's not just a best practice but an ethical responsibility for developers.
+                </p>
+
+                <div class="key-principles">
+                  <div class="principle">
+                    <span class="number">01</span>
+                    <h4>Semantic HTML</h4>
+                    <p>Use proper HTML elements for their intended purpose (headings, buttons, forms)</p>
+                  </div>
+                  <div class="principle">
+                    <span class="number">02</span>
+                    <h4>ARIA Attributes</h4>
+                    <p>Add ARIA roles and attributes when HTML semantics are insufficient</p>
+                  </div>
+                  <div class="principle">
+                    <span class="number">03</span>
+                    <h4>Keyboard Navigation</h4>
+                    <p>Ensure all functionality is available without using a mouse</p>
+                  </div>
+                  <div class="principle">
+                    <span class="number">04</span>
+                    <h4>Color Contrast</h4>
+                    <p>Maintain sufficient contrast between text and background colors</p>
+                  </div>
+                </div>
+              </div>
+
+              <div class="content-section" id="testing" data-aos="fade-up">
+                <h2>Testing Strategies</h2>
+                <p>
+                  Testing is often overlooked by student developers but is crucial for building reliable applications. Implementing proper testing strategies early in your development journey will save countless hours debugging and refactoring later.
+                </p>
+
+                <div class="info-box">
+                  <div class="icon">
+                    <i class="bi bi-bug"></i>
+                  </div>
+                  <div class="content">
+                    <h4>Testing Pyramid</h4>
+                    <p>Structure your tests following the testing pyramid: many unit tests (testing individual functions/components), some integration tests (testing how components work together), and a few end-to-end tests (testing complete user flows).</p>
+                  </div>
+                </div>
+                
+                <h4 class="mt-4">Popular Testing Libraries</h4>
+                <ul>
+                  <li><strong>Unit Testing:</strong> Jest, Mocha, Jasmine</li>
+                  <li><strong>Component Testing:</strong> React Testing Library, Vue Testing Library, Angular Testing Utilities</li>
+                  <li><strong>End-to-End Testing:</strong> Cypress, Playwright, Selenium</li>
+                </ul>
+              </div>
+
+              <div class="content-section" id="tools" data-aos="fade-up">
+                <h2>Essential Development Tools</h2>
+                <p>
+                  Modern web development is greatly enhanced by using the right tools. These tools improve productivity, code quality, and collaboration while making the development process more enjoyable.
+                </p>
+
+                <div class="future-trends">
+                  <div class="trend">
+                    <i class="bi bi-git"></i>
+                    <h4>Version Control</h4>
+                    <p>Git and GitHub/GitLab for tracking changes and collaborating with others</p>
+                  </div>
+                  <div class="trend">
+                    <i class="bi bi-braces"></i>
+                    <h4>Code Quality Tools</h4>
+                    <p>ESLint, Prettier, and TypeScript for more maintainable and error-free code</p>
+                  </div>
+                  <div class="trend">
+                    <i class="bi bi-rocket"></i>
+                    <h4>Build Tools</h4>
+                    <p>Webpack, Vite, or Parcel for bundling and optimizing your application</p>
+                  </div>
+                  <div class="trend">
+                    <i class="bi bi-terminal"></i>
+                    <h4>Development Environment</h4>
+                    <p>VS Code with extensions, browser DevTools, and Postman for API testing</p>
+                  </div>
+                </div>
+                
+                <div class="alert alert-info mt-4" role="alert">
+                  <p class="mb-0"><strong>KHODERS Tip:</strong> Attend our "Developer Tools Workshop" held every first Saturday of the month to learn how to set up and use these tools effectively.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="article-footer" data-aos="fade-up">
+            <div class="share-article">
+              <h4>Share this article</h4>
+              <div class="share-buttons">
+                <a href="#" class="share-button twitter">
+                  <i class="bi bi-twitter-x"></i>
+                  <span>Share on X</span>
+                </a>
+                <a href="#" class="share-button facebook">
+                  <i class="bi bi-facebook"></i>
+                  <span>Share on Facebook</span>
+                </a>
+                <a href="#" class="share-button linkedin">
+                  <i class="bi bi-linkedin"></i>
+                  <span>Share on LinkedIn</span>
+                </a>
+              </div>
+            </div>
+
+            <div class="article-tags">
+              <h4>Related Topics</h4>
+              <div class="tags">
+                <a href="#" class="tag">Web Development</a>
+                <a href="#" class="tag">Frontend</a>
+                <a href="#" class="tag">Coding Standards</a>
+                <a href="#" class="tag">JavaScript</a>
+                <a href="#" class="tag">HTML5</a>
+                <a href="#" class="tag">CSS3</a>
+                <a href="#" class="tag">Performance</a>
+              </div>
+            </div>
+          </div>
+
+        </article>
+
+      </div>
+    </section><!-- /Blog Details Section -->
+
+    <!-- Blog Comments Section -->
+    <section id="blog-comments" class="blog-comments section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="blog-comments-4">
+          <div class="comments-header">
+            <h3 class="title">Member Feedback</h3>
+            <div class="comments-stats">
+              <span class="count">8</span>
+              <span class="label">Comments</span>
+            </div>
+          </div>
+
+          <div class="comments-container">
+            <!-- Comment #1 -->
+            <div class="comment-thread">
+              <div class="comment-box">
+                <div class="comment-wrapper">
+                  <div class="avatar-wrapper">
+                    <img src="assets/img/person/person-f-9.webp" alt="Avatar" loading="lazy">
+                    <span class="status-indicator"></span>
+                  </div>
+
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <div class="user-info">
+                        <h4>Thomas Anderson</h4>
+                        <span class="time-badge">
+                          <i class="bi bi-clock"></i>
+                          2 hours ago
+                        </span>
+                      </div>
+                      <div class="engagement">
+                        <span class="likes">
+                          <i class="bi bi-heart"></i>
+                          24
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="comment-body">
+                      <p>Nullam ac urna eu felis dapibus condimentum sit amet a augue. Sed non neque elit. Sed ut imperdiet nisi. Proin condimentum fermentum nunc.</p>
+                    </div>
+
+                    <div class="comment-actions">
+                      <button class="action-btn like-btn" aria-label="Like comment">
+                        <i class="bi bi-heart"></i>
+                        <span>Like</span>
+                      </button>
+                      <button class="action-btn reply-btn" aria-label="Reply to comment">
+                        <i class="bi bi-chat"></i>
+                        <span>Reply</span>
+                      </button>
+                      <button class="action-btn share-btn" aria-label="Share comment">
+                        <i class="bi bi-share"></i>
+                        <span>Share</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Replies Container -->
+              <div class="replies-container">
+                <!-- Reply #1 -->
+                <div class="comment-box reply">
+                  <div class="comment-wrapper">
+                    <div class="avatar-wrapper">
+                      <img src="assets/img/person/person-m-9.webp" alt="Avatar" loading="lazy">
+                      <span class="status-indicator"></span>
+                    </div>
+
+                    <div class="comment-content">
+                      <div class="comment-header">
+                        <div class="user-info">
+                          <h4>Maria Rodriguez</h4>
+                          <span class="time-badge">
+                            <i class="bi bi-clock"></i>
+                            1 hour ago
+                          </span>
+                        </div>
+                        <div class="engagement">
+                          <span class="likes">
+                            <i class="bi bi-heart"></i>
+                            8
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="comment-body">
+                        <p>Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae.</p>
+                      </div>
+
+                      <div class="comment-actions">
+                        <button class="action-btn like-btn" aria-label="Like comment">
+                          <i class="bi bi-heart"></i>
+                          <span>Like</span>
+                        </button>
+                        <button class="action-btn reply-btn" aria-label="Reply to comment">
+                          <i class="bi bi-chat"></i>
+                          <span>Reply</span>
+                        </button>
+                        <button class="action-btn share-btn" aria-label="Share comment">
+                          <i class="bi bi-share"></i>
+                          <span>Share</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Reply #2 -->
+                <div class="comment-box reply">
+                  <div class="comment-wrapper">
+                    <div class="avatar-wrapper">
+                      <img src="assets/img/person/person-f-9.webp" alt="Avatar" loading="lazy">
+                      <span class="status-indicator"></span>
+                    </div>
+
+                    <div class="comment-content">
+                      <div class="comment-header">
+                        <div class="user-info">
+                          <h4>Alex Chen</h4>
+                          <span class="time-badge">
+                            <i class="bi bi-clock"></i>
+                            30 minutes ago
+                          </span>
+                        </div>
+                        <div class="engagement">
+                          <span class="likes">
+                            <i class="bi bi-heart"></i>
+                            5
+                          </span>
+                        </div>
+                      </div>
+
+                      <div class="comment-body">
+                        <p>Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus.</p>
+                      </div>
+
+                      <div class="comment-actions">
+                        <button class="action-btn like-btn" aria-label="Like comment">
+                          <i class="bi bi-heart"></i>
+                          <span>Like</span>
+                        </button>
+                        <button class="action-btn reply-btn" aria-label="Reply to comment">
+                          <i class="bi bi-chat"></i>
+                          <span>Reply</span>
+                        </button>
+                        <button class="action-btn share-btn" aria-label="Share comment">
+                          <i class="bi bi-share"></i>
+                          <span>Share</span>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comment #2 -->
+            <div class="comment-thread">
+              <div class="comment-box">
+                <div class="comment-wrapper">
+                  <div class="avatar-wrapper">
+                    <img src="assets/img/person/person-f-7.webp" alt="Avatar" loading="lazy">
+                    <span class="status-indicator"></span>
+                  </div>
+
+                  <div class="comment-content">
+                    <div class="comment-header">
+                      <div class="user-info">
+                        <h4>Emily Watson</h4>
+                        <span class="time-badge">
+                          <i class="bi bi-clock"></i>
+                          3 hours ago
+                        </span>
+                      </div>
+                      <div class="engagement">
+                        <span class="likes">
+                          <i class="bi bi-heart"></i>
+                          15
+                        </span>
+                      </div>
+                    </div>
+
+                    <div class="comment-body">
+                      <p>Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum.</p>
+                    </div>
+
+                    <div class="comment-actions">
+                      <button class="action-btn like-btn" aria-label="Like comment">
+                        <i class="bi bi-heart"></i>
+                        <span>Like</span>
+                      </button>
+                      <button class="action-btn reply-btn" aria-label="Reply to comment">
+                        <i class="bi bi-chat"></i>
+                        <span>Reply</span>
+                      </button>
+                      <button class="action-btn share-btn" aria-label="Share comment">
+                        <i class="bi bi-share"></i>
+                        <span>Share</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /Blog Comments Section -->
+
+    <!-- Blog Comment Form Section -->
+    <section id="blog-comment-form" class="blog-comment-form section">
+      <div class="container">
+
+        <form action="">
+
+          <h4>Post Comment</h4>
+          <p>Your email address will not be published. Required fields are marked * </p>
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <input name="name" type="text" class="form-control" placeholder="Your Name*">
+            </div>
+            <div class="col-md-6 form-group">
+              <input name="email" type="text" class="form-control" placeholder="Your Email*">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col form-group">
+              <input name="website" type="text" class="form-control" placeholder="Your Website">
+            </div>
+          </div>
+          <div class="row">
+            <div class="col form-group">
+              <textarea name="comment" class="form-control" placeholder="Your Comment*"></textarea>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Post Comment</button>
+          </div>
+
+        </form>
+
+      </div>
+    </section><!-- /Blog Comment Form Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40" class="me-2">
+            <span class="sitename">KHODERS</span>
+          </a>
+          <p>KHODERS is the premier campus coding club at Kumasi Technical University, offering practical programming education, mentorship, and career support to students of all skill levels.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="terms-of-service.html">Terms of service</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Programs</h4>
+          <ul>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Mobile Development</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">UI/UX Design</a></li>
+            <li><a href="courses.html">Cloud Computing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kumasi Technical University</p>
+          <p>Kumasi, Ghana</p>
+          <p>West Africa</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+233 50 123 4567</span></p>
+          <p><strong>Email:</strong> <span>info@khodersclub.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Khoders World</strong> <span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

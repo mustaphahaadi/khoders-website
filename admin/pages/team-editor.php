@@ -12,6 +12,7 @@ if (!defined('PAGE_TITLE')) {
 // Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
+require_once __DIR__ . '/../../config/file-upload.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 // Initialize variables
@@ -89,6 +90,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_member'])) {
         $member['is_featured'] = isset($_POST['is_featured']) ? 1 : 0;
         $member['status'] = $_POST['status'] ?? 'active';
         $member['order_index'] = (int)($_POST['order_index'] ?? 0);
+        
+        // Handle photo upload if file is provided
+        if (!empty($_FILES['photo_file']) && $_FILES['photo_file']['error'] === UPLOAD_ERR_OK) {
+            $uploader = new FileUploader('team', 5 * 1024 * 1024); // 5MB limit
+            $uploadResult = $uploader->upload($_FILES['photo_file']);
+            
+            if ($uploadResult['success']) {
+                // Delete old photo if editing
+                if ($action === 'edit' && !empty($member['photo_url'])) {
+                    $uploader->delete($member['photo_url']);
+                }
+                $member['photo_url'] = $uploadResult['path'];
+            } else {
+                $error = 'Photo upload failed: ' . $uploadResult['error'];
+            }
+        }
         
         // Basic validation
         if (empty($member['name'])) {
@@ -207,7 +224,7 @@ $csrfToken = Security::generateCSRFToken();
             </div>
           <?php endif; ?>
           
-          <form class="forms-sample" method="post" action="?route=team-editor&action=<?php echo $action; ?><?php echo $member_id ? '&id=' . $member_id : ''; ?>">
+          <form class="forms-sample" method="post" action="?route=team-editor&action=<?php echo $action; ?><?php echo $member_id ? '&id=' . $member_id : ''; ?>" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             
             <div class="row mb-4">
@@ -255,17 +272,20 @@ $csrfToken = Security::generateCSRFToken();
                   </div>
                   <div class="card-body">
                     <div class="form-group mb-3">
-                      <label for="photo_url" class="form-label">Photo URL</label>
-                      <input type="url" class="form-control" id="photo_url" name="photo_url" 
-                             value="<?php echo htmlspecialchars($member['photo_url']); ?>">
-                      <small class="form-text text-muted">URL to member's photo</small>
+                      <label for="photo_file" class="form-label">Member Photo</label>
+                      <input type="file" class="form-control" id="photo_file" name="photo_file" accept="image/*" onchange="previewImage(this, 'photo_preview')">
+                      <small class="form-text text-muted">JPG, PNG, WebP or GIF (Max 5MB)</small>
+                      <?php if (!empty($member['photo_url'])): ?>
+                        <div class="mt-2">
+                          <label class="form-text text-muted d-block">Current Photo:</label>
+                          <img id="photo_preview" src="<?php echo htmlspecialchars($member['photo_url']); ?>" alt="Member photo" style="max-width: 150px; max-height: 150px; border-radius: 50%;" class="img-thumbnail">
+                        </div>
+                      <?php else: ?>
+                        <div class="mt-2">
+                          <img id="photo_preview" style="display: none; max-width: 150px; max-height: 150px; border-radius: 50%;" class="img-thumbnail">
+                        </div>
+                      <?php endif; ?>
                     </div>
-                    
-                    <?php if (!empty($member['photo_url'])): ?>
-                    <div class="text-center mt-3">
-                      <img src="<?php echo htmlspecialchars($member['photo_url']); ?>" alt="Member Photo" class="img-thumbnail" style="max-height: 150px;">
-                    </div>
-                    <?php endif; ?>
                   </div>
                 </div>
                 
@@ -355,6 +375,18 @@ $csrfToken = Security::generateCSRFToken();
 </div>
 
 <script>
+function previewImage(input, previewId) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById(previewId);
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 $(document).ready(function() {
   // Initialize rich text editor for bio
   if (typeof tinymce !== 'undefined') {

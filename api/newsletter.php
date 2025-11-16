@@ -27,6 +27,18 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 require_once '../config/database.php';
 require_once '../config/security.php';
+require_once '../config/csrf.php';
+
+// Validate CSRF token
+if (!CSRFToken::validate(null, 3600)) {
+    http_response_code(403);
+    echo json_encode([
+        'success' => false,
+        'error' => 'CSRF validation failed',
+        'message' => 'Invalid or expired security token. Please refresh and try again.'
+    ]);
+    exit;
+}
 
 $clientIP = Security::getClientIP();
 if (!Security::checkRateLimit($clientIP, 5, 300)) {
@@ -107,6 +119,9 @@ try {
     
     if ($success) {
         $subscriberId = $db->lastInsertId();
+        
+        // Regenerate CSRF token for next request
+        CSRFToken::regenerate();
         
         http_response_code(201);
         echo json_encode([

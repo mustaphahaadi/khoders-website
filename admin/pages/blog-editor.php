@@ -12,6 +12,7 @@ if (!defined('PAGE_TITLE')) {
 // Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
+require_once __DIR__ . '/../../config/file-upload.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 // Initialize variables
@@ -85,6 +86,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_post'])) {
         $post['category'] = $_POST['category'] ?? '';
         $post['tags'] = $_POST['tags'] ?? '';
         $post['status'] = $_POST['status'] ?? 'draft';
+        
+        // Handle featured image upload if file is provided
+        if (!empty($_FILES['featured_image_file']) && $_FILES['featured_image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploader = new FileUploader('blog', 5 * 1024 * 1024); // 5MB limit
+            $uploadResult = $uploader->upload($_FILES['featured_image_file']);
+            
+            if ($uploadResult['success']) {
+                // Delete old image if editing
+                if ($action === 'edit' && !empty($post['featured_image'])) {
+                    $uploader->delete($post['featured_image']);
+                }
+                $post['featured_image'] = $uploadResult['path'];
+            } else {
+                $error = 'Featured image upload failed: ' . $uploadResult['error'];
+            }
+        }
         
         // Generate slug if not provided
         if (empty($post['slug']) && !empty($post['title'])) {
@@ -182,7 +199,7 @@ $pageTitle = ($action === 'edit') ? 'Edit Blog Post' : 'Create New Blog Post';
             </div>
           <?php endif; ?>
           
-          <form method="POST" class="forms-sample">
+          <form method="POST" class="forms-sample" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
             <input type="hidden" name="save_post" value="1">
             
@@ -241,10 +258,19 @@ $pageTitle = ($action === 'edit') ? 'Edit Blog Post' : 'Create New Blog Post';
             </div>
             
             <div class="mb-3">
-              <label for="featured_image" class="form-label">Featured Image URL</label>
-              <input type="url" class="form-control" id="featured_image" name="featured_image" 
-                     value="<?php echo htmlspecialchars($post['featured_image']); ?>" 
-                     placeholder="https://example.com/image.jpg">
+              <label for="featured_image_file" class="form-label">Featured Image</label>
+              <input type="file" class="form-control" id="featured_image_file" name="featured_image_file" accept="image/*" onchange="previewImage(this, 'featured_image_preview')">
+              <small class="form-text text-muted">JPG, PNG, WebP or GIF (Max 5MB)</small>
+              <?php if (!empty($post['featured_image'])): ?>
+                <div class="mt-2">
+                  <label class="form-text text-muted d-block">Current Image:</label>
+                  <img id="featured_image_preview" src="<?php echo htmlspecialchars($post['featured_image']); ?>" alt="Featured image" style="max-width: 200px; max-height: 150px;" class="img-thumbnail">
+                </div>
+              <?php else: ?>
+                <div class="mt-2">
+                  <img id="featured_image_preview" style="display: none; max-width: 200px; max-height: 150px;" class="img-thumbnail">
+                </div>
+              <?php endif; ?>
             </div>
             
             <div class="mb-3">
@@ -279,6 +305,18 @@ $pageTitle = ($action === 'edit') ? 'Edit Blog Post' : 'Create New Blog Post';
 </div>
 
 <script>
+function previewImage(input, previewId) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById(previewId);
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 function generateSlug() {
     const title = document.getElementById('title').value;
     if (title) {

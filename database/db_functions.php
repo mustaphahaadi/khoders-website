@@ -187,6 +187,32 @@ function saveRegistration($data) {
 }
 
 /**
+ * Validate email format using regex pattern
+ * 
+ * @param string $email Email to validate
+ * @return bool True if email is valid, false otherwise
+ */
+function validateEmail($email) {
+    // RFC 5322 simplified regex for email validation
+    $pattern = '/^[^\s@]+@[^\s@]+\.[^\s@]+$/';
+    if (!preg_match($pattern, $email)) {
+        return false;
+    }
+    
+    // Additional check: ensure email doesn't exceed reasonable length
+    if (strlen($email) > 254) {
+        return false;
+    }
+    
+    // Check for consecutive dots
+    if (strpos($email, '..') !== false) {
+        return false;
+    }
+    
+    return true;
+}
+
+/**
  * Save newsletter subscription to database
  * 
  * @param array $data Form data
@@ -204,6 +230,12 @@ function saveNewsletter($data) {
     // Check for required fields
     if (empty($email)) {
         logFormSubmission('newsletter', $email, 'error', 'Missing email');
+        return false;
+    }
+    
+    // Validate email format
+    if (!validateEmail($email)) {
+        logFormSubmission('newsletter', $email, 'error', 'Invalid email format');
         return false;
     }
     

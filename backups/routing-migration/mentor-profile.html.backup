@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Mentor Profile - KHODERS Campus Coding Community</title>
+  <meta name="description" content="Learn about our experienced mentors at KHODERS coding club. Discover their expertise, teaching approach, and how they can help you develop your programming skills.">
+  <meta name="keywords" content="KHODERS mentor, coding mentor, programming teacher, tech mentor, campus coding club, KTU, web development mentor">
+
+  <!-- Favicons -->
+  <link href="assets/img/khoders/logo.png" rel="icon">
+  <link href="assets/img/khoders/logo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+</head>
+
+<body class="instructor-profile-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Using KHODERS logo -->
+        <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40">
+        <h1 class="sitename">KHODERS</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="team.html" class="active">Team</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li class="dropdown"><a href="#"><span>Resources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="404.html">404</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="register.html">Join Now</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Mentor Profile</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="team.html">Team</a></li>
+            <li class="current">Mentor Profile</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Mentor Profile Section -->
+    <section id="mentor-profile" class="instructor-profile section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+
+          <div class="col-lg-12">
+            <div class="instructor-hero-banner" data-aos="zoom-out" data-aos-delay="200">
+              <div class="hero-background">
+                <img src="assets/img/education/showcase-3.webp" alt="Background" class="img-fluid">
+                <div class="hero-overlay"></div>
+              </div>
+              <div class="hero-content">
+                <div class="instructor-avatar">
+                  <img src="assets/img/person/person-m-2.webp" alt="Mentor" class="img-fluid">
+                  <div class="status-badge">
+                    <i class="bi bi-patch-check-fill"></i>
+                    <span>Verified</span>
+                  </div>
+                </div>
+                <div class="instructor-info">
+                  <h2>Daniel Osei</h2>
+                  <p class="title">Lead Web Development Mentor</p>
+                  <div class="credentials">
+                    <span class="credential">BSc Computer Science</span>
+                    <span class="credential">5+ Years</span>
+                    <span class="credential">124 Members Mentored</span>
+                  </div>
+                  <div class="rating-overview">
+                    <div class="stars">
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-fill"></i>
+                      <i class="bi bi-star-half"></i>
+                    </div>
+                    <span class="rating-text">4.9 rating from 82 reviews</span>
+                  </div>
+                  <div class="contact-actions">
+                    <a href="contact.html" class="btn-contact">
+                      <i class="bi bi-envelope"></i>
+                      Contact Mentor
+                    </a>
+                    <div class="social-media">
+                      <a href="#"><i class="bi bi-linkedin"></i></a>
+                      <a href="#"><i class="bi bi-twitter-x"></i></a>
+                      <a href="#"><i class="bi bi-youtube"></i></a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="row gy-5 mt-4">
+
+          <div class="col-lg-8">
+            <div class="content-tabs" data-aos="fade-right" data-aos-delay="300">
+
+              <ul class="nav nav-tabs custom-tabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#instructor-profile-about" type="button" role="tab">
+                    <i class="bi bi-person"></i>
+                    About
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#instructor-profile-experience" type="button" role="tab">
+                    <i class="bi bi-briefcase"></i>
+                    Experience
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#instructor-profile-courses" type="button" role="tab">
+                    <i class="bi bi-book"></i>
+                    Programs
+                  </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                  <button class="nav-link" data-bs-toggle="tab" data-bs-target="#instructor-profile-reviews" type="button" role="tab">
+                    <i class="bi bi-star"></i>
+                    Reviews
+                  </button>
+                </li>
+              </ul>
+
+              <div class="tab-content custom-tab-content">
+
+                <div class="tab-pane fade show active" id="instructor-profile-about" role="tabpanel">
+                  <div class="about-content">
+                    <div class="bio-section">
+                      <h4>Professional Biography</h4>
+                      <p>Daniel Osei is an experienced web developer and passionate educator with over 5 years of professional development experience. As the Lead Web Development Mentor at KHODERS, he guides students through their coding journey from basic concepts to advanced full-stack applications.</p>
+                      <p>With a background in both frontend and backend technologies, Daniel specializes in modern JavaScript frameworks, responsive design, and best practices for building scalable applications. His teaching philosophy emphasizes hands-on learning, practical problem-solving, and building real-world projects that students can showcase in their portfolios.</p>
+                    </div>
+
+                    <div class="expertise-grid">
+                      <h4>Core Expertise</h4>
+                      <div class="skills-grid">
+                        <div class="skill-item">
+                          <i class="bi bi-code-slash"></i>
+                          <span>JavaScript/TypeScript</span>
+                        </div>
+                        <div class="skill-item">
+                          <i class="bi bi-window"></i>
+                          <span>React.js & Vue.js</span>
+                        </div>
+                        <div class="skill-item">
+                          <i class="bi bi-bootstrap"></i>
+                          <span>CSS/SCSS & Frameworks</span>
+                        </div>
+                        <div class="skill-item">
+                          <i class="bi bi-server"></i>
+                          <span>Node.js & Express</span>
+                        </div>
+                        <div class="skill-item">
+                          <i class="bi bi-database"></i>
+                          <span>MongoDB & MySQL</span>
+                        </div>
+                        <div class="skill-item">
+                          <i class="bi bi-tools"></i>
+                          <span>DevOps & Git</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="instructor-profile-experience" role="tabpanel">
+                  <div class="experience-grid">
+                    <div class="experience-card">
+                      <div class="timeline-marker">2023</div>
+                      <div class="experience-details">
+                        <h5>Lead Web Development Mentor</h5>
+                        <p class="institution">KHODERS Coding Club - KTU</p>
+                        <p>Leads the web development track for KHODERS, designing curriculum, conducting workshops, providing one-on-one mentorship, and organizing collaborative coding sessions and hackathons for campus students.</p>
+                      </div>
+                    </div>
+
+                    <div class="experience-card">
+                      <div class="timeline-marker">2021</div>
+                      <div class="experience-details">
+                        <h5>Senior Frontend Developer</h5>
+                        <p class="institution">TechGhana Solutions</p>
+                        <p>Developed responsive web applications for clients across various industries using React, TypeScript and modern frontend architecture. Led a team of junior developers and implemented CI/CD pipelines for streamlined deployment.</p>
+                      </div>
+                    </div>
+
+                    <div class="experience-card">
+                      <div class="timeline-marker">2019</div>
+                      <div class="experience-details">
+                        <h5>Full Stack Developer</h5>
+                        <p class="institution">Accra Digital Innovations</p>
+                        <p>Built end-to-end web applications using the MERN stack (MongoDB, Express, React, Node.js). Collaborated with UX designers and product managers to deliver client projects on schedule and within requirements.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="instructor-profile-courses" role="tabpanel">
+                  <div class="courses-grid">
+                    <div class="course-item">
+                      <div class="course-thumb">
+                        <img src="assets/img/education/courses-5.webp" alt="Program" class="img-fluid">
+                        <div class="course-level">All Levels</div>
+                      </div>
+                      <div class="course-info">
+                        <h5>Web Development Pathway</h5>
+                        <div class="course-stats">
+                          <span><i class="bi bi-people"></i> 48 members</span>
+                          <span><i class="bi bi-star-fill"></i> 4.9</span>
+                        </div>
+                        <p class="price">Free</p>
+                      </div>
+                    </div>
+
+                    <div class="course-item">
+                      <div class="course-thumb">
+                        <img src="assets/img/education/courses-9.webp" alt="Workshop" class="img-fluid">
+                        <div class="course-level">Beginner</div>
+                      </div>
+                      <div class="course-info">
+                        <h5>Frontend Fundamentals Workshop</h5>
+                        <div class="course-stats">
+                          <span><i class="bi bi-people"></i> 36 members</span>
+                          <span><i class="bi bi-star-fill"></i> 4.8</span>
+                        </div>
+                        <p class="price">Free</p>
+                      </div>
+                    </div>
+
+                    <div class="course-item">
+                      <div class="course-thumb">
+                        <img src="assets/img/education/courses-12.webp" alt="Workshop" class="img-fluid">
+                        <div class="course-level">Intermediate</div>
+                      </div>
+                      <div class="course-info">
+                        <h5>React.js Deep Dive</h5>
+                        <div class="course-stats">
+                          <span><i class="bi bi-people"></i> 22 members</span>
+                          <span><i class="bi bi-star-fill"></i> 5.0</span>
+                        </div>
+                        <p class="price">Free</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="tab-pane fade" id="instructor-profile-reviews" role="tabpanel">
+                  <div class="reviews-container">
+                    <div class="review-card">
+                      <div class="review-header">
+                        <img src="assets/img/person/person-f-3.webp" alt="Member" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                          <h6>Akosua Mensah</h6>
+                          <p>Computer Science Student</p>
+                          <div class="review-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p>"Daniel is an exceptional mentor who truly cares about his students' growth. He explains complex concepts in simple terms and is always available to help when you get stuck. The hands-on approach and real-world projects have helped me build a strong portfolio."</p>
+                    </div>
+
+                    <div class="review-card">
+                      <div class="review-header">
+                        <img src="assets/img/person/person-m-4.webp" alt="Member" class="reviewer-avatar">
+                        <div class="reviewer-info">
+                          <h6>Kwame Owusu</h6>
+                          <p>IT Student, KTU</p>
+                          <div class="review-rating">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                          </div>
+                        </div>
+                      </div>
+                      <p>"Thanks to Daniel's mentorship in the Web Development Pathway, I landed my first internship as a junior developer. His teaching style focuses on practical skills that employers actually want, and he's great at helping you understand the 'why' behind coding practices, not just the 'how'."</p>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+
+          <div class="col-lg-4">
+            <div class="sidebar-widgets" data-aos="fade-left" data-aos-delay="300">
+
+              <div class="stats-widget">
+                <h4>Mentorship Impact</h4>
+                <div class="stats-grid">
+                  <div class="stat-box">
+                    <div class="stat-icon">
+                      <i class="bi bi-people"></i>
+                    </div>
+                    <div class="stat-content">
+                      <h5>124</h5>
+                      <p>Members Mentored</p>
+                    </div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-icon">
+                      <i class="bi bi-book"></i>
+                    </div>
+                    <div class="stat-content">
+                      <h5>3</h5>
+                      <p>Active Programs</p>
+                    </div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-icon">
+                      <i class="bi bi-award"></i>
+                    </div>
+                    <div class="stat-content">
+                      <h5>92%</h5>
+                      <p>Completion Rate</p>
+                    </div>
+                  </div>
+                  <div class="stat-box">
+                    <div class="stat-icon">
+                      <i class="bi bi-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                      <h5>5+</h5>
+                      <p>Years Experience</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="achievements-widget">
+                <h4>Recognition &amp; Awards</h4>
+                <div class="achievement-list">
+                  <div class="achievement-item">
+                    <i class="bi bi-trophy"></i>
+                    <div class="achievement-text">
+                      <h6>Best Student Mentor Award</h6>
+                      <p>KTU Computer Science Department • 2024</p>
+                    </div>
+                  </div>
+                  <div class="achievement-item">
+                    <i class="bi bi-patch-check"></i>
+                    <div class="achievement-text">
+                      <h6>Outstanding Web Project</h6>
+                      <p>Ghana Tech Summit • 2023</p>
+                    </div>
+                  </div>
+                  <div class="achievement-item">
+                    <i class="bi bi-mortarboard"></i>
+                    <div class="achievement-text">
+                      <h6>Best Campus Tech Initiative</h6>
+                      <p>Ghana Digital Skills Competition • 2022</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="contact-widget">
+                <h4>Get in Touch</h4>
+                <div class="contact-info">
+                  <div class="contact-item">
+                    <i class="bi bi-envelope"></i>
+                    <span>daniel@khodersclub.com</span>
+                  </div>
+                  <div class="contact-item">
+                    <i class="bi bi-telephone"></i>
+                    <span>+233 50 987 6543</span>
+                  </div>
+                  <div class="contact-item">
+                    <i class="bi bi-geo-alt"></i>
+                    <span>KHODERS Hub, Computer Science Department, KTU</span>
+                  </div>
+                </div>
+                <div class="office-hours">
+                  <h6>Mentorship Hours</h6>
+                  <p>Monday, Wednesday & Friday<br>3:00 PM - 6:00 PM</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+
+    </section><!-- /Instructor Profile Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40" class="me-2">
+            <span class="sitename">KHODERS</span>
+          </a>
+          <p>KHODERS is the premier campus coding club at Kumasi Technical University, offering practical programming education, mentorship, and career support to students of all skill levels.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="terms-of-service.html">Terms of service</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Programs</h4>
+          <ul>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Mobile Development</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">UI/UX Design</a></li>
+            <li><a href="courses.html">Cloud Computing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kumasi Technical University</p>
+          <p>Kumasi, Ghana</p>
+          <p>West Africa</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+233 50 123 4567</span></p>
+          <p><strong>Email:</strong> <span>info@khodersclub.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Khoders World</strong> <span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -12,6 +12,7 @@ if (!defined('PAGE_TITLE')) {
 // Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
+require_once __DIR__ . '/../../config/file-upload.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 // Initialize variables
@@ -81,6 +82,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_course'])) {
         $course['image_url'] = $_POST['image_url'] ?? '';
         $course['price'] = floatval($_POST['price'] ?? 0);
         $course['status'] = $_POST['status'] ?? 'active';
+        
+        // Handle image upload if file is provided
+        if (!empty($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploader = new FileUploader('courses', 5 * 1024 * 1024); // 5MB limit
+            $uploadResult = $uploader->upload($_FILES['image_file']);
+            
+            if ($uploadResult['success']) {
+                // Delete old image if editing
+                if ($action === 'edit' && !empty($course['image_url'])) {
+                    $uploader->delete($course['image_url']);
+                }
+                $course['image_url'] = $uploadResult['path'];
+            } else {
+                $error = 'Image upload failed: ' . $uploadResult['error'];
+            }
+        }
         
         // Basic validation
         if (empty($course['title'])) {
@@ -165,7 +182,7 @@ $pageTitle = ($action === 'edit') ? 'Edit Course' : 'Add New Course';
             </div>
           <?php endif; ?>
           
-          <form method="POST" class="forms-sample">
+          <form method="POST" class="forms-sample" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($csrfToken); ?>">
             <input type="hidden" name="save_course" value="1">
             
@@ -223,10 +240,21 @@ $pageTitle = ($action === 'edit') ? 'Edit Course' : 'Add New Course';
             </div>
             
             <div class="mb-3">
-              <label for="image_url" class="form-label">Image URL</label>
-              <input type="url" class="form-control" id="image_url" name="image_url" 
-                     value="<?php echo htmlspecialchars($course['image_url']); ?>" 
-                     placeholder="https://example.com/image.jpg">
+              <label for="image_file" class="form-label">Course Image</label>
+              <input type="file" class="form-control" id="image_file" name="image_file" 
+                     accept="image/jpeg,image/png,image/webp,image/gif"
+                     onchange="previewImage(this, 'image_preview')">
+              <small class="form-text text-muted">Supported formats: JPEG, PNG, WebP, GIF (Max 5MB)</small>
+              
+              <?php if (!empty($course['image_url'])): ?>
+                <div class="mt-2">
+                  <img id="image_preview" src="<?php echo htmlspecialchars($course['image_url']); ?>" 
+                       alt="Course image" style="max-width: 200px; max-height: 200px;">
+                  <p><small class="text-muted">Current image</small></p>
+                </div>
+              <?php else: ?>
+                <div id="image_preview"></div>
+              <?php endif; ?>
             </div>
             
             <div class="mb-3">
@@ -252,3 +280,23 @@ $pageTitle = ($action === 'edit') ? 'Edit Course' : 'Add New Course';
     </div>
   </div>
 </div>
+
+<script>
+function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            if (preview.tagName === 'IMG') {
+                preview.src = e.target.result;
+            } else {
+                preview.innerHTML = '<img src="' + e.target.result + '" style="max-width: 200px; max-height: 200px;" alt="Preview">';
+            }
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+</script>

@@ -12,6 +12,7 @@ if (!defined('PAGE_TITLE')) {
 // Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
+require_once __DIR__ . '/../../config/file-upload.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 // Initialize variables
@@ -86,6 +87,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_project'])) {
         $techStackItems = array_map('trim', $techStackItems);
         $techStackItems = array_filter($techStackItems);
         $project['tech_stack'] = json_encode($techStackItems);
+        
+        // Handle image upload if file is provided
+        if (!empty($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploader = new FileUploader('projects', 5 * 1024 * 1024); // 5MB limit
+            $uploadResult = $uploader->upload($_FILES['image_file']);
+            
+            if ($uploadResult['success']) {
+                // Delete old image if editing
+                if ($action === 'edit' && !empty($project['image_url'])) {
+                    $uploader->delete($project['image_url']);
+                }
+                $project['image_url'] = $uploadResult['path'];
+            } else {
+                $error = 'Image upload failed: ' . $uploadResult['error'];
+            }
+        }
         
         // Basic validation
         if (empty($project['title'])) {
@@ -200,7 +217,7 @@ $csrfToken = Security::generateCSRFToken();
             </div>
           <?php endif; ?>
           
-          <form class="forms-sample" method="post" action="?route=project-editor&action=<?php echo $action; ?><?php echo $project_id ? '&id=' . $project_id : ''; ?>">
+          <form class="forms-sample" method="post" action="?route=project-editor&action=<?php echo $action; ?><?php echo $project_id ? '&id=' . $project_id : ''; ?>" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             
             <div class="row mb-4">
@@ -239,10 +256,19 @@ $csrfToken = Security::generateCSRFToken();
                   </div>
                   <div class="card-body">
                     <div class="form-group mb-3">
-                      <label for="image_url" class="form-label">Image URL</label>
-                      <input type="url" class="form-control" id="image_url" name="image_url" 
-                             value="<?php echo htmlspecialchars($project['image_url']); ?>">
-                      <small class="form-text text-muted">URL to a screenshot or image of this project</small>
+                      <label for="image_file" class="form-label">Project Image</label>
+                      <input type="file" class="form-control" id="image_file" name="image_file" accept="image/*" onchange="previewImage(this, 'image_preview')">
+                      <small class="form-text text-muted">JPG, PNG, WebP or GIF (Max 5MB)</small>
+                      <?php if (!empty($project['image_url'])): ?>
+                        <div class="mt-2">
+                          <label class="form-text text-muted d-block">Current Image:</label>
+                          <img id="image_preview" src="<?php echo htmlspecialchars($project['image_url']); ?>" alt="Project image" style="max-width: 150px; max-height: 150px;" class="img-thumbnail">
+                        </div>
+                      <?php else: ?>
+                        <div class="mt-2">
+                          <img id="image_preview" style="display: none; max-width: 150px; max-height: 150px;" class="img-thumbnail">
+                        </div>
+                      <?php endif; ?>
                     </div>
                     
                     <div class="form-group mb-3">
@@ -302,6 +328,18 @@ $csrfToken = Security::generateCSRFToken();
 </div>
 
 <script>
+function previewImage(input, previewId) {
+  if (input.files && input.files[0]) {
+    const reader = new FileReader();
+    reader.onload = function(e) {
+      const preview = document.getElementById(previewId);
+      preview.src = e.target.result;
+      preview.style.display = 'block';
+    };
+    reader.readAsDataURL(input.files[0]);
+  }
+}
+
 $(document).ready(function() {
   // Initialize rich text editor for description
   if (typeof tinymce !== 'undefined') {

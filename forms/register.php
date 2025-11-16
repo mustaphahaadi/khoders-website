@@ -4,8 +4,17 @@
    * This file handles the registration form submissions with spam protection, validation, and database integration
    */
   
-  // Include database functions
+  // Include database functions and CSRF protection
   require_once '../database/db_functions.php';
+  require_once '../config/csrf.php';
+
+  // Validate CSRF token on POST requests
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST[CSRFToken::getTokenName()]) || !CSRFToken::validate()) {
+      http_response_code(403);
+      die('CSRF token validation failed. Please try again.');
+    }
+  }
 
   // Replace with your real receiving email address
   $receiving_email_address = 'info@khodersclub.com';
@@ -30,11 +39,6 @@
   // Check honeypot field (if filled, it's likely a bot)
   if (isset($_POST['username']) && !empty($_POST['username'])) {
     $register->set_honeypot($_POST['username']);
-  }
-  
-  // Validate CSRF token (basic check - would be more robust in production)
-  if (isset($_POST['csrf_token'])) {
-    $register->validate_csrf($_POST['csrf_token']);
   }
 
   // Uncomment below code if you want to use SMTP to send emails. You need to enter your correct SMTP credentials
@@ -107,6 +111,11 @@
   
   // Send email regardless of database success (could modify this behavior)
   $response = $register->send();
+  
+  // Regenerate token after successful submission for additional security
+  if ($db_success || ($response && strpos($response, 'success') !== false)) {
+    CSRFToken::regenerate();
+  }
   
   // Optionally log if email was sent but database failed
   if (!$db_success) {

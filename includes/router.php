@@ -15,29 +15,30 @@ class SiteRouter {
      */
     public static function init() {
         // Define available pages with their HTML source files
+        // Check for .php first, then fall back to .html
         self::$pages = [
-            'about' => 'pages/about.html',
-            'blog' => 'pages/blog.html',
-            'blog-details' => 'pages/blog-details.html',
-            'careers' => 'pages/careers.html',
-            'code-of-conduct' => 'pages/code-of-conduct.html',
-            'contact' => 'pages/contact.html',
-            'courses' => 'pages/courses.html',
-            'events' => 'pages/events.html',
-            'faq' => 'pages/faq.html',
-            'instructors' => 'pages/instructors.html',
-            'join-program' => 'pages/join-program.html',
-            'membership-tiers' => 'pages/membership-tiers.html',
-            'mentor-profile' => 'pages/mentor-profile.html',
-            'privacy-policy' => 'pages/privacy-policy.html',
-            'program-details' => 'pages/program-details.html',
-            'projects' => 'pages/projects.html',
-            'register' => 'pages/register.html',
-            'resources' => 'pages/resources.html',
-            'services' => 'pages/services.html',
-            'team' => 'pages/team.html',
-            'terms-of-service' => 'pages/terms-of-service.html',
-            '404' => 'pages/404.html'
+            'about' => file_exists('pages/about.php') ? 'pages/about.php' : 'pages/about.html',
+            'blog' => file_exists('pages/blog.php') ? 'pages/blog.php' : 'pages/blog.html',
+            'blog-details' => file_exists('pages/blog-details.php') ? 'pages/blog-details.php' : 'pages/blog-details.html',
+            'careers' => file_exists('pages/careers.php') ? 'pages/careers.php' : 'pages/careers.html',
+            'code-of-conduct' => file_exists('pages/code-of-conduct.php') ? 'pages/code-of-conduct.php' : 'pages/code-of-conduct.html',
+            'contact' => file_exists('pages/contact.php') ? 'pages/contact.php' : 'pages/contact.html',
+            'courses' => file_exists('pages/courses.php') ? 'pages/courses.php' : 'pages/courses.html',
+            'events' => file_exists('pages/events.php') ? 'pages/events.php' : 'pages/events.html',
+            'faq' => file_exists('pages/faq.php') ? 'pages/faq.php' : 'pages/faq.html',
+            'instructors' => file_exists('pages/instructors.php') ? 'pages/instructors.php' : 'pages/instructors.html',
+            'join-program' => file_exists('pages/join-program.php') ? 'pages/join-program.php' : 'pages/join-program.html',
+            'membership-tiers' => file_exists('pages/membership-tiers.php') ? 'pages/membership-tiers.php' : 'pages/membership-tiers.html',
+            'mentor-profile' => file_exists('pages/mentor-profile.php') ? 'pages/mentor-profile.php' : 'pages/mentor-profile.html',
+            'privacy-policy' => file_exists('pages/privacy-policy.php') ? 'pages/privacy-policy.php' : 'pages/privacy-policy.html',
+            'program-details' => file_exists('pages/program-details.php') ? 'pages/program-details.php' : 'pages/program-details.html',
+            'projects' => file_exists('pages/projects.php') ? 'pages/projects.php' : 'pages/projects.html',
+            'register' => file_exists('pages/register.php') ? 'pages/register.php' : 'pages/register.html',
+            'resources' => file_exists('pages/resources.php') ? 'pages/resources.php' : 'pages/resources.html',
+            'services' => file_exists('pages/services.php') ? 'pages/services.php' : 'pages/services.html',
+            'team' => file_exists('pages/team.php') ? 'pages/team.php' : 'pages/team.html',
+            'terms-of-service' => file_exists('pages/terms-of-service.php') ? 'pages/terms-of-service.php' : 'pages/terms-of-service.html',
+            '404' => file_exists('pages/404.php') ? 'pages/404.php' : 'pages/404.html'
         ];
         
         // Define page titles
@@ -94,6 +95,11 @@ class SiteRouter {
             $page = 'index';
         }
 
+        // Pages that load from database
+        $dynamicPages = ['events', 'team', 'projects'];
+        $pageData = [];
+        $html_content = '';
+
         // Check if page exists
         if ($page === 'index') {
             // Handle index page specially
@@ -111,6 +117,44 @@ class SiteRouter {
             } else {
                 // Fallback to a default home page
                 $html_content = '<div class="container mt-5"><h1>Welcome to KHODERS WORLD</h1><p>The premier campus coding club.</p></div>';
+            }
+        } elseif (in_array($page, $dynamicPages) && isset(self::$pages[$page])) {
+            // Load dynamic content from API
+            $apiFile = 'api/' . $page . '-list.php';
+            if (file_exists($apiFile)) {
+                ob_start();
+                include $apiFile;
+                $apiResponse = ob_get_clean();
+                $apiData = json_decode($apiResponse, true);
+                
+                if ($apiData && $apiData['success']) {
+                    $pageData = $apiData['data'] ?? [];
+                    $templateFile = 'pages/' . $page . '-template.php';
+                    
+                    if (file_exists($templateFile)) {
+                        ob_start();
+                        include $templateFile;
+                        $html_content = ob_get_clean();
+                    } else {
+                        // Fallback to static HTML
+                        $pageFile = self::$pages[$page];
+                        if (file_exists($pageFile)) {
+                            $html_content = file_get_contents($pageFile);
+                            if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                                $html_content = $matches[1];
+                            }
+                        }
+                    }
+                } else {
+                    // API failed, use static HTML
+                    $pageFile = self::$pages[$page];
+                    if (file_exists($pageFile)) {
+                        $html_content = file_get_contents($pageFile);
+                        if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                            $html_content = $matches[1];
+                        }
+                    }
+                }
             }
         } elseif (isset(self::$pages[$page]) && file_exists(self::$pages[$page])) {
             // Get the HTML content from the file

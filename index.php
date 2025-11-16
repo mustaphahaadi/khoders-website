@@ -4,6 +4,11 @@
  * Home page
  */
 
+// Initialize error handling early
+require_once 'config/error-handler.php';
+$appEnv = getenv('APP_ENV') ?: 'development';
+ErrorHandler::configure($appEnv, __DIR__ . '/logs');
+
 // Include the router
 require_once 'includes/router.php';
 

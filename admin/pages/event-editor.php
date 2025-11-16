@@ -12,6 +12,7 @@ if (!defined('PAGE_TITLE')) {
 // Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
+require_once __DIR__ . '/../../config/file-upload.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
 // Initialize variables
@@ -90,6 +91,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_event'])) {
         $event['registration_url'] = $_POST['registration_url'] ?? '';
         $event['is_featured'] = isset($_POST['is_featured']) ? 1 : 0;
         $event['status'] = $_POST['status'] ?? 'upcoming';
+        
+        // Handle image upload if file is provided
+        if (!empty($_FILES['image_file']) && $_FILES['image_file']['error'] === UPLOAD_ERR_OK) {
+            $uploader = new FileUploader('events', 5 * 1024 * 1024); // 5MB limit
+            $uploadResult = $uploader->upload($_FILES['image_file']);
+            
+            if ($uploadResult['success']) {
+                // Delete old image if editing
+                if ($action === 'edit' && !empty($event['image_url'])) {
+                    $uploader->delete($event['image_url']);
+                }
+                $event['image_url'] = $uploadResult['path'];
+            } else {
+                $error = 'Image upload failed: ' . $uploadResult['error'];
+            }
+        }
         
         // Basic validation
         if (empty($event['title'])) {
@@ -204,7 +221,7 @@ $csrfToken = Security::generateCSRFToken();
             </div>
           <?php endif; ?>
           
-          <form class="forms-sample" method="post" action="?route=event-editor&action=<?php echo $action; ?><?php echo $event_id ? '&id=' . $event_id : ''; ?>">
+          <form class="forms-sample" method="post" action="?route=event-editor&action=<?php echo $action; ?><?php echo $event_id ? '&id=' . $event_id : ''; ?>" enctype="multipart/form-data">
             <input type="hidden" name="csrf_token" value="<?php echo $csrfToken; ?>">
             
             <div class="row mb-4">
@@ -258,10 +275,21 @@ $csrfToken = Security::generateCSRFToken();
                   </div>
                   <div class="card-body">
                     <div class="form-group mb-3">
-                      <label for="image_url" class="form-label">Image URL</label>
-                      <input type="url" class="form-control" id="image_url" name="image_url" 
-                             value="<?php echo htmlspecialchars($event['image_url']); ?>">
-                      <small class="form-text text-muted">URL to an image for this event</small>
+                      <label for="image_file" class="form-label">Event Image</label>
+                      <input type="file" class="form-control" id="image_file" name="image_file" 
+                             accept="image/jpeg,image/png,image/webp,image/gif"
+                             onchange="previewImage(this, 'image_preview')">
+                      <small class="form-text text-muted">Supported formats: JPEG, PNG, WebP, GIF (Max 5MB)</small>
+                      
+                      <?php if (!empty($event['image_url'])): ?>
+                        <div class="mt-2">
+                          <img id="image_preview" src="<?php echo htmlspecialchars($event['image_url']); ?>" 
+                               alt="Event image" style="max-width: 100%; max-height: 200px;">
+                          <p><small class="text-muted">Current image</small></p>
+                        </div>
+                      <?php else: ?>
+                        <div id="image_preview"></div>
+                      <?php endif; ?>
                     </div>
                     
                     <div class="form-group mb-3">
@@ -314,6 +342,24 @@ $csrfToken = Security::generateCSRFToken();
 </div>
 
 <script>
+function previewImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    
+    if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        
+        reader.onload = function(e) {
+            if (preview.tagName === 'IMG') {
+                preview.src = e.target.result;
+            } else {
+                preview.innerHTML = '<img src="' + e.target.result + '" style="max-width: 100%; max-height: 200px;" alt="Preview">';
+            }
+        };
+        
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 $(document).ready(function() {
   // Initialize rich text editor for description
   if (typeof tinymce !== 'undefined') {

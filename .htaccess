@@ -1,36 +1,47 @@
 # Enable URL rewriting
+
 RewriteEngine On
 
 # Set the base directory
+
 RewriteBase /
 
 # Handle 404 errors
+
 ErrorDocument 404 /404.php
 
 # Redirect to HTTPS (uncomment in production)
+
 # RewriteCond %{HTTPS} off
+
 # RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # Redirect www to non-www (uncomment and adjust in production)
-# RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
-# RewriteRule ^(.*)$ https://%1/$1 [L,R=301]
+
+# RewriteCond %{HTTP_HOST} ^www\.(.\*)$ [NC]
+
+# RewriteRule ^(.\*)$ https://%1/$1 [L,R=301]
 
 # Remove trailing slashes
+
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteCond %{REQUEST_URI} (.+)/$
 RewriteRule ^ %1 [L,R=301]
 
 # Route .html files through PHP router
+
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 RewriteRule ^(.+)\.html$ index.php?page=$1 [QSA,L]
 
 # Cache Control Headers
+
 <FilesMatch "\.(ico|pdf|jpg|jpeg|png|webp|gif|html|htm|xml|txt|xsl|css|js)$">
-  Header set Cache-Control "max-age=31536000, public"
+Header set Cache-Control "max-age=31536000, public"
 </FilesMatch>
 
 # Security Headers
+
 Header always set X-Content-Type-Options "nosniff"
 Header always set X-XSS-Protection "1; mode=block"
 Header always set X-Frame-Options "SAMEORIGIN"
@@ -38,23 +49,28 @@ Header always set Referrer-Policy "strict-origin-when-cross-origin"
 Header always set Permissions-Policy "geolocation=(), microphone=(), camera=()"
 
 # Content Security Policy (adjust as needed)
+
 # Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self'"
 
 # Allow cross-origin requests for fonts
+
 <FilesMatch "\.(ttf|ttc|otf|eot|woff|woff2|font\.css)$">
-  Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Origin "\*"
 </FilesMatch>
 
 # Prevent directory listing
+
 Options -Indexes
 
 # Prevent access to specific files
+
 <FilesMatch "(^\.htaccess|\.env|\.git|composer\.json|composer\.lock|package\.json|package-lock\.json)">
-  Order Allow,Deny
-  Deny from all
+Order Allow,Deny
+Deny from all
 </FilesMatch>
 
 # Protect logs directory
+
 <IfModule mod_rewrite.c>
   RewriteRule ^logs/.* - [F,L]
 </IfModule>

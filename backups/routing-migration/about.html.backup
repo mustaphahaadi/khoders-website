@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>About KHODERS WORLD - Campus Coding Community</title>
+  <meta name="description" content="Learn about KHODERS, our mission, vision, and the story behind our campus coding club. Discover how we're helping students become skilled developers.">
+  <meta name="keywords" content="coding club, about khoders, programming community, tech education, software development, university coding club">
+
+  <!-- Favicons -->
+  <link href="assets/img/khoders/logo.png" rel="icon">
+  <link href="assets/img/khoders/logo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+
+<body class="about-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Using KHODERS logo -->
+        <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40">
+        <h1 class="sitename">KHODERS WORLD</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html" class="active">About</a></li>
+          <li class="dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">
+              <span>Learn</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="courses.html">Courses</a></li>
+              <li><a href="services.html">Member Services</a></li>
+              <li><a href="instructors.html">Mentors</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">
+              <span>Community</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="projects.html">Projects</a></li>
+              <li><a href="team.html">Leadership Team</a></li>
+              <li><a href="events.html">Events</a></li>
+              <li><a href="blog.html">Blog</a></li>
+              <li><a href="careers.html">Careers</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="#" aria-haspopup="true" aria-expanded="false">
+              <span>Resources</span>
+              <i class="bi bi-chevron-down toggle-dropdown"></i>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="resources.html">Resource Library</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+              <li><a href="membership-tiers.html">Membership Tiers</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+            </ul>
+          </li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="register.html">Join Now</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">About</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">About</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row align-items-center">
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/education/education-square-2.webp" alt="About Us" class="img-fluid rounded-4">
+          </div>
+          <div class="col-lg-6" data-aos="fade-up" data-aos-delay="300">
+            <div class="about-content">
+              <span class="subtitle">About Us</span>
+              <h2>Empowering Student Developers Through Community and Mentorship</h2>
+              <p>KHODERS was founded in 2017 at Kumasi Technical University with a simple mission: to help students learn coding in a collaborative, supportive environment. We believe that programming skills are best developed through hands-on practice, peer learning, and mentorship from experienced developers.</p>
+              <div class="stats-row">
+                <div class="stats-item">
+                  <span class="count">7</span>
+                  <p>Years Running</p>
+                </div>
+                <div class="stats-item">
+                  <span class="count">15+</span>
+                  <p>Industry Mentors</p>
+                </div>
+                <div class="stats-item">
+                  <span class="count">500+</span>
+                  <p>Student Members</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5 pt-4">
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="mission-card">
+              <div class="icon-box">
+                <i class="bi bi-bullseye"></i>
+              </div>
+              <h3>Our Mission</h3>
+              <p>To assist beginners in entering the tech space smoothly by providing quality education, mentorship, and hands-on projects that develop practical programming skills and prepare students for tech careers.</p>
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="300">
+            <div class="mission-card">
+              <div class="icon-box">
+                <i class="bi bi-eye"></i>
+              </div>
+              <h3>Our Vision</h3>
+              <p>To become the most impactful tech community in Ghana, creating a new generation of skilled developers who can build innovative solutions for local and global challenges.</p>
+            </div>
+          </div>
+          <div class="col-lg-4" data-aos="fade-up" data-aos-delay="400">
+            <div class="mission-card">
+              <div class="icon-box">
+                <i class="bi bi-award"></i>
+              </div>
+              <h3>Our Values</h3>
+              <p>Collaboration, continuous learning, inclusivity, practical application, and community support. We believe in learning by doing and growing together through shared knowledge and experiences.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="row mt-5 pt-3 align-items-center">
+          <div class="col-lg-6 order-lg-2" data-aos="fade-up" data-aos-delay="300">
+            <div class="achievements">
+              <span class="subtitle">Why Choose KHODERS</span>
+              <h2>More Than Just a Coding Club</h2>
+              <p>At KHODERS, we go beyond teaching syntax. We focus on building complete developers with practical skills and professional connections.</p>
+              <ul class="achievements-list">
+                <li><i class="bi bi-check-circle-fill"></i> Hands-on project-based learning approach</li>
+                <li><i class="bi bi-check-circle-fill"></i> Mentorship from industry professionals</li>
+                <li><i class="bi bi-check-circle-fill"></i> Weekly coding sessions and hackathons</li>
+                <li><i class="bi bi-check-circle-fill"></i> Job placement assistance and internship connections</li>
+                <li><i class="bi bi-check-circle-fill"></i> Peer support system and collaborative environment</li>
+              </ul>
+              <a href="register.html" class="btn-explore">Join Our Community <i class="bi bi-arrow-right"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-6 order-lg-1" data-aos="fade-up" data-aos-delay="200">
+            <div class="about-gallery">
+              <div class="row g-3">
+                <div class="col-6">
+                  <img src="assets/img/education/education-1.webp" alt="Campus Life" class="img-fluid rounded-3">
+                </div>
+                <div class="col-6">
+                  <img src="assets/img/education/students-3.webp" alt="Student Achievement" class="img-fluid rounded-3">
+                </div>
+                <div class="col-12 mt-3">
+                  <img src="assets/img/education/campus-8.webp" alt="Our Campus" class="img-fluid rounded-3">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </section><!-- /About Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40" class="me-2">
+            <span class="sitename">KHODERS</span>
+          </a>
+          <p>KHODERS WORLD is the premier campus coding club at Kumasi Technical University, offering practical programming education, mentorship, and career support to students of all skill levels.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Programs</h4>
+          <ul>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Mobile Development</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">UI/UX Design</a></li>
+            <li><a href="courses.html">Cloud Computing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kumasi Technical University</p>
+          <p>Kumasi, Ghana</p>
+          <p>West Africa</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+1 5589 55488 55</span></p>
+          <p><strong>Email:</strong> <span>info@example.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>&copy; <span>Copyright</span> <strong class="px-1 sitename">Khoders World</strong> <span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

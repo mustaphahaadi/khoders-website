@@ -4,27 +4,34 @@ require_once __DIR__ . '/env.php';
 /**
  * Database Connection Manager
  * Enhanced version with better security and error handling
+ * 
+ * Configuration Priority:
+ * 1. Environment variables from .env or system
+ * 2. Default values specified below
+ * 3. Constructor parameters
  */
 class Database {
-    // Default database settings
+    // Default database settings (matched to .env.example)
     private $host = 'localhost';
     private $db_name = 'khoders_db';
-    private $username = 'khoders_user'; // Use dedicated application user
-    private $password = 'khoders123';
+    private $username = 'root';              // For development only; use dedicated user in production
+    private $password = '';                   // Empty for development; use strong password in production
     public $conn;
     private static $instance = null;
     private $error = '';
 
     public function __construct() {
         // Load credentials from environment variables if available
+        // Environment variables take precedence over defaults
         $this->host = getenv('DB_HOST') ?: $this->host;
         $this->db_name = getenv('DB_NAME') ?: $this->db_name;
         $this->username = getenv('DB_USER') ?: $this->username;
-        $this->password = getenv('DB_PASS') ?: $this->password;
+        $this->password = getenv('DB_PASS') !== false ? getenv('DB_PASS') : $this->password;
     }
 
     /**
      * Singleton pattern for database connection
+     * Ensures only one database connection is created per request
      */
     public static function getInstance() {
         if (self::$instance === null) {
@@ -42,6 +49,12 @@ class Database {
     
     /**
      * Get database connection with improved error handling
+     * 
+     * Features:
+     * - Automatic database creation if missing
+     * - Proper error handling and logging
+     * - Security-focused PDO options
+     * - UTF-8 support
      */
     public function getConnection() {
         // Return existing connection if available
@@ -137,10 +150,11 @@ class Database {
     }
 
     /**
-     * Log informational messages
+     * Log informational messages (suppressed in production)
      */
     private function logInfo($message) {
-        if (getenv('APP_ENV') !== 'production') {
+        $app_env = getenv('APP_ENV');
+        if ($app_env !== 'production') {
             error_log('[INFO] ' . $message);
         }
     }
@@ -159,6 +173,7 @@ class Database {
 
     /**
      * Test database connection
+     * Useful for diagnostic and monitoring purposes
      */
     public function testConnection() {
         try {

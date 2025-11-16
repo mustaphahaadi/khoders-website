@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Join Program - KHODERS Campus Coding Community</title>
+  <meta name="description" content="Join KHODERS coding programs at Kumasi Technical University. Register for our free web development, mobile app development, or data science programs and start building your tech skills today.">
+  <meta name="keywords" content="KHODERS program registration, campus coding club, KTU coding program, web development training, join programming community, tech skills development">
+
+  <!-- Favicons -->
+  <link href="assets/img/khoders/logo.png" rel="icon">
+  <link href="assets/img/khoders/logo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Learner
+  * Template URL: https://bootstrapmade.com/learner-bootstrap-course-template/
+  * Updated: Jul 08 2025 with Bootstrap v5.3.7
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="enroll-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Using KHODERS logo -->
+        <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40">
+        <h1 class="sitename">KHODERS WORLD</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li class="dropdown"><a href="#"><span>Resources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="404.html">404</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="register.html">Join Now</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Join Our Program</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.php">Home</a></li>
+            <li><a href="index.php?page=services">Services</a></li> 
+            <li class="current">Join Program</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Enroll Section -->
+    <section id="enroll" class="enroll section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="row">
+          <div class="col-lg-8 mx-auto">
+            <div class="enrollment-form-wrapper">
+
+              <div class="enrollment-header text-center mb-5" data-aos="fade-up" data-aos-delay="200">
+                <h2>Join Our Coding Programs</h2>
+                <p>Take your first step into the world of programming with KHODERS. Complete the form below to join one of our free campus coding programs and start building your tech skills today.</p>
+              </div>
+
+              <form class="enrollment-form" action="forms/register.php" method="post" data-aos="fade-up" data-aos-delay="300">
+
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="firstName" class="form-label">First Name *</label>
+                      <input type="text" id="firstName" name="firstName" class="form-control" required="" autocomplete="given-name">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="lastName" class="form-label">Last Name *</label>
+                      <input type="text" id="lastName" name="lastName" class="form-control" required="" autocomplete="family-name">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="email" class="form-label">Email Address *</label>
+                      <input type="email" id="email" name="email" class="form-control" required="" autocomplete="email">
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="phone" class="form-label">Phone Number</label>
+                      <input type="tel" id="phone" name="phone" class="form-control" autocomplete="tel">
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="course" class="form-label">Select Program *</label>
+                      <select id="course" name="course" class="form-select" required="">
+                        <option value="">Choose a program...</option>
+                        <option value="web-development">Web Development Pathway</option>
+                        <option value="mobile-development">Mobile App Development</option>
+                        <option value="ui-ux-design">UI/UX Design Fundamentals</option>
+                        <option value="data-science">Data Science Basics</option>
+                        <option value="cybersecurity">Cybersecurity Introduction</option>
+                        <option value="cloud-computing">Cloud Computing Essentials</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="education" class="form-label">Education Level</label>
+                      <select id="education" name="education" class="form-select">
+                        <option value="">Select your education level...</option>
+                        <option value="high-school">High School</option>
+                        <option value="associate">Associate Degree</option>
+                        <option value="bachelor">Bachelor's Degree</option>
+                        <option value="master">Master's Degree</option>
+                        <option value="doctorate">Doctorate</option>
+                        <option value="other">Other</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="experience" class="form-label">Experience Level</label>
+                      <select id="experience" name="experience" class="form-select">
+                        <option value="">Select your experience...</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="intermediate">Intermediate</option>
+                        <option value="advanced">Advanced</option>
+                        <option value="expert">Expert</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label for="motivation" class="form-label">What motivates you to take this course?</label>
+                      <textarea id="motivation" name="motivation" class="form-control" rows="4" placeholder="Share your goals and what you hope to achieve..."></textarea>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <label class="form-label">Preferred Learning Schedule</label>
+                      <div class="schedule-options">
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="schedule" id="weekdays" value="weekdays">
+                          <label class="form-check-label" for="weekdays">
+                            Weekdays (Monday - Friday)
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="schedule" id="weekends" value="weekends">
+                          <label class="form-check-label" for="weekends">
+                            Weekends (Saturday - Sunday)
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="radio" name="schedule" id="flexible" value="flexible" checked="">
+                          <label class="form-check-label" for="flexible">
+                            Flexible (Self-paced)
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row mb-4">
+                  <div class="col-12">
+                    <div class="form-group">
+                      <div class="agreement-section">
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="terms" name="terms" required="">
+                          <label class="form-check-label" for="terms">
+                            I agree to the <a href="index.php?page=terms-of-service">Terms of Service</a>, <a href="index.php?page=privacy-policy">Privacy Policy</a>, and <a href="index.php?page=code-of-conduct">Code of Conduct</a> *
+                          </label>
+                        </div>
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" id="newsletter" name="newsletter">
+                          <label class="form-check-label" for="newsletter">
+                            I would like to receive course updates and educational content via email
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-12 text-center">
+                    <button type="submit" class="btn btn-enroll">
+                      <i class="bi bi-check-circle me-2"></i>
+                      Join Program
+                    </button>
+                    <p class="enrollment-note mt-3">
+                      <i class="bi bi-shield-check"></i>
+                      Your information is secure and will never be shared with third parties
+                    </p>
+                  </div>
+                </div>
+
+              </form>
+
+            </div>
+          </div><!-- End Form Column -->
+
+          <div class="col-lg-4 d-none d-lg-block">
+            <div class="enrollment-benefits" data-aos="fade-left" data-aos-delay="400">
+              <h3>Why Join KHODERS?</h3>
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-people"></i>
+                </div>
+                <div class="benefit-content">
+                  <h4>Supportive Community</h4>
+                  <p>Learn alongside fellow students in a collaborative, encouraging environment</p>
+                </div>
+              </div><!-- End Benefit Item -->
+
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-person-check"></i>
+                </div>
+                <div class="benefit-content">
+                  <h4>Personalized Mentorship</h4>
+                  <p>Get one-on-one guidance from experienced mentors who care about your success</p>
+                </div>
+              </div><!-- End Benefit Item -->
+
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-laptop"></i>
+                </div>
+                <div class="benefit-content">
+                  <h4>Hands-On Projects</h4>
+                  <p>Build real-world applications and portfolio pieces to showcase your skills</p>
+                </div>
+              </div><!-- End Benefit Item -->
+
+              <div class="benefit-item">
+                <div class="benefit-icon">
+                  <i class="bi bi-briefcase"></i>
+                </div>
+                <div class="benefit-content">
+                  <h4>Career Opportunities</h4>
+                  <p>Connect with local tech companies and prepare for internships and job opportunities</p>
+                </div>
+              </div><!-- End Benefit Item -->
+
+              <div class="enrollment-stats mt-4">
+                <div class="stat-item">
+                  <span class="stat-number">400+</span>
+                  <span class="stat-label">Active Members</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">92%</span>
+                  <span class="stat-label">Completion Rate</span>
+                </div>
+                <div class="stat-item">
+                  <span class="stat-number">4.8/5</span>
+                  <span class="stat-label">Member Satisfaction</span>
+                </div>
+              </div><!-- End Stats -->
+
+            </div>
+          </div><!-- End Benefits Column -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Enroll Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40" class="me-2">
+            <span class="sitename">KHODERS</span>
+          </a>
+          <p>KHODERS is the premier campus coding club at Kumasi Technical University, offering practical programming education, mentorship, and career support to students of all skill levels.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="terms-of-service.html">Terms of service</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Programs</h4>
+          <ul>
+            <li><a href="program-details.html">Web Development</a></li>
+            <li><a href="program-details.html">Mobile Development</a></li>
+            <li><a href="program-details.html">Data Science</a></li>
+            <li><a href="program-details.html">UI/UX Design</a></li>
+            <li><a href="program-details.html">Cloud Computing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kumasi Technical University</p>
+          <p>Kumasi, Ghana</p>
+          <p>West Africa</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+233 50 123 4567</span></p>
+          <p><strong>Email:</strong> <span>info@khodersclub.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">Khoders World</strong> <span>All Rights Reserved</span></p>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

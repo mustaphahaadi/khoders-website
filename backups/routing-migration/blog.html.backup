@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Blog - KHODERS Campus Coding Community</title>
+  <meta name="description" content="Stay updated with the latest tech trends, coding tutorials, and insights from KHODERS campus coding club. Explore articles on programming, AI, web development and more.">
+  <meta name="keywords" content="coding blog, tech articles, programming tutorials, student developers, campus tech blog, web development resources">
+
+  <!-- Favicons -->
+  <link href="assets/img/khoders/logo.png" rel="icon">
+  <link href="assets/img/khoders/logo.png" rel="apple-touch-icon">
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Main CSS File -->
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Learner
+  * Template URL: https://bootstrapmade.com/learner-bootstrap-course-template/
+  * Updated: Jul 08 2025 with Bootstrap v5.3.7
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body class="blog-page">
+
+  <header id="header" class="header d-flex align-items-center sticky-top">
+    <div class="container-fluid container-xl position-relative d-flex align-items-center">
+
+      <a href="index.html" class="logo d-flex align-items-center me-auto">
+        <!-- Using KHODERS logo -->
+        <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40">
+        <h1 class="sitename">KHODERS</h1>
+      </a>
+
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="services.html">Services</a></li>
+          <li><a href="projects.html">Projects</a></li>
+          <li><a href="team.html">Team</a></li>
+          <li><a href="events.html">Events</a></li>
+          <li><a href="blog.html" class="active">Blog</a></li>
+          <li class="dropdown"><a href="#"><span>Resources</span> <i class="bi bi-chevron-down toggle-dropdown"></i></a>
+            <ul>
+              <li><a href="careers.html">Careers</a></li>
+              <li><a href="faq.html">FAQ</a></li>
+              <li><a href="code-of-conduct.html">Code of Conduct</a></li>
+              <li><a href="terms-of-service.html">Terms of Service</a></li>
+              <li><a href="privacy-policy.html">Privacy Policy</a></li>
+              <li><a href="404.html">404</a></li>
+            </ul>
+          </li>
+          <li><a href="contact.html">Contact</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+
+      <a class="btn-getstarted" href="register.html">Join Now</a>
+
+    </div>
+  </header>
+
+  <main class="main">
+
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Blog</h1>
+        <nav class="breadcrumbs">
+          <ol>
+            <li><a href="index.html">Home</a></li>
+            <li class="current">Blog</li>
+          </ol>
+        </nav>
+      </div>
+    </div><!-- End Page Title -->
+
+    <!-- Blog Hero Section -->
+    <section id="blog-hero" class="blog-hero section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+
+        <div class="blog-grid">
+
+          <!-- Featured Post (Large) -->
+          <article class="blog-item featured" data-aos="fade-up">
+            <img src="assets/img/blog/blog-post-3.webp" alt="Blog Image" class="img-fluid">
+            <div class="blog-content">
+              <div class="post-meta">
+                <span class="date">Apr. 14th, 2025</span>
+                <span class="category">Web Development</span>
+              </div>
+              <h2 class="post-title">
+                <a href="blog-details.html" title="Building Modern Web Apps: React, Next.js and the Future of Frontend">Building Modern Web Apps: React, Next.js and the Future of Frontend</a>
+              </h2>
+            </div>
+          </article><!-- End Featured Post -->
+
+          <!-- Regular Posts -->
+          <article class="blog-item" data-aos="fade-up" data-aos-delay="100">
+            <img src="assets/img/blog/blog-post-portrait-1.webp" alt="Blog Image" class="img-fluid">
+            <div class="blog-content">
+              <div class="post-meta">
+                <span class="date">Apr. 14th, 2025</span>
+                <span class="category">Cybersecurity</span>
+              </div>
+              <h3 class="post-title">
+                <a href="blog-details.html" title="Introduction to Ethical Hacking for Beginners">Introduction to Ethical Hacking for Beginners</a>
+              </h3>
+            </div>
+          </article><!-- End Blog Item -->
+
+          <article class="blog-item" data-aos="fade-up" data-aos-delay="200">
+            <img src="assets/img/blog/blog-post-9.webp" alt="Blog Image" class="img-fluid">
+            <div class="blog-content">
+              <div class="post-meta">
+                <span class="date">Apr. 14th, 2025</span>
+                <span class="category">Career</span>
+              </div>
+              <h3 class="post-title">
+                <a href="blog-details.html" title="Landing Your First Tech Job: Tips for Student Developers">Landing Your First Tech Job: Tips for Student Developers</a>
+              </h3>
+            </div>
+          </article><!-- End Blog Item -->
+
+          <article class="blog-item" data-aos="fade-up" data-aos-delay="300">
+            <img src="assets/img/blog/blog-post-7.webp" alt="Blog Image" class="img-fluid">
+            <div class="blog-content">
+              <div class="post-meta">
+                <span class="date">Apr. 14th, 2025</span>
+                <span class="category">Cloud</span>
+              </div>
+              <h3 class="post-title">
+                <a href="blog-details.html" title="Getting Started with AWS: Services Every Student Developer Should Know">Getting Started with AWS: Services Every Student Developer Should Know</a>
+              </h3>
+            </div>
+          </article><!-- End Blog Item -->
+
+          <article class="blog-item" data-aos="fade-up" data-aos-delay="400">
+            <img src="assets/img/blog/blog-post-6.webp" alt="Blog Image" class="img-fluid">
+            <div class="blog-content">
+              <div class="post-meta">
+                <span class="date">Apr. 14th, 2025</span>
+                <span class="category">Programming</span>
+              </div>
+              <h3 class="post-title">
+                <a href="blog-details.html" title="Python vs. JavaScript: Which Should Be Your First Programming Language?">Python vs. JavaScript: Which Should Be Your First Programming Language?</a>
+              </h3>
+            </div>
+          </article><!-- End Blog Item -->
+
+        </div>
+
+      </div>
+
+    </section><!-- /Blog Hero Section -->
+
+    <!-- Blog Posts Section -->
+    <section id="blog-posts" class="blog-posts section">
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <div class="row gy-4">
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-1.webp" class="img-fluid" alt="">
+              </div>
+
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>12</span>December</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">Sarah Johnson</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">Mobile Development</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+
+                <h3 class="post-title">How to Build Your First Mobile App with Flutter</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-2.webp" class="img-fluid" alt="">
+              </div>
+
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>19</span>March</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">Julia Parker</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">Artificial Intelligence</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+                <h3 class="post-title">Machine Learning Basics Every Developer Should Know</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-3.webp" class="img-fluid" alt="">
+              </div>
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>24</span>June</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">Maria Doe</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">Web Development</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+                <h3 class="post-title">10 Essential VS Code Extensions for Web Developers</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-4.webp" class="img-fluid" alt="">
+              </div>
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>05</span>August</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">Maria Doe</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">DevOps</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+                <h3 class="post-title">Getting Started with Docker: A Student Developer's Guide</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-5.webp" class="img-fluid" alt="">
+              </div>
+
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>17</span>September</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">David Thompson</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">Open Source</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+
+                <h3 class="post-title">How to Contribute to Open Source Projects as a Student</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+          <div class="col-lg-4">
+            <article class="position-relative h-100">
+
+              <div class="post-img position-relative overflow-hidden">
+                <img src="assets/img/blog/blog-post-6.webp" class="img-fluid" alt="">
+              </div>
+
+              <div class="meta d-flex align-items-end">
+                <span class="post-date"><span>07</span>December</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-person"></i> <span class="ps-2">Amanda Rodriguez</span>
+                </div>
+                <span class="px-3 text-black-50">/</span>
+                <div class="d-flex align-items-center">
+                  <i class="bi bi-folder2"></i> <span class="ps-2">UI/UX Design</span>
+                </div>
+              </div>
+
+              <div class="post-content d-flex flex-column">
+
+                <h3 class="post-title">Design Principles Every Coder Should Understand</h3>
+                <a href="blog-details.html" class="readmore stretched-link"><span>Read More</span><i class="bi bi-arrow-right"></i></a>
+
+              </div>
+
+            </article>
+          </div><!-- End post list item -->
+
+        </div>
+      </div>
+
+    </section><!-- /Blog Posts Section -->
+
+    <!-- Pagination 2 Section -->
+    <section id="pagination-2" class="pagination-2 section">
+
+      <div class="container">
+        <nav class="d-flex justify-content-center" aria-label="Page navigation">
+          <ul>
+            <li>
+              <a href="#" aria-label="Previous page">
+                <i class="bi bi-arrow-left"></i>
+                <span class="d-none d-sm-inline">Previous</span>
+              </a>
+            </li>
+
+            <li><a href="#" class="active">1</a></li>
+            <li><a href="#">2</a></li>
+            <li><a href="#">3</a></li>
+            <li class="ellipsis">...</li>
+            <li><a href="#">8</a></li>
+            <li><a href="#">9</a></li>
+            <li><a href="#">10</a></li>
+
+            <li>
+              <a href="#" aria-label="Next page">
+                <span class="d-none d-sm-inline">Next</span>
+                <i class="bi bi-arrow-right"></i>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+
+    </section><!-- /Pagination 2 Section -->
+
+  </main>
+
+  <footer id="footer" class="footer accent-background">
+
+    <div class="container footer-top">
+      <div class="row gy-4">
+        <div class="col-lg-5 col-md-12 footer-about">
+          <a href="index.html" class="logo d-flex align-items-center">
+            <img src="assets/img/khoders/logo.png" alt="KHODERS Logo" width="40" height="40" class="me-2">
+            <span class="sitename">KHODERS</span>
+          </a>
+          <p>KHODERS is the premier campus coding club at Kumasi Technical University, offering practical programming education, mentorship, and career support to students of all skill levels.</p>
+          <div class="social-links d-flex mt-4">
+            <a href=""><i class="bi bi-twitter-x"></i></a>
+            <a href=""><i class="bi bi-facebook"></i></a>
+            <a href=""><i class="bi bi-instagram"></i></a>
+            <a href=""><i class="bi bi-linkedin"></i></a>
+          </div>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About us</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="terms-of-service.html">Terms of service</a></li>
+            <li><a href="privacy-policy.html">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-2 col-6 footer-links">
+          <h4>Our Programs</h4>
+          <ul>
+            <li><a href="courses.html">Web Development</a></li>
+            <li><a href="courses.html">Mobile Development</a></li>
+            <li><a href="courses.html">Data Science</a></li>
+            <li><a href="courses.html">UI/UX Design</a></li>
+            <li><a href="courses.html">Cloud Computing</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-12 footer-contact text-center text-md-start">
+          <h4>Contact Us</h4>
+          <p>Kumasi Technical University</p>
+          <p>Kumasi, Ghana</p>
+          <p>West Africa</p>
+          <p class="mt-4"><strong>Phone:</strong> <span>+233 50 123 4567</span></p>
+          <p><strong>Email:</strong> <span>info@khodersclub.com</span></p>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="container copyright text-center mt-4">
+      <p>© <span>Copyright</span> <strong class="px-1 sitename">KHODERS</strong> <span>All Rights Reserved</span></p>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you've purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: [buy-url] -->
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+
+  </footer>
+
+  <!-- Scroll Top -->
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Preloader -->
+  <div id="preloader"></div>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+
+  <!-- Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

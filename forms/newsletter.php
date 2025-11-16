@@ -4,8 +4,17 @@
   * Uses enhanced PHP Email Form library with spam protection and database integration
   */
 
-  // Include database functions
+  // Include database functions and CSRF protection
   require_once '../database/db_functions.php';
+  require_once '../config/csrf.php';
+
+  // Validate CSRF token on POST requests
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!isset($_POST[CSRFToken::getTokenName()]) || !CSRFToken::validate()) {
+      http_response_code(403);
+      die('CSRF token validation failed. Please try again.');
+    }
+  }
   
   // Replace with your real receiving email address
   $receiving_email_address = 'newsletter@khodersclub.com';
@@ -29,11 +38,6 @@
   // Check honeypot field (if filled, it's likely a bot)
   if (isset($_POST['website']) && !empty($_POST['website'])) {
     $newsletter->set_honeypot($_POST['website']);
-  }
-  
-  // Validate CSRF token (basic check - would be more robust in production)
-  if (isset($_POST['csrf_token'])) {
-    $newsletter->validate_csrf($_POST['csrf_token']);
   }
   
   // Enhanced logging with additional details and IP address for tracking
@@ -81,6 +85,11 @@
   
   // Send email regardless of database success (could modify this behavior)
   $response = $newsletter->send();
+  
+  // Regenerate token after successful submission for additional security
+  if ($db_success || ($response && strpos($response, 'success') !== false)) {
+    CSRFToken::regenerate();
+  }
   
   // Optionally log if email was sent but database failed
   if (!$db_success) {
