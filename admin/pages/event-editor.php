@@ -123,51 +123,35 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_event'])) {
                     $eventDateTime .= ' 00:00:00';
                 }
                 
+                // Check which columns exist
+                $hasEventDate = admin_table_has_column($db, 'events', 'event_date');
+                $hasDateAndTime = admin_table_has_column($db, 'events', 'date') && admin_table_has_column($db, 'events', 'time');
+                
                 if ($action === 'edit' && $event_id > 0) {
                     // Update existing event
-                    $stmt = $db->prepare("UPDATE events SET 
-                        title = ?, 
-                        description = ?, 
-                        event_date = ?, 
-                        location = ?, 
-                        image_url = ?, 
-                        registration_url = ?, 
-                        is_featured = ?, 
-                        status = ?, 
-                        updated_at = NOW() 
-                        WHERE id = ?");
-                    
-                    $stmt->execute([
-                        $event['title'],
-                        $event['description'],
-                        $eventDateTime,
-                        $event['location'],
-                        $event['image_url'],
-                        $event['registration_url'],
-                        $event['is_featured'],
-                        $event['status'],
-                        $event_id
-                    ]);
-                    
+                    if ($hasEventDate) {
+                        $stmt = $db->prepare("UPDATE events SET title = ?, description = ?, event_date = ?, location = ?, image_url = ?, registration_url = ?, is_featured = ?, status = ?, updated_at = NOW() WHERE id = ?");
+                        $stmt->execute([$event['title'], $event['description'], $eventDateTime, $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status'], $event_id]);
+                    } elseif ($hasDateAndTime) {
+                        $stmt = $db->prepare("UPDATE events SET title = ?, description = ?, date = ?, time = ?, location = ?, image_url = ?, registration_url = ?, is_featured = ?, status = ?, updated_at = NOW() WHERE id = ?");
+                        $stmt->execute([$event['title'], $event['description'], $event['event_date'], $event['event_time'], $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status'], $event_id]);
+                    } else {
+                        $stmt = $db->prepare("UPDATE events SET title = ?, description = ?, location = ?, image_url = ?, registration_url = ?, is_featured = ?, status = ?, updated_at = NOW() WHERE id = ?");
+                        $stmt->execute([$event['title'], $event['description'], $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status'], $event_id]);
+                    }
                     $message = 'Event updated successfully.';
                 } else {
                     // Add new event
-                    $stmt = $db->prepare("INSERT INTO events (
-                        title, description, event_date, location, image_url, 
-                        registration_url, is_featured, status, created_at, updated_at
-                    ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
-                    
-                    $stmt->execute([
-                        $event['title'],
-                        $event['description'],
-                        $eventDateTime,
-                        $event['location'],
-                        $event['image_url'],
-                        $event['registration_url'],
-                        $event['is_featured'],
-                        $event['status']
-                    ]);
-                    
+                    if ($hasEventDate) {
+                        $stmt = $db->prepare("INSERT INTO events (title, description, event_date, location, image_url, registration_url, is_featured, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                        $stmt->execute([$event['title'], $event['description'], $eventDateTime, $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status']]);
+                    } elseif ($hasDateAndTime) {
+                        $stmt = $db->prepare("INSERT INTO events (title, description, date, time, location, image_url, registration_url, is_featured, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                        $stmt->execute([$event['title'], $event['description'], $event['event_date'], $event['event_time'], $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status']]);
+                    } else {
+                        $stmt = $db->prepare("INSERT INTO events (title, description, location, image_url, registration_url, is_featured, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                        $stmt->execute([$event['title'], $event['description'], $event['location'], $event['image_url'], $event['registration_url'], $event['is_featured'], $event['status']]);
+                    }
                     $event_id = $db->lastInsertId();
                     $message = 'Event created successfully.';
                 }

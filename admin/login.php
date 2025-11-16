@@ -15,6 +15,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $password = $_POST['password'] ?? '';
     
     if (Auth::login($username, $password)) {
+        // Check if using default/weak password
+        if (in_array($password, ['admin123', 'Admin@2024!', 'password', '123456'])) {
+            $_SESSION['force_password_change'] = true;
+            $_SESSION['password_change_reason'] = 'You are using a default password. Please change it immediately.';
+            header('Location: index.php?route=profile&force_change=1');
+            exit;
+        }
         header('Location: index.php');
         exit;
     } else {

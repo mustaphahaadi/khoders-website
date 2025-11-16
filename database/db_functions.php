@@ -5,7 +5,75 @@
  * Contains functions for inserting form data into the database
  */
 
-require_once 'config.php';
+require_once __DIR__ . '/../config/database.php';
+
+/**
+ * Get database connection using PDO
+ */
+function getDBConnection() {
+    $database = Database::getInstance();
+    $pdo = $database->getConnection();
+    if (!$pdo) return null;
+    
+    // Return a wrapper that mimics mysqli for backward compatibility
+    return new class($pdo) {
+        private $pdo;
+        public $error = '';
+        
+        public function __construct($pdo) {
+            $this->pdo = $pdo;
+        }
+        
+        public function prepare($query) {
+            try {
+                $stmt = $this->pdo->prepare($query);
+                return new class($stmt, $this) {
+                    private $stmt;
+                    private $conn;
+                    public $insert_id;
+                    
+                    public function __construct($stmt, $conn) {
+                        $this->stmt = $stmt;
+                        $this->conn = $conn;
+                    }
+                    
+                    public function bind_param($types, ...$params) {
+                        foreach ($params as $i => $param) {
+                            $this->stmt->bindValue($i + 1, $param);
+                        }
+                        return true;
+                    }
+                    
+                    public function execute() {
+                        try {
+                            $result = $this->stmt->execute();
+                            $this->insert_id = $this->stmt->rowCount() > 0 ? $this->stmt->lastInsertId() : 0;
+                            return $result;
+                        } catch (PDOException $e) {
+                            $this->conn->error = $e->getMessage();
+                            return false;
+                        }
+                    }
+                    
+                    public function store_result() {
+                        return true;
+                    }
+                    
+                    public function num_rows() {
+                        return $this->stmt->rowCount();
+                    }
+                    
+                    public function close() {
+                        $this->stmt = null;
+                    }
+                };
+            } catch (PDOException $e) {
+                $this->error = $e->getMessage();
+                return false;
+            }
+        }
+    };
+}
 
 /**
  * Sanitize and validate input data

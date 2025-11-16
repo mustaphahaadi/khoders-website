@@ -107,6 +107,12 @@ Router::register('profile', 'pages/profile.php', [
     'title' => 'My Profile - KHODERS WORLD Admin'
 ]);
 
+Router::register('admin-users', 'pages/admin-users.php', [
+    'name' => 'admin-users',
+    'title' => 'Admin Users - KHODERS WORLD Admin',
+    'requiredRole' => 'admin'
+]);
+
 // Define 404 handler
 Router::notFound(function() {
     header('HTTP/1.0 404 Not Found');

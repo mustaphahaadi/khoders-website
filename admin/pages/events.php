@@ -54,6 +54,14 @@ if ($db && $action === 'delete' && isset($_GET['id'])) {
 $events = [];
 if ($db) {
     try {
+        // Check which date column exists
+        $dateColumn = 'created_at';
+        if (admin_table_has_column($db, 'events', 'event_date')) {
+            $dateColumn = 'event_date';
+        } elseif (admin_table_has_column($db, 'events', 'date')) {
+            $dateColumn = 'date';
+        }
+        
         $sql = "SELECT * FROM events";
         $params = [];
         
@@ -62,7 +70,7 @@ if ($db) {
             $params[] = $statusFilter;
         }
         
-        $sql .= " ORDER BY event_date DESC";
+        $sql .= " ORDER BY {$dateColumn} DESC";
         
         $stmt = $db->prepare($sql);
         $stmt->execute($params);

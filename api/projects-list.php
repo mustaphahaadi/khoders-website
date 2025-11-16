@@ -4,17 +4,15 @@
  * Used by frontend to display dynamic projects
  */
 
-header('Content-Type: application/json');
 require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/ApiResponse.php';
 
 try {
     $database = new Database();
     $db = $database->getConnection();
     
     if (!$db) {
-        http_response_code(500);
-        echo json_encode(['error' => 'Database connection failed']);
-        exit;
+        ApiResponse::serverError('Database connection failed');
     }
     
     // Get filter parameters with validation
@@ -41,15 +39,12 @@ try {
     $countStmt->execute();
     $total = $countStmt->fetch(PDO::FETCH_ASSOC)['total'];
     
-    echo json_encode([
-        'success' => true,
-        'data' => $projects,
+    ApiResponse::success($projects, 'Projects retrieved successfully', [
         'total' => $total,
         'limit' => $limit,
         'offset' => $offset
     ]);
     
 } catch (Exception $e) {
-    http_response_code(500);
-    echo json_encode(['error' => 'Server error: ' . $e->getMessage()]);
+    ApiResponse::serverError('Server error: ' . $e->getMessage());
 }

@@ -67,6 +67,14 @@ function is_active($route) {
     </li>
     
     <li class="nav-item nav-category">System</li>
+    <?php if (Auth::hasRole('admin')): ?>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('admin-users'); ?>" href="index.php?route=admin-users">
+        <i class="menu-icon mdi mdi-shield-account"></i>
+        <span class="menu-title">Admin Users</span>
+      </a>
+    </li>
+    <?php endif; ?>
     <li class="nav-item">
       <a class="nav-link <?php echo is_active('form-logs'); ?>" href="index.php?route=form-logs">
         <i class="menu-icon mdi mdi-file-document"></i>

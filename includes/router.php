@@ -97,7 +97,6 @@ class SiteRouter {
 
         // Pages that load from database
         $dynamicPages = ['events', 'team', 'projects'];
-        $pageData = [];
         $html_content = '';
 
         // Check if page exists
@@ -118,42 +117,17 @@ class SiteRouter {
                 // Fallback to a default home page
                 $html_content = '<div class="container mt-5"><h1>Welcome to KHODERS WORLD</h1><p>The premier campus coding club.</p></div>';
             }
-        } elseif (in_array($page, $dynamicPages) && isset(self::$pages[$page])) {
-            // Load dynamic content from API
-            $apiFile = 'api/' . $page . '-list.php';
-            if (file_exists($apiFile)) {
+        } elseif (in_array($page, $dynamicPages)) {
+            // Use template for dynamic pages
+            $templateFile = 'pages/' . $page . '-template.php';
+            if (file_exists($templateFile)) {
                 ob_start();
-                include $apiFile;
-                $apiResponse = ob_get_clean();
-                $apiData = json_decode($apiResponse, true);
-                
-                if ($apiData && $apiData['success']) {
-                    $pageData = $apiData['data'] ?? [];
-                    $templateFile = 'pages/' . $page . '-template.php';
-                    
-                    if (file_exists($templateFile)) {
-                        ob_start();
-                        include $templateFile;
-                        $html_content = ob_get_clean();
-                    } else {
-                        // Fallback to static HTML
-                        $pageFile = self::$pages[$page];
-                        if (file_exists($pageFile)) {
-                            $html_content = file_get_contents($pageFile);
-                            if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
-                                $html_content = $matches[1];
-                            }
-                        }
-                    }
-                } else {
-                    // API failed, use static HTML
-                    $pageFile = self::$pages[$page];
-                    if (file_exists($pageFile)) {
-                        $html_content = file_get_contents($pageFile);
-                        if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
-                            $html_content = $matches[1];
-                        }
-                    }
+                include $templateFile;
+                $html_content = ob_get_clean();
+            } elseif (isset(self::$pages[$page]) && file_exists(self::$pages[$page])) {
+                $html_content = file_get_contents(self::$pages[$page]);
+                if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                    $html_content = $matches[1];
                 }
             }
         } elseif (isset(self::$pages[$page]) && file_exists(self::$pages[$page])) {

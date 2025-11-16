@@ -38,10 +38,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['update_profile'])) {
         } else {
             try {
                 // Update user profile
-                $stmt = $db->prepare('UPDATE admins SET email = ?, display_name = ? WHERE id = ?');
+                $stmt = $db->prepare('UPDATE admins SET email = ? WHERE id = ?');
                 $stmt->execute([
                     $_POST['email'] ?? '',
-                    $_POST['display_name'] ?? '',
                     $user['id']
                 ]);
                 
@@ -83,7 +82,7 @@ $db = $database->getConnection();
 
 if ($db) {
     try {
-        $stmt = $db->prepare('SELECT username, email, display_name, role, last_login FROM admins WHERE id = ?');
+        $stmt = $db->prepare('SELECT username, email, role, last_login FROM admins WHERE id = ?');
         $stmt->execute([$user['id']]);
         $userData = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch (PDOException $e) {
@@ -123,11 +122,6 @@ $csrfToken = Security::generateCSRFToken();
               <label for="username">Username</label>
               <input type="text" class="form-control" id="username" value="<?php echo htmlspecialchars($userData['username'] ?? ''); ?>" readonly>
               <small class="form-text text-muted">Username cannot be changed.</small>
-            </div>
-            
-            <div class="form-group">
-              <label for="display_name">Display Name</label>
-              <input type="text" class="form-control" id="display_name" name="display_name" value="<?php echo htmlspecialchars($userData['display_name'] ?? ''); ?>">
             </div>
             
             <div class="form-group">

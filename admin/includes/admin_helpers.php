@@ -70,9 +70,8 @@ if (!function_exists('admin_table_exists')) {
         }
 
         try {
-            $stmt = $db->prepare('SHOW TABLES LIKE :table');
-            $stmt->execute(['table' => $table]);
-            return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
+            $stmt = $db->query("SELECT 1 FROM `{$table}` LIMIT 1");
+            return true;
         } catch (PDOException $e) {
             return false;
         }

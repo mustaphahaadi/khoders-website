@@ -1,0 +1,35 @@
+# Environment files
+.env
+.env.local
+.env.production
+
+# Logs
+logs/*.log
+*.log
+
+# Database
+*.sql.backup
+database/backups/
+
+# Uploads
+public/uploads/*
+!public/uploads/.gitkeep
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Vendor
+vendor/
+node_modules/
+
+# Temporary files
+tmp/
+temp/
+*.tmp

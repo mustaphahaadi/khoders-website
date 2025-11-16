@@ -1,7 +1,7 @@
--- KHODERS Database Schema Updates
--- Run this file to fix schema inconsistencies and add missing tables
+-- KHODERS Database Schema Updates - Clean Version
+-- Creates all missing tables and adds missing columns
 
--- 1. Create missing tables first
+-- 1. Create team_members table
 CREATE TABLE IF NOT EXISTS team_members (
     id INT AUTO_INCREMENT PRIMARY KEY,
     first_name VARCHAR(100) NOT NULL,
@@ -11,7 +11,6 @@ CREATE TABLE IF NOT EXISTS team_members (
     position VARCHAR(100),
     bio TEXT,
     image_url VARCHAR(500),
-    social_links JSON,
     linkedin_url VARCHAR(500),
     github_url VARCHAR(500),
     twitter_url VARCHAR(500),
@@ -21,10 +20,10 @@ CREATE TABLE IF NOT EXISTS team_members (
     status ENUM('active', 'inactive') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_status (status),
-    INDEX idx_order (order_index)
+    INDEX idx_status (status)
 );
 
+-- 2. Create blog_posts table
 CREATE TABLE IF NOT EXISTS blog_posts (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(300) NOT NULL,
@@ -37,10 +36,10 @@ CREATE TABLE IF NOT EXISTS blog_posts (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_status (status),
-    INDEX idx_slug (slug),
-    INDEX idx_created_at (created_at)
+    INDEX idx_slug (slug)
 );
 
+-- 3. Create courses table
 CREATE TABLE IF NOT EXISTS courses (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(300) NOT NULL,
@@ -56,11 +55,10 @@ CREATE TABLE IF NOT EXISTS courses (
     status ENUM('active', 'inactive', 'archived') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_status (status),
-    INDEX idx_level (level)
+    INDEX idx_status (status)
 );
 
--- 2. Create admins table (CRITICAL)
+-- 4. Create admins table
 CREATE TABLE IF NOT EXISTS admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) UNIQUE NOT NULL,
@@ -70,22 +68,14 @@ CREATE TABLE IF NOT EXISTS admins (
     last_login TIMESTAMP NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_username (username),
-    INDEX idx_email (email)
+    INDEX idx_username (username)
 );
 
--- Insert default admin (password: Admin@2024!)
+-- 5. Insert default admin (password: Admin@2024!)
 INSERT IGNORE INTO admins (username, email, password_hash, role) VALUES
 ('admin', 'admin@khodersclub.com', '$2y$10$fggOffshAOxDRtBpP.iC.OaiBmRlyaC5vmabCUwIGuA3mre.NVOTG', 'admin');
 
--- 3. Standardize members table (only if exists)
-SET @exist := (SELECT COUNT(*) FROM information_schema.tables WHERE table_schema = DATABASE() AND table_name = 'members');
-SET @sqlstmt := IF(@exist > 0, 'ALTER TABLE members ADD COLUMN IF NOT EXISTS updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP', 'SELECT 1');
-PREPARE stmt FROM @sqlstmt;
-EXECUTE stmt;
-DEALLOCATE PREPARE stmt;
-
--- 4. Create site_settings table
+-- 6. Create site_settings table
 CREATE TABLE IF NOT EXISTS site_settings (
     id INT AUTO_INCREMENT PRIMARY KEY,
     setting_key VARCHAR(100) UNIQUE NOT NULL,
@@ -96,7 +86,7 @@ CREATE TABLE IF NOT EXISTS site_settings (
     INDEX idx_key (setting_key)
 );
 
--- Insert default settings
+-- 7. Insert default settings
 INSERT IGNORE INTO site_settings (setting_key, setting_value, setting_type) VALUES
 ('site_name', 'KHODERS WORLD', 'text'),
 ('site_email', 'info@khodersclub.com', 'text'),
