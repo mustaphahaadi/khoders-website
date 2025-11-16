@@ -7983,3 +7983,197 @@ section,
 .starter-section {
   /* Add your styles here */
 }
+
+/*--------------------------------------------------------------
+# Timeline Section Styles
+--------------------------------------------------------------*/
+.timeline {
+  position: relative;
+  padding-left: 0;
+}
+
+.timeline .timeline-item {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 30px;
+  align-items: flex-start;
+}
+
+.timeline .timeline-item:last-child {
+  margin-bottom: 0;
+}
+
+.timeline .timeline-item .timeline-badge {
+  background-color: var(--accent-color);
+  color: var(--contrast-color);
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.timeline .timeline-item h4 {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--heading-color);
+}
+
+.timeline .timeline-item p {
+  margin: 0;
+  font-size: 15px;
+  color: color-mix(in srgb, var(--default-color), transparent 20%);
+}
+
+/*--------------------------------------------------------------
+# Admissions Section Styles
+--------------------------------------------------------------*/
+.admissions-section {
+  background-color: var(--surface-color);
+}
+
+.admissions-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: var(--heading-color);
+}
+
+.admissions-section h3 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--heading-color);
+}
+
+.admissions-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 25px;
+  color: color-mix(in srgb, var(--default-color), transparent 15%);
+}
+
+.admissions-section .admission-requirements ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.admissions-section .admission-requirements ul li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  font-size: 16px;
+  color: var(--default-color);
+}
+
+.admissions-section .admission-requirements ul li i {
+  color: var(--accent-color);
+  font-size: 20px;
+  flex-shrink: 0;
+}
+
+.admissions-section .application-process ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+.admissions-section .application-process ol li {
+  margin-bottom: 15px;
+  font-size: 16px;
+  line-height: 1.6;
+  color: var(--default-color);
+}
+
+.admissions-section .application-process ol li a {
+  color: var(--accent-color);
+  text-decoration: underline;
+  font-weight: 500;
+}
+
+.admissions-section .application-process ol li a:hover {
+  color: color-mix(in srgb, var(--accent-color), black 15%);
+}
+
+/*--------------------------------------------------------------
+# CTA Section Styles
+--------------------------------------------------------------*/
+.cta-section {
+  padding: 60px 0;
+}
+
+.cta-section h2 {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 15px;
+}
+
+.cta-section p {
+  font-size: 1.1rem;
+  margin-bottom: 0;
+}
+
+.cta-section .btn-light {
+  background-color: var(--contrast-color);
+  color: var(--accent-color);
+  padding: 12px 30px;
+  border-radius: 30px;
+  font-weight: 600;
+  border: 2px solid var(--contrast-color);
+  transition: all 0.3s ease;
+}
+
+.cta-section .btn-light:hover {
+  background-color: transparent;
+  color: var(--contrast-color);
+  border-color: var(--contrast-color);
+  transform: translateY(-2px);
+}
+
+/*--------------------------------------------------------------
+# Course Highlights List
+--------------------------------------------------------------*/
+.course-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.course-highlights li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  color: color-mix(in srgb, var(--default-color), transparent 30%);
+}
+
+.course-highlights li i {
+  color: var(--accent-color);
+  font-size: 16px;
+}
+
+@media (max-width: 768px) {
+  .timeline .timeline-item {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .admissions-section h2 {
+    font-size: 1.75rem;
+  }
+  
+  .cta-section h2 {
+    font-size: 1.75rem;
+  }
+  
+  .cta-section .text-lg-end {
+    text-align: center !important;
+    margin-top: 20px;
+  }
+}

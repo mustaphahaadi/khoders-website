@@ -5,12 +5,14 @@
  * This file contains database connection settings
  */
 
-// Database credentials
-// IMPORTANT: In production, store these values in environment variables
-define('DB_SERVER', 'localhost');
-define('DB_USERNAME', 'khoders_user');
-define('DB_PASSWORD', 'khoders123'); // Unified with config/database.php
-define('DB_NAME', 'khoders_db');
+// Load environment variables
+require_once __DIR__ . '/../config/env.php';
+
+// Database credentials from environment
+define('DB_SERVER', getenv('DB_HOST') ?: 'localhost');
+define('DB_USERNAME', getenv('DB_USER') ?: 'root');
+define('DB_PASSWORD', getenv('DB_PASS') ?: '');
+define('DB_NAME', getenv('DB_NAME') ?: 'khoders_db');
 
 // Create database connection
 $conn = null;

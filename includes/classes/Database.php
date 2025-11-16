@@ -152,9 +152,11 @@ class Database {
         }
         
         $columns = array_keys($data);
+        $escapedColumns = array_map(function($col) { return "`" . str_replace("`", "``", $col) . "`"; }, $columns);
         $placeholders = array_fill(0, count($columns), '?');
         
-        $sql = "INSERT INTO {$table} (" . implode(', ', $columns) . ") VALUES (" . implode(', ', $placeholders) . ")";
+        $escapedTable = "`" . str_replace("`", "``", $table) . "`";
+        $sql = "INSERT INTO {$escapedTable} (" . implode(', ', $escapedColumns) . ") VALUES (" . implode(', ', $placeholders) . ")";
         
         $stmt = $this->query($sql, array_values($data));
         
@@ -175,7 +177,13 @@ class Database {
      * @return int|false Number of affected rows or false on error
      */
     public function update($table, $data, $where, $whereParams = []) {
-        if (!$this->isConnected || empty($data)) {
+        if (!$this->isConnected || empty($data) || empty($where)) {
+            return false;
+        }
+        
+        // Validate WHERE clause contains placeholders
+        if (empty($whereParams) && strpos($where, '?') === false && strpos($where, ':') === false) {
+            error_log('WARNING: UPDATE query without parameterized WHERE clause');
             return false;
         }
         
@@ -183,11 +191,13 @@ class Database {
         $params = [];
         
         foreach ($data as $column => $value) {
-            $set[] = "{$column} = ?";
+            $escapedColumn = "`" . str_replace("`", "``", $column) . "`";
+            $set[] = "{$escapedColumn} = ?";
             $params[] = $value;
         }
         
-        $sql = "UPDATE {$table} SET " . implode(', ', $set) . " WHERE {$where}";
+        $escapedTable = "`" . str_replace("`", "``", $table) . "`";
+        $sql = "UPDATE {$escapedTable} SET " . implode(', ', $set) . " WHERE {$where}";
         
         $stmt = $this->query($sql, array_merge($params, $whereParams));
         
@@ -207,11 +217,18 @@ class Database {
      * @return int|false Number of affected rows or false on error
      */
     public function delete($table, $where, $params = []) {
-        if (!$this->isConnected) {
+        if (!$this->isConnected || empty($where)) {
             return false;
         }
         
-        $sql = "DELETE FROM {$table} WHERE {$where}";
+        // Validate WHERE clause contains placeholders
+        if (empty($params) && strpos($where, '?') === false && strpos($where, ':') === false) {
+            error_log('WARNING: DELETE query without parameterized WHERE clause');
+            return false;
+        }
+        
+        $escapedTable = "`" . str_replace("`", "``", $table) . "`";
+        $sql = "DELETE FROM {$escapedTable} WHERE {$where}";
         
         $stmt = $this->query($sql, $params);
         

@@ -15,14 +15,18 @@ if ($current_page === 'index') {
 }
 
 // Function to check if a page is active
-function is_active($page) {
-    global $current_page;
-    return $current_page === $page ? 'active' : '';
+if (!function_exists('is_active')) {
+    function is_active($page) {
+        global $current_page;
+        return $current_page === $page ? 'active' : '';
+    }
 }
 
 // Function to get URL for a page
-function get_page_url($page) {
-    return SiteRouter::getUrl($page);
+if (!function_exists('get_page_url')) {
+    function get_page_url($page) {
+        return SiteRouter::getUrl($page);
+    }
 }
 ?>
 
@@ -46,7 +50,8 @@ function get_page_url($page) {
                         <i class="bi bi-chevron-down toggle-dropdown"></i>
                     </a>
                     <ul class="dropdown-menu">
-                        <li><a href="<?php echo get_page_url('courses'); ?>" class="<?php echo is_active('courses') ? 'active' : ''; ?>">Programs</a></li>
+                        <li><a href="<?php echo get_page_url('courses'); ?>" class="<?php echo is_active('courses') ? 'active' : ''; ?>">Courses</a></li>
+                        <li><a href="<?php echo get_page_url('programs'); ?>" class="<?php echo is_active('programs') ? 'active' : ''; ?>">Programs</a></li>
                         <li><a href="<?php echo get_page_url('services'); ?>" class="<?php echo is_active('services') ? 'active' : ''; ?>">Services</a></li>
                         <li><a href="<?php echo get_page_url('instructors'); ?>" class="<?php echo is_active('instructors') ? 'active' : ''; ?>">Mentors</a></li>
                     </ul>

@@ -42,7 +42,13 @@ function is_active($route) {
     <li class="nav-item">
       <a class="nav-link <?php echo is_active('courses') || is_active('course-editor') ? 'active' : ''; ?>" href="index.php?route=courses">
         <i class="menu-icon mdi mdi-book-open"></i>
-        <span class="menu-title">Programs/Courses</span>
+        <span class="menu-title">Courses</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('programs') || is_active('program-editor') ? 'active' : ''; ?>" href="index.php?route=programs">
+        <i class="menu-icon mdi mdi-school"></i>
+        <span class="menu-title">Programs</span>
       </a>
     </li>
     
@@ -63,6 +69,12 @@ function is_active($route) {
       <a class="nav-link <?php echo is_active('newsletter'); ?>" href="index.php?route=newsletter">
         <i class="menu-icon mdi mdi-email-outline"></i>
         <span class="menu-title">Newsletter</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('enrollments'); ?>" href="index.php?route=enrollments">
+        <i class="menu-icon mdi mdi-account-check"></i>
+        <span class="menu-title">Enrollments</span>
       </a>
     </li>
     

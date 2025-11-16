@@ -1,84 +1,63 @@
 # KHODERS Coding Club Website
 
-A modern, responsive website for KHODERS Coding Club built with HTML, CSS, JS, and PHP.
+Modern, responsive website for KHODERS Coding Club built with HTML, CSS, JS, and PHP.
 
-## Overview
+## Quick Start
 
-This website serves as the online presence for KHODERS, providing information about the coding club, its services, events, team members, and resources for students interested in programming and technology.
+1. **Setup Database**
+   ```bash
+   mysql -u root -p khoders_db < database/schema.sql
+   ```
 
-## Features
+2. **Configure Environment**
+   ```bash
+   cp .env.example .env
+   # Edit .env with your settings
+   ```
 
-- **Responsive Design**: Mobile-first approach ensuring compatibility across all devices
-- **Modern UI**: Clean, professional design with intuitive navigation
-- **Secure Forms**: Contact, registration and newsletter forms with spam protection
-- **Admin Panel**: Secure administrative interface for managing content
-- **Database Integration**: Stores form submissions and member information
-
-## Technologies Used
-
-- HTML5, CSS3, JavaScript
-- Bootstrap 5.3.x framework
-- PHP 7.4+ for backend functionality
-- MySQL database for data storage
-- Various libraries: AOS (Animate On Scroll), Swiper, etc.
+3. **Access Site**
+   - Frontend: `http://localhost/khoders-website/`
+   - Admin: `http://localhost/khoders-website/admin/`
+   - Default admin: `admin` / `Admin@2024!`
 
 ## Project Structure
 
 ```
-khoders-website-new/
-├── admin/                # Admin panel files
-├── assets/               # Static assets (CSS, JS, images)
-│   ├── css/              # Stylesheets
-│   ├── img/              # Images and graphics
-│   ├── js/               # JavaScript files
-│   └── vendor/           # Third-party libraries
-├── config/               # Configuration files
-├── database/             # Database scripts and utilities
-├── forms/                # Form handlers
-├── includes/             # Reusable PHP components
-├── logs/                 # Application logs
-├── *.html                # Main website pages
-├── INSTALL.md            # Installation instructions
-├── SECURITY.md           # Security documentation
-├── TESTING_CHECKLIST.md  # Testing procedures
-└── README.md             # This file
+khoders-website/
+├── admin/          # Admin panel
+├── api/            # API endpoints
+├── assets/         # CSS, JS, images
+├── config/         # Configuration files
+├── database/       # Database schema
+├── docs/           # Documentation
+├── forms/          # Form handlers
+├── includes/       # PHP includes
+├── logs/           # Application logs
+├── pages/          # Page templates
+└── public/         # Public uploads
 ```
 
-## Security Features
+## Documentation
 
-- CSRF protection on all forms
-- Honeypot spam detection
-- Input sanitization
-- Password hashing for admin users
-- Role-based access control
-- Secure form handling
+See [docs/README.md](docs/README.md) for complete documentation.
 
-## Installation
+## Key Features
 
-Please refer to [INSTALL.md](INSTALL.md) for detailed installation instructions.
+- Responsive design
+- Secure forms with CSRF protection
+- Admin panel
+- Database integration
+- Event management
+- Blog system
+- Course/program management
 
-## Testing
+## Tech Stack
 
-A comprehensive testing checklist is available in [TESTING_CHECKLIST.md](TESTING_CHECKLIST.md).
-
-## Security
-
-Security documentation and best practices can be found in [SECURITY.md](SECURITY.md).
-
-## Deployment
-
-See [DEPLOYMENT_CHECKLIST.md](DEPLOYMENT_CHECKLIST.md) for the deployment process.
-
-## Contributors
-
-- KHODERS Development Team
+- PHP 7.4+
+- MySQL
+- Bootstrap 5.3.x
+- JavaScript (Vanilla)
 
 ## License
 
-All rights reserved. This codebase is the property of KHODERS Coding Club.
-
-## Contact
-
-For any inquiries, please reach out to:
-- Email: info@khodersclub.com
-- Website: [khodersclub.com](https://khodersclub.com)
+All rights reserved. Property of KHODERS Coding Club.

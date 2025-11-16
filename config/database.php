@@ -155,7 +155,8 @@ class Database {
     private function logInfo($message) {
         $app_env = getenv('APP_ENV');
         if ($app_env !== 'production') {
-            error_log('[INFO] ' . $message);
+            $sanitizedMessage = str_replace(["\r", "\n"], ' ', $message);
+            error_log('[INFO] ' . $sanitizedMessage);
         }
     }
 
@@ -163,9 +164,11 @@ class Database {
      * Log errors with exception details
      */
     private function logError($message, $exception = null) {
-        $logMessage = '[ERROR] ' . $message;
+        $sanitizedMessage = str_replace(["\r", "\n"], ' ', $message);
+        $logMessage = '[ERROR] ' . $sanitizedMessage;
         if ($exception instanceof Exception) {
-            $logMessage .= ': ' . $exception->getMessage();
+            $exceptionMsg = str_replace(["\r", "\n"], ' ', $exception->getMessage());
+            $logMessage .= ': ' . $exceptionMsg;
             $logMessage .= ' in ' . $exception->getFile() . ':' . $exception->getLine();
         }
         error_log($logMessage);

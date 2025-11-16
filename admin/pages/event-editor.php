@@ -265,15 +265,18 @@ $csrfToken = Security::generateCSRFToken();
                              onchange="previewImage(this, 'image_preview')">
                       <small class="form-text text-muted">Supported formats: JPEG, PNG, WebP, GIF (Max 5MB)</small>
                       
-                      <?php if (!empty($event['image_url'])): ?>
-                        <div class="mt-2">
-                          <img id="image_preview" src="<?php echo htmlspecialchars($event['image_url']); ?>" 
-                               alt="Event image" style="max-width: 100%; max-height: 200px;">
+                      <div id="image_preview" class="mt-2">
+                        <?php if (!empty($event['image_url'])): ?>
+                          <?php 
+                          $imgPath = $event['image_url'];
+                          if (strpos($imgPath, '/public/') === 0) {
+                              $imgPath = '..' . $imgPath;
+                          }
+                          ?>
+                          <img src="<?php echo htmlspecialchars($imgPath); ?>" alt="Event image" style="max-width: 100%; max-height: 200px;">
                           <p><small class="text-muted">Current image</small></p>
-                        </div>
-                      <?php else: ?>
-                        <div id="image_preview"></div>
-                      <?php endif; ?>
+                        <?php endif; ?>
+                      </div>
                     </div>
                     
                     <div class="form-group mb-3">

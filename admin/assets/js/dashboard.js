@@ -24,7 +24,7 @@
                 '#1F3BB3',
             ],
             borderWidth: 1.5,
-            fill: true, // 3: no fill
+            fill: true,
             pointBorderWidth: 1,
             pointRadius: [4, 4, 4, 4, 4,4, 4, 4, 4, 4,4, 4, 4],
             pointHoverRadius: [2, 2, 2, 2, 2,2, 2, 2, 2, 2,2, 2, 2],
@@ -38,7 +38,7 @@
               '#52CDFF',
           ],
           borderWidth: 1.5,
-          fill: true, // 3: no fill
+          fill: true,
           pointBorderWidth: 1,
           pointRadius: [0, 0, 0, 4, 0],
           pointHoverRadius: [0, 0, 0, 2, 0],
@@ -107,12 +107,12 @@
               const legendId = `${chartId}-legend`;
               const ul = document.createElement('ul');
               for(i=0;i<chart.data.datasets.length; i++) {
-                  ul.innerHTML += `
-                  <li>
-                    <span style="background-color: ${chart.data.datasets[i].borderColor}"></span>
-                    ${chart.data.datasets[i].label}
-                  </li>
-                `;
+                  const li = document.createElement('li');
+                  const span = document.createElement('span');
+                  span.style.backgroundColor = chart.data.datasets[i].borderColor;
+                  li.appendChild(span);
+                  li.appendChild(document.createTextNode(chart.data.datasets[i].label));
+                  ul.appendChild(li);
               }
               return document.getElementById(legendId).appendChild(ul);
             }
@@ -134,7 +134,7 @@
                   '#01B6A0',
               ],
               borderWidth: 2,
-              fill: false, // 3: no fill
+              fill: false,
               pointBorderWidth: 0,
               pointRadius: [0, 0, 0, 0, 0, 0],
               pointHoverRadius: [0, 0, 0, 0, 0, 0],
@@ -192,7 +192,7 @@
             ],
               borderWidth: 0,
               barPercentage: 0.35,
-              fill: true, // 3: no fill
+              fill: true,
               
           },{
             label: 'This week',
@@ -203,7 +203,7 @@
             ],
             borderWidth: 0,
               barPercentage: 0.35,
-              fill: true, // 3: no fill
+              fill: true,
           }]
         },
         options: {
@@ -269,12 +269,12 @@
               const legendId = `${chartId}-legend`;
               const ul = document.createElement('ul');
               for(i=0;i<chart.data.datasets.length; i++) {
-                  ul.innerHTML += `
-                  <li>
-                    <span style="background-color: ${chart.data.datasets[i].borderColor}"></span>
-                    ${chart.data.datasets[i].label}
-                  </li>
-                `;
+                  const li = document.createElement('li');
+                  const span = document.createElement('span');
+                  span.style.backgroundColor = chart.data.datasets[i].borderColor;
+                  li.appendChild(span);
+                  li.appendChild(document.createTextNode(chart.data.datasets[i].label));
+                  ul.appendChild(li);
               }
               return document.getElementById(legendId).appendChild(ul);
             }
@@ -285,8 +285,6 @@
     if ($('#totalVisitors').length) {
       var bar = new ProgressBar.Circle(totalVisitors, {
         color: '#fff',
-        // This has to be the same size as the maximum width to
-        // prevent clipping
         strokeWidth: 15,
         trailWidth: 15, 
         easing: 'easeInOut',
@@ -302,7 +300,6 @@
           color: '#677ae4',
           width: 15
         },
-        // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
@@ -318,14 +315,12 @@
       });
   
       bar.text.style.fontSize = '0rem';
-      bar.animate(.64); // Number from 0.0 to 1.0
+      bar.animate(.64);
     }
 
     if ($('#visitperday').length) {
       var bar = new ProgressBar.Circle(visitperday, {
         color: '#fff',
-        // This has to be the same size as the maximum width to
-        // prevent clipping
         strokeWidth: 15,
         trailWidth: 15,
         easing: 'easeInOut',
@@ -341,7 +336,6 @@
           color: '#677ae4',
           width: 15
         },
-        // Set default step function for all animate calls
         step: function(state, circle) {
           circle.path.setAttribute('stroke', state.color);
           circle.path.setAttribute('stroke-width', state.width);
@@ -357,7 +351,7 @@
       });
   
       bar.text.style.fontSize = '0rem';
-      bar.animate(.34); // Number from 0.0 to 1.0
+      bar.animate(.34);
     }
 
     if ($("#doughnutChart").length) { 
@@ -404,12 +398,12 @@
               const legendId = `${chartId}-legend`;
               const ul = document.createElement('ul');
               for(i=0;i<chart.data.datasets[0].data.length; i++) {
-                  ul.innerHTML += `
-                  <li>
-                    <span style="background-color: ${chart.data.datasets[0].backgroundColor[i]}"></span>
-                    ${chart.data.labels[i]}
-                  </li>
-                `;
+                  const li = document.createElement('li');
+                  const span = document.createElement('span');
+                  span.style.backgroundColor = chart.data.datasets[0].backgroundColor[i];
+                  li.appendChild(span);
+                  li.appendChild(document.createTextNode(chart.data.labels[i]));
+                  ul.appendChild(li);
               }
               return document.getElementById(legendId).appendChild(ul);
             }
@@ -431,7 +425,7 @@
                   '#52CDFF',
               ],
               borderWidth: 0,
-              fill: true, // 3: no fill
+              fill: true,
               barPercentage: 0.5,
           }]
         },
@@ -528,9 +522,6 @@
     });
     
   });
-  // iconify.load('icons.svg').then(function() {
-  //   iconify(document.querySelector('.my-cool.icon'));
-  // });
 
   
 })(jQuery);

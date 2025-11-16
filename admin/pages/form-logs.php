@@ -161,7 +161,7 @@ if ($db) {
             $sql .= " AND created_at <= ?";
         }
         
-        $sql .= " ORDER BY created_at DESC LIMIT $offset, $per_page";
+        $sql .= " ORDER BY created_at DESC LIMIT ?, ?";
         
         $stmt = $db->prepare($sql);
         $index = 1;
@@ -181,6 +181,9 @@ if ($db) {
         if (!empty($date_to)) {
             $stmt->bindValue($index++, $date_to . ' 23:59:59');
         }
+        
+        $stmt->bindValue($index++, $offset, PDO::PARAM_INT);
+        $stmt->bindValue($index++, $per_page, PDO::PARAM_INT);
         
         $stmt->execute();
         $logs = $stmt->fetchAll(PDO::FETCH_ASSOC);

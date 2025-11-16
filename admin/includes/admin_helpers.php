@@ -70,7 +70,8 @@ if (!function_exists('admin_table_exists')) {
         }
 
         try {
-            $stmt = $db->query("SELECT 1 FROM `{$table}` LIMIT 1");
+            $stmt = $db->prepare("SELECT 1 FROM `" . str_replace('`', '``', $table) . "` LIMIT 1");
+            $stmt->execute();
             return true;
         } catch (PDOException $e) {
             return false;
@@ -90,9 +91,10 @@ if (!function_exists('admin_table_has_column')) {
         }
 
         try {
-            $query = sprintf('SHOW COLUMNS FROM `%s` LIKE :column', $table);
+            $escapedTable = str_replace('`', '``', $table);
+            $query = "SHOW COLUMNS FROM `{$escapedTable}` LIKE ?";
             $stmt = $db->prepare($query);
-            $stmt->execute(['column' => $column]);
+            $stmt->execute([$column]);
             return $stmt->fetch(PDO::FETCH_ASSOC) !== false;
         } catch (PDOException $e) {
             return false;
@@ -108,7 +110,8 @@ if (!function_exists('admin_get_columns')) {
         }
 
         try {
-            $stmt = $db->prepare(sprintf('SHOW COLUMNS FROM `%s`', $table));
+            $escapedTable = str_replace('`', '``', $table);
+            $stmt = $db->prepare("SHOW COLUMNS FROM `{$escapedTable}`");
             $stmt->execute();
             return array_map(fn ($row) => $row['Field'], $stmt->fetchAll(PDO::FETCH_ASSOC));
         } catch (PDOException $e) {

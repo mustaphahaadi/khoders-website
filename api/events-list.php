@@ -6,6 +6,7 @@
 
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/ApiResponse.php';
+require_once __DIR__ . '/../admin/includes/admin_helpers.php';
 
 try {
     $database = new Database();
@@ -30,16 +31,33 @@ try {
         $status = 'upcoming';
     }
     
-    // Build query
-    $sql = "SELECT id, title, description, event_date, location, image_url, registration_url, is_featured, status 
+    // Build query - handle both date column formats
+    $dateCol = 'created_at';
+    if (admin_table_has_column($db, 'events', 'event_date')) {
+        $dateCol = 'event_date';
+    } elseif (admin_table_has_column($db, 'events', 'date')) {
+        $dateCol = 'date';
+    }
+    
+    $sql = "SELECT id, title, description, date, time, location, image_url, registration_url, is_featured, status 
             FROM events 
             WHERE status = ? 
-            ORDER BY event_date DESC 
+            ORDER BY {$dateCol} DESC 
             LIMIT ? OFFSET ?";
     
     $stmt = $db->prepare($sql);
     $stmt->execute([$status, $limit, $offset]);
     $events = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    
+    // Combine date and time into event_date for frontend
+    foreach ($events as &$event) {
+        if (!empty($event['date'])) {
+            $event['event_date'] = $event['date'];
+            if (!empty($event['time'])) {
+                $event['event_date'] .= ' ' . $event['time'];
+            }
+        }
+    }
     
     // Get total count
     $countSql = "SELECT COUNT(*) as total FROM events WHERE status = ?";

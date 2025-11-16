@@ -135,7 +135,9 @@ class Router {
                 
                 // Execute middleware
                 foreach ($route['middleware'] as $middleware) {
-                    call_user_func($middleware);
+                    if (is_callable($middleware)) {
+                        call_user_func($middleware);
+                    }
                 }
                 
                 // Set page title if provided
@@ -237,7 +239,9 @@ class Router {
             
             // Execute middleware
             foreach ($route['middleware'] as $middleware) {
-                call_user_func($middleware);
+                if (is_callable($middleware)) {
+                    call_user_func($middleware);
+                }
             }
             
             // Set page title if provided

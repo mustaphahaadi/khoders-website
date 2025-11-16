@@ -222,10 +222,13 @@ class ErrorHandler {
         
         $logFile = self::$logPath . '/' . $type . '.log';
         
+        // Sanitize message to prevent log injection
+        $sanitizedMessage = is_array($message) ? json_encode($message) : str_replace(["\r", "\n"], ' ', $message);
+        
         $logEntry = [
             'timestamp' => date('Y-m-d H:i:s.u'),
             'type' => $type,
-            'message' => is_array($message) ? json_encode($message) : $message,
+            'message' => $sanitizedMessage,
             'context' => $context,
             'ip' => $_SERVER['REMOTE_ADDR'] ?? 'CLI'
         ];
@@ -239,12 +242,13 @@ class ErrorHandler {
      * Log database error with query details
      */
     public static function logDatabaseError($message, $query = '', $bindings = []) {
+        $sanitizedMessage = str_replace(["\r", "\n"], ' ', $message);
         $context = [
             'query' => $query,
             'bindings' => $bindings
         ];
         
-        self::log('Database Error: ' . $message, 'database', $context);
+        self::log('Database Error: ' . $sanitizedMessage, 'database', $context);
     }
     
     /**
@@ -362,15 +366,22 @@ class ErrorHandler {
             return false;
         }
         
+        $logPath = realpath(self::$logPath);
+        if (!$logPath) {
+            return false;
+        }
+        
         if ($type === 'all') {
-            $files = glob(self::$logPath . '/*.log');
+            $files = glob($logPath . '/*.log');
         } else {
-            $files = [self::$logPath . '/' . $type . '.log'];
+            $sanitizedType = preg_replace('/[^a-z0-9_-]/', '', strtolower($type));
+            $files = [$logPath . '/' . $sanitizedType . '.log'];
         }
         
         foreach ($files as $file) {
-            if (file_exists($file)) {
-                @unlink($file);
+            $realFile = realpath($file);
+            if ($realFile && strpos($realFile, $logPath) === 0 && file_exists($realFile)) {
+                @unlink($realFile);
             }
         }
         

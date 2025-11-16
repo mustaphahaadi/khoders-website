@@ -1,6 +1,7 @@
 <?php
 session_start();
 require_once '../config/auth.php';
+require_once '../config/csrf.php';
 
 // Redirect if already logged in
 if (Auth::check()) {
@@ -11,6 +12,9 @@ if (Auth::check()) {
 $error = '';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    if (!CSRFToken::validate()) {
+        $error = 'Invalid security token. Please try again.';
+    } else {
     $username = $_POST['username'] ?? '';
     $password = $_POST['password'] ?? '';
     
@@ -27,7 +31,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } else {
         $error = 'Invalid username or password';
     }
+    }
 }
+
+$csrfToken = CSRFToken::generate();
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -165,6 +172,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php endif; ?>
         
         <form method="POST" action="">
+            <input type="hidden" name="<?php echo CSRFToken::getTokenName(); ?>" value="<?php echo htmlspecialchars($csrfToken); ?>">
             <div class="form-group">
                 <label for="username">Username</label>
                 <input type="text" id="username" name="username" required autofocus>

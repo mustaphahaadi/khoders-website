@@ -10,11 +10,14 @@
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
-// Database credentials - change these to match your environment
-$host = 'localhost';
-$username = 'root';  // Default MySQL username
-$password = '';      // Default MySQL password (often empty on localhost)
-$database = 'khoders_db';
+// Load environment variables
+require_once __DIR__ . '/../config/env.php';
+
+// Database credentials from environment
+$host = getenv('DB_HOST') ?: 'localhost';
+$username = getenv('DB_USER') ?: 'root';
+$password = getenv('DB_PASS') ?: '';
+$database = getenv('DB_NAME') ?: 'khoders_db';
 
 // Connect to MySQL server without selecting a database
 try {
@@ -81,8 +84,8 @@ try {
     echo "<h2>Database setup completed successfully!</h2>";
     
     // Create a new user with limited privileges for the application
-    $new_username = 'khoders_user';
-    $new_password = 'khoders_password'; // Use a strong password in production
+    $new_username = getenv('DB_USER') ?: 'khoders_user';
+    $new_password = getenv('DB_PASS') ?: bin2hex(random_bytes(16)); // Generate random password if not set
     
     // Drop user if exists and create new one
     $conn->query("DROP USER IF EXISTS '$new_username'@'localhost'");

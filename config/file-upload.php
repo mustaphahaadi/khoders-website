@@ -27,8 +27,9 @@ class FileUploader {
      */
     public function __construct($subdir = 'uploads', $maxFileSize = 5 * 1024 * 1024) {
         // Ensure uploads directory exists
-        $baseDir = __DIR__ . '/../public/uploads';
-        $this->uploadDir = $baseDir . '/' . preg_replace('/[^a-z0-9_-]/', '', $subdir);
+        $baseDir = realpath(__DIR__ . '/../public/uploads') ?: __DIR__ . '/../public/uploads';
+        $sanitizedSubdir = preg_replace('/[^a-z0-9_-]/', '', strtolower($subdir));
+        $this->uploadDir = $baseDir . DIRECTORY_SEPARATOR . $sanitizedSubdir;
         $this->maxFileSize = $maxFileSize;
         
         // Create directories if they don't exist
@@ -90,14 +91,27 @@ class FileUploader {
         
         // Generate secure filename
         $filename = $this->generateSecureFilename($fileInput['name']);
-        $filePath = $this->uploadDir . '/' . $filename;
+        $filePath = $this->uploadDir . DIRECTORY_SEPARATOR . $filename;
+        
+        // Validate final path is within upload directory
+        $realUploadDir = realpath($this->uploadDir);
+        $realFilePath = realpath(dirname($filePath)) . DIRECTORY_SEPARATOR . basename($filePath);
+        if (!$realUploadDir || strpos($realFilePath, $realUploadDir) !== 0) {
+            $result['error'] = 'Invalid upload path';
+            return $result;
+        }
+        
         $publicPath = '/public/uploads/' . basename($this->uploadDir) . '/' . $filename;
         
         // Move uploaded file
         if (move_uploaded_file($fileInput['tmp_name'], $filePath)) {
             // Delete old file if provided
-            if (!empty($deleteOld) && file_exists(__DIR__ . '/..' . $deleteOld)) {
-                @unlink(__DIR__ . '/..' . $deleteOld);
+            if (!empty($deleteOld)) {
+                $oldPath = realpath(__DIR__ . '/..' . $deleteOld);
+                $uploadsBase = realpath(__DIR__ . '/../public/uploads');
+                if ($oldPath && $uploadsBase && strpos($oldPath, $uploadsBase) === 0 && file_exists($oldPath)) {
+                    @unlink($oldPath);
+                }
             }
             
             $result['success'] = true;
@@ -117,8 +131,10 @@ class FileUploader {
             return false;
         }
         
-        $fullPath = __DIR__ . '/..' . $filePath;
-        if (file_exists($fullPath)) {
+        $fullPath = realpath(__DIR__ . '/..' . $filePath);
+        $uploadsBase = realpath(__DIR__ . '/../public/uploads');
+        
+        if ($fullPath && $uploadsBase && strpos($fullPath, $uploadsBase) === 0 && file_exists($fullPath)) {
             return @unlink($fullPath);
         }
         

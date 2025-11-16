@@ -1,13 +1,13 @@
 <?php
 if (!defined('PAGE_TITLE')) {
-    define('PAGE_TITLE', 'Programs/Courses - KHODERS WORLD Admin');
+    define('PAGE_TITLE', 'Programs - KHODERS WORLD Admin');
 }
 
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
-$currentPage = 'courses';
+$currentPage = 'programs';
 $action = $_GET['action'] ?? 'list';
 $message = $_GET['message'] ?? '';
 $error = '';
@@ -29,7 +29,7 @@ try {
 
 if ($db && $action === 'delete' && isset($_GET['id'])) {
     try {
-        $stmt = $db->prepare("DELETE FROM courses WHERE id = ?");
+        $stmt = $db->prepare("DELETE FROM programs WHERE id = ?");
         $stmt->execute([$_GET['id']]);
         $message = 'Course deleted successfully.';
         $action = 'list';
@@ -41,14 +41,14 @@ if ($db && $action === 'delete' && isset($_GET['id'])) {
 $courses = [];
 if ($db) {
     try {
-        $stmt = $db->query("SELECT * FROM courses ORDER BY created_at DESC");
+        $stmt = $db->query("SELECT * FROM programs ORDER BY created_at DESC");
         $courses = $stmt ? $stmt->fetchAll(PDO::FETCH_ASSOC) : [];
     } catch (PDOException $e) {
         $error = 'Error fetching courses: ' . $e->getMessage();
     }
 }
 
-$tableExists = $db ? admin_table_exists($db, 'courses') : false;
+$tableExists = $db ? admin_table_exists($db, 'programs') : false;
 if ($db && !$tableExists) {
     try {
         $db->exec("CREATE TABLE courses (
@@ -80,11 +80,11 @@ $csrfToken = Security::generateCSRFToken();
         <div class="card-body">
           <div class="d-sm-flex justify-content-between align-items-start mb-4">
             <div>
-              <h4 class="card-title card-title-dash">Programs/Courses</h4>
-              <p class="card-subtitle card-subtitle-dash">Manage programs and courses</p>
+              <h4 class="card-title card-title-dash">Programs</h4>
+              <p class="card-subtitle card-subtitle-dash">Manage detailed programs</p>
             </div>
-            <a href="?route=course-editor" class="btn btn-primary me-1">
-              <i class="mdi mdi-plus"></i> Add New Course
+            <a href="?route=program-editor" class="btn btn-primary me-1">
+              <i class="mdi mdi-plus"></i> Add New Program
             </a>
           </div>
           
@@ -109,7 +109,7 @@ $csrfToken = Security::generateCSRFToken();
               <table class="table table-hover">
                 <thead>
                   <tr>
-                    <th>Course Title</th>
+                    <th>Program Title</th>
                     <th>Level</th>
                     <th>Instructor</th>
                     <th>Duration</th>
@@ -122,7 +122,7 @@ $csrfToken = Security::generateCSRFToken();
                     <tr>
                       <td colspan="6" class="text-center py-4 text-muted">
                         <i class="mdi mdi-book-open mdi-48px d-block mb-2"></i>
-                        No courses found
+                        No programs found
                       </td>
                     </tr>
                   <?php else: ?>
@@ -142,10 +142,10 @@ $csrfToken = Security::generateCSRFToken();
                         </td>
                         <td>
                           <div class="d-flex gap-1">
-                            <a href="?route=course-editor&action=edit&id=<?php echo (int)$course['id']; ?>" class="btn btn-outline-primary btn-sm" title="Edit course">
+                            <a href="?route=program-editor&action=edit&id=<?php echo (int)$course['id']; ?>" class="btn btn-outline-primary btn-sm" title="Edit program">
                               <i class="mdi mdi-pencil"></i>
                             </a>
-                            <a href="?route=courses&action=delete&id=<?php echo (int)$course['id']; ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this course?');">
+                            <a href="?route=programs&action=delete&id=<?php echo (int)$course['id']; ?>" class="btn btn-outline-danger btn-sm" onclick="return confirm('Delete this program?');">
                               <i class="mdi mdi-delete"></i>
                             </a>
                           </div>
