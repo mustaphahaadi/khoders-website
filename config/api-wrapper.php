@@ -42,10 +42,11 @@ if ($appEnv === 'production') {
 
 // Handle CORS preflight
 $requestOrigin = $_SERVER['HTTP_ORIGIN'] ?? '';
-if (in_array($requestOrigin, $allowedOrigins) || in_array('*', $allowedOrigins)) {
+if (in_array($requestOrigin, $allowedOrigins)) {
     header('Access-Control-Allow-Origin: ' . $requestOrigin);
 } else {
-    header('Access-Control-Allow-Origin: *');
+    http_response_code(403);
+    exit('CORS policy violation');
 }
 
 header('Access-Control-Allow-Methods: GET, POST, PUT, DELETE, OPTIONS');

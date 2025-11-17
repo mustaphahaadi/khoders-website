@@ -12,17 +12,24 @@
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!isset($_POST[CSRFToken::getTokenName()]) || !CSRFToken::validate()) {
       http_response_code(403);
-      die('CSRF token validation failed. Please try again.');
+      header('Content-Type: application/json');
+      echo json_encode(['success' => false, 'message' => 'CSRF token validation failed']);
+      exit;
     }
   }
   
   // Replace with your real receiving email address
   $receiving_email_address = 'newsletter@khodersclub.com';
 
-  if( file_exists($php_email_form = '../assets/vendor/php-email-form/php-email-form.php' )) {
-    include( $php_email_form );
+  $php_email_form = realpath(__DIR__ . '/../assets/vendor/php-email-form/php-email-form.php');
+  $base_dir = realpath(__DIR__ . '/../assets/vendor/');
+  if ($php_email_form && $base_dir && strpos($php_email_form, $base_dir) === 0 && file_exists($php_email_form)) {
+    include $php_email_form;
   } else {
-    die( 'Unable to load the "PHP Email Form" Library!');
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode(['success' => false, 'message' => 'Unable to load PHP Email Form Library']);
+    exit;
   }
 
   // Initialize form handler

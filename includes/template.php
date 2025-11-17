@@ -34,7 +34,10 @@ function render_page($content, $page_title = '', $meta_data = []) {
     include 'header.php';
     
     // Include navigation
-    include 'navigation.php';
+    $nav_file = 'includes/header/nav.html';
+    if (file_exists($nav_file)) {
+        include $nav_file;
+    }
     
     // Output the content
     echo $content;

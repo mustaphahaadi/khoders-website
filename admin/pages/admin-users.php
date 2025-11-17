@@ -9,7 +9,6 @@ $db = $database->getConnection();
 $message = $_GET['message'] ?? '';
 $error = '';
 
-// Handle actions
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && $db) {
     $action = $_POST['action'] ?? '';
     
@@ -40,7 +39,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && $db) {
     }
 }
 
-// Fetch admins
 $admins = [];
 if ($db) {
     try {
@@ -68,10 +66,10 @@ if ($db) {
           </div>
           
           <?php if ($message): ?>
-            <div class="alert alert-success"><?php echo htmlspecialchars($message); ?></div>
+            <div class="alert alert-success"><?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?></div>
           <?php endif; ?>
           <?php if ($error): ?>
-            <div class="alert alert-danger"><?php echo htmlspecialchars($error); ?></div>
+            <div class="alert alert-danger"><?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?></div>
           <?php endif; ?>
           
           <div class="table-responsive">
@@ -88,14 +86,14 @@ if ($db) {
               <tbody>
                 <?php foreach ($admins as $admin): ?>
                   <tr>
-                    <td><?php echo htmlspecialchars($admin['username']); ?></td>
-                    <td><?php echo htmlspecialchars($admin['email']); ?></td>
-                    <td><span class="badge bg-<?php echo $admin['role'] === 'admin' ? 'primary' : 'secondary'; ?>"><?php echo ucfirst($admin['role']); ?></span></td>
+                    <td><?php echo htmlspecialchars($admin['username'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><?php echo htmlspecialchars($admin['email'], ENT_QUOTES, 'UTF-8'); ?></td>
+                    <td><span class="badge bg-<?php echo $admin['role'] === 'admin' ? 'primary' : 'secondary'; ?>"><?php echo htmlspecialchars(ucfirst($admin['role']), ENT_QUOTES, 'UTF-8'); ?></span></td>
                     <td><?php echo $admin['last_login'] ? date('M d, Y', strtotime($admin['last_login'])) : 'Never'; ?></td>
                     <td>
                       <form method="post" style="display:inline;" onsubmit="return confirm('Delete this admin?');">
                         <input type="hidden" name="action" value="delete">
-                        <input type="hidden" name="id" value="<?php echo $admin['id']; ?>">
+                        <input type="hidden" name="id" value="<?php echo htmlspecialchars($admin['id'], ENT_QUOTES, 'UTF-8'); ?>">
                         <button type="submit" class="btn btn-outline-danger btn-sm"><i class="mdi mdi-delete"></i></button>
                       </form>
                     </td>

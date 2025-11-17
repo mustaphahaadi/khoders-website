@@ -145,8 +145,7 @@ CREATE TABLE IF NOT EXISTS programs (
 
 CREATE TABLE IF NOT EXISTS team_members (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    first_name VARCHAR(100) NOT NULL,
-    last_name VARCHAR(100) NOT NULL,
+    name VARCHAR(200) NOT NULL,
     email VARCHAR(100),
     phone VARCHAR(20),
     position VARCHAR(100),
@@ -171,7 +170,6 @@ CREATE TABLE IF NOT EXISTS events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     title VARCHAR(200) NOT NULL,
     description TEXT,
-    event_date DATETIME,
     date DATE,
     time TIME,
     location VARCHAR(200),
@@ -183,7 +181,6 @@ CREATE TABLE IF NOT EXISTS events (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     INDEX idx_date (date),
-    INDEX idx_event_date (event_date),
     INDEX idx_status (status)
 );
 
@@ -195,10 +192,8 @@ CREATE TABLE IF NOT EXISTS projects (
     tech_stack JSON,
     github_url VARCHAR(500),
     demo_url VARCHAR(500),
-    status ENUM('active', 'completed', 'archived') DEFAULT 'active',
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    INDEX idx_status (status)
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
 -- ============================================
@@ -271,3 +266,27 @@ INSERT IGNORE INTO site_settings (setting_key, setting_value, setting_type) VALU
 ('instagram_url', '#', 'text'),
 ('linkedin_url', '#', 'text'),
 ('maintenance_mode', '0', 'boolean');
+
+-- Sample courses
+INSERT IGNORE INTO courses (title, subtitle, description, duration, level, category, members_count, rating, status) VALUES
+('Web Development Fundamentals', 'Learn HTML, CSS, and JavaScript', 'Master the core building blocks of modern web development', '8 Weeks', 'Beginner', 'Web Development', 342, 4.5, 'active'),
+('Mobile App Development', 'Build cross-platform mobile apps', 'Learn React Native and Firebase', '6 Weeks', 'Intermediate', 'Mobile Development', 156, 5.0, 'active'),
+('Python for Data Science', 'Start your journey in data science', 'Learn data analysis and machine learning', '4 Weeks', 'Beginner', 'Data Science', 789, 4.2, 'active');
+
+-- Sample events
+INSERT IGNORE INTO events (title, description, date, location, status) VALUES
+('Weekly Coding Session', 'Join our weekly coding meetup', DATE_ADD(CURDATE(), INTERVAL 7 DAY), 'KTU Campus', 'upcoming'),
+('Hackathon 2025', 'Build something amazing in 48 hours', DATE_ADD(CURDATE(), INTERVAL 30 DAY), 'KTU Innovation Hub', 'upcoming'),
+('Tech Talk: Cloud Computing', 'Learn about AWS and cloud architecture', DATE_ADD(CURDATE(), INTERVAL 14 DAY), 'Online', 'upcoming');
+
+-- Sample projects
+INSERT IGNORE INTO projects (title, description, tech_stack) VALUES
+('E-Commerce Platform', 'Full-stack e-commerce solution', '["React", "Node.js", "MongoDB"]'),
+('Task Management App', 'Collaborative task management tool', '["Vue.js", "Firebase"]'),
+('Data Analytics Dashboard', 'Real-time analytics dashboard', '["Python", "Pandas", "Plotly"]');
+
+-- Sample team members
+INSERT IGNORE INTO team_members (name, position, bio, status, order_index) VALUES
+('David Sapa Blaki', 'Frontend Lead', 'Senior Developer with 8+ years experience', 'active', 1),
+('Mustapha Haadi', 'Backend Lead', 'Full-stack developer specializing in Node.js', 'active', 2),
+('Amanda Rodriguez', 'UX Designer', 'Product designer focused on user experience', 'active', 3);

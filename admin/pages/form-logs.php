@@ -4,17 +4,14 @@
  * Displayed when accessing the form-logs route
  */
 
-// This page should only be included through the router
 if (!defined('PAGE_TITLE')) {
     define('PAGE_TITLE', 'Form Logs - KHODERS WORLD Admin');
 }
 
-// Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
-// Initialize variables
 $currentPage = 'form-logs';
 $action = $_GET['action'] ?? 'list';
 $message = '';
@@ -30,10 +27,8 @@ $total_logs = 0;
 $total_pages = 1;
 $hasAdminRole = Auth::hasRole('admin');
 
-// Get current user
 $user = Auth::user();
 
-// Database connection
 $database = new Database();
 $db = $database->getConnection();
 
@@ -42,7 +37,6 @@ if (!$db) {
 }
 
 if ($db) {
-    // Handle delete action with admin role check
     if ($action === 'delete' && isset($_GET['id'])) {
         if (!Auth::hasRole('admin')) {
             $error = 'You do not have permission to delete logs';
@@ -51,14 +45,13 @@ if ($db) {
                 $stmt = $db->prepare("DELETE FROM form_logs WHERE id = ?");
                 $stmt->execute([$_GET['id']]);
                 $message = 'Log entry deleted successfully';
-                $action = 'list'; // Return to list view
+                $action = 'list';
             } catch(PDOException $e) {
                 $error = 'Failed to delete log entry: ' . $e->getMessage();
             }
         }
     }
 
-    // Handle clear logs action with admin role check
     if ($action === 'clear' && isset($_POST['confirm_clear'])) {
         if (!Auth::hasRole('admin')) {
             $error = 'You do not have permission to clear logs';
@@ -67,7 +60,6 @@ if ($db) {
                 $sql = "DELETE FROM form_logs WHERE 1=1";
                 $params = [];
                 
-                // Apply filters if provided
                 if (!empty($form_type_filter)) {
                     $sql .= " AND form_type = ?";
                     $params[] = $form_type_filter;
@@ -94,7 +86,6 @@ if ($db) {
                 $count = $stmt->rowCount();
                 $message = "Successfully cleared $count log entries";
                 
-                // Reset filters after clearing
                 $form_type_filter = '';
                 $status_filter = '';
                 $date_from = '';
@@ -105,7 +96,6 @@ if ($db) {
         }
     }
 
-    // Count total logs with filters
     try {
         $sql = "SELECT COUNT(*) FROM form_logs WHERE 1=1";
         $params = [];
@@ -135,14 +125,11 @@ if ($db) {
         $total_logs = (int) $stmt->fetchColumn();
         $total_pages = ceil($total_logs / $per_page);
         
-        // Ensure page is within valid range
         if ($page < 1) $page = 1;
         if ($page > $total_pages && $total_pages > 0) $page = $total_pages;
         
-        // Calculate offset for pagination
         $offset = ($page - 1) * $per_page;
         
-        // Fetch logs with pagination and filters
         $sql = "SELECT * FROM form_logs WHERE 1=1";
         
         if (!empty($form_type_filter)) {
@@ -214,13 +201,13 @@ if ($db) {
           
           <?php if ($message): ?>
             <div class="alert alert-success" role="alert">
-              <i class="mdi mdi-check-circle-outline"></i> <?php echo admin_safe($message); ?>
+              <i class="mdi mdi-check-circle-outline"></i> <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
             </div>
           <?php endif; ?>
           
           <?php if ($error): ?>
             <div class="alert alert-danger" role="alert">
-              <i class="mdi mdi-alert-circle"></i> <?php echo admin_safe($error); ?>
+              <i class="mdi mdi-alert-circle"></i> <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
             </div>
           <?php endif; ?>
           
@@ -251,14 +238,14 @@ if ($db) {
                 <div class="col-md-2">
                   <label for="date_from" class="form-label">Date From</label>
                   <div class="input-group">
-                    <input type="date" class="form-control" id="date_from" name="date_from" value="<?php echo $date_from; ?>">
+                    <input type="date" class="form-control" id="date_from" name="date_from" value="<?php echo htmlspecialchars($date_from, ENT_QUOTES, 'UTF-8'); ?>">
                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                   </div>
                 </div>
                 <div class="col-md-2">
                   <label for="date_to" class="form-label">Date To</label>
                   <div class="input-group">
-                    <input type="date" class="form-control" id="date_to" name="date_to" value="<?php echo $date_to; ?>">
+                    <input type="date" class="form-control" id="date_to" name="date_to" value="<?php echo htmlspecialchars($date_to, ENT_QUOTES, 'UTF-8'); ?>">
                     <span class="input-group-text"><i class="mdi mdi-calendar"></i></span>
                   </div>
                 </div>
@@ -296,7 +283,7 @@ if ($db) {
                 <?php else: ?>
                   <?php foreach ($logs as $log): ?>
                     <tr>
-                      <td><?php echo admin_safe($log['id'] ?? ''); ?></td>
+                      <td><?php echo htmlspecialchars($log['id'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                       <td>
                         <div class="badge bg-primary">
                           <i class="mdi mdi-<?php 
@@ -306,7 +293,7 @@ if ($db) {
                             elseif ($form_type === 'registration') echo 'account-plus';
                             else echo 'file-document';
                           ?>"></i>
-                          <?php echo admin_safe(ucfirst($log['form_type'] ?? '')); ?>
+                          <?php echo htmlspecialchars(ucfirst($log['form_type'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>
                         </div>
                       </td>
                       <td>
@@ -324,7 +311,7 @@ if ($db) {
                             elseif ($status === 'spam') echo 'alert-octagon';
                             else echo 'information';
                           ?>"></i>
-                          <?php echo admin_safe(ucfirst($log['status'] ?? '')); ?>
+                          <?php echo htmlspecialchars(ucfirst($log['status'] ?? ''), ENT_QUOTES, 'UTF-8'); ?>
                         </div>
                       </td>
                       <td>
@@ -333,7 +320,7 @@ if ($db) {
                             <i class="mdi mdi-email-outline"></i>
                           </div>
                           <div class="ms-2">
-                            <?php echo admin_safe($log['email'] ?? ''); ?>
+                            <?php echo htmlspecialchars($log['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
                           </div>
                         </div>
                       </td>
@@ -341,18 +328,18 @@ if ($db) {
                       <td>
                         <div class="d-flex">
                           <button type="button" class="btn btn-outline-info btn-sm me-2" data-bs-toggle="modal" data-bs-target="#viewLogModal" 
-                                  data-id="<?php echo admin_safe($log['id'] ?? ''); ?>"
-                                  data-form-type="<?php echo admin_safe($log['form_type'] ?? ''); ?>"
-                                  data-status="<?php echo admin_safe($log['status'] ?? ''); ?>"
-                                  data-email="<?php echo admin_safe($log['email'] ?? ''); ?>"
-                                  data-data="<?php echo admin_safe($log['data'] ?? ''); ?>"
-                                  data-error="<?php echo admin_safe($log['error_message'] ?? ''); ?>"
-                                  data-ip="<?php echo admin_safe($log['ip_address'] ?? ''); ?>"
+                                  data-id="<?php echo htmlspecialchars($log['id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-form-type="<?php echo htmlspecialchars($log['form_type'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-status="<?php echo htmlspecialchars($log['status'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-email="<?php echo htmlspecialchars($log['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-data="<?php echo htmlspecialchars($log['data'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-error="<?php echo htmlspecialchars($log['error_message'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+                                  data-ip="<?php echo htmlspecialchars($log['ip_address'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
                                   data-date="<?php echo admin_format_date($log['created_at'] ?? null, 'M d, Y H:i:s'); ?>">
                             <i class="mdi mdi-eye"></i>
                           </button>
                           <?php if ($hasAdminRole): ?>
-                          <a href="?route=form-logs&action=delete&id=<?php echo admin_safe($log['id'] ?? ''); ?>" 
+                          <a href="?route=form-logs&action=delete&id=<?php echo htmlspecialchars($log['id'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" 
                              class="btn btn-outline-danger btn-sm"
                              onclick="return confirm('Are you sure you want to delete this log entry?')">
                             <i class="mdi mdi-delete"></i>
@@ -489,15 +476,15 @@ if ($db) {
         <ul class="list-group mb-3">
           <li class="list-group-item d-flex justify-content-between align-items-center">
             Form Type
-            <span class="badge bg-primary rounded-pill"><?php echo !empty($form_type_filter) ? ucfirst($form_type_filter) : 'All'; ?></span>
+            <span class="badge bg-primary rounded-pill"><?php echo !empty($form_type_filter) ? htmlspecialchars(ucfirst($form_type_filter), ENT_QUOTES, 'UTF-8') : 'All'; ?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             Status
-            <span class="badge bg-primary rounded-pill"><?php echo !empty($status_filter) ? ucfirst($status_filter) : 'All'; ?></span>
+            <span class="badge bg-primary rounded-pill"><?php echo !empty($status_filter) ? htmlspecialchars(ucfirst($status_filter), ENT_QUOTES, 'UTF-8') : 'All'; ?></span>
           </li>
           <li class="list-group-item d-flex justify-content-between align-items-center">
             Date Range
-            <span class="badge bg-primary rounded-pill"><?php echo (!empty($date_from) || !empty($date_to)) ? ($date_from ?: 'Any') . ' to ' . ($date_to ?: 'Any') : 'All Dates'; ?></span>
+            <span class="badge bg-primary rounded-pill"><?php echo (!empty($date_from) || !empty($date_to)) ? (htmlspecialchars($date_from, ENT_QUOTES, 'UTF-8') ?: 'Any') . ' to ' . (htmlspecialchars($date_to, ENT_QUOTES, 'UTF-8') ?: 'Any') : 'All Dates'; ?></span>
           </li>
         </ul>
         
@@ -513,10 +500,10 @@ if ($db) {
             </label>
           </div>
           
-          <input type="hidden" name="form_type" value="<?php echo admin_safe($form_type_filter); ?>">
-          <input type="hidden" name="status" value="<?php echo admin_safe($status_filter); ?>">
-          <input type="hidden" name="date_from" value="<?php echo admin_safe($date_from); ?>">
-          <input type="hidden" name="date_to" value="<?php echo admin_safe($date_to); ?>">
+          <input type="hidden" name="form_type" value="<?php echo htmlspecialchars($form_type_filter, ENT_QUOTES, 'UTF-8'); ?>">
+          <input type="hidden" name="status" value="<?php echo htmlspecialchars($status_filter, ENT_QUOTES, 'UTF-8'); ?>">
+          <input type="hidden" name="date_from" value="<?php echo htmlspecialchars($date_from, ENT_QUOTES, 'UTF-8'); ?>">
+          <input type="hidden" name="date_to" value="<?php echo htmlspecialchars($date_to, ENT_QUOTES, 'UTF-8'); ?>">
           
           <div class="d-grid">
             <button type="submit" class="btn btn-danger" id="clearLogsBtn" disabled>Clear Logs</button>
@@ -530,21 +517,14 @@ if ($db) {
 
 <script>
 $(document).ready(function() {
-  // Initialize DataTable
   $('.table').DataTable({
-    "aLengthMenu": [
-      [10, 30, 50, -1],
-      [10, 30, 50, "All"]
-    ],
+    "aLengthMenu": [[10, 30, 50, -1], [10, 30, 50, "All"]],
     "iDisplayLength": 10,
-    "language": {
-      search: ""
-    },
-    "paging": false // Disable DataTables pagination since we're using our own
+    "language": { search: "" },
+    "paging": false
   });
   $('.dataTables_filter input').attr("placeholder", "Search logs...");
   
-  // View Log Modal
   $('#viewLogModal').on('show.bs.modal', function (event) {
     var button = $(event.relatedTarget);
     var id = button.data('id');
@@ -564,11 +544,9 @@ $(document).ready(function() {
     $('#log-date').text(date);
     
     try {
-      // Try to parse and prettify JSON data
       var jsonData = JSON.parse(data);
       $('#log-data').text(JSON.stringify(jsonData, null, 2));
     } catch (e) {
-      // If not valid JSON, display as is
       $('#log-data').text(data || 'No data available');
     }
     
@@ -580,7 +558,6 @@ $(document).ready(function() {
     }
   });
   
-  // Enable clear logs button when checkbox is checked
   $('#confirm_clear').change(function() {
     $('#clearLogsBtn').prop('disabled', !this.checked);
   });

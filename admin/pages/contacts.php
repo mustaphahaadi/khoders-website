@@ -4,17 +4,14 @@
  * Displayed when accessing the contacts route
  */
 
-// This page should only be included through the router
 if (!defined('PAGE_TITLE')) {
     define('PAGE_TITLE', 'Contact Messages - KHODERS WORLD Admin');
 }
 
-// Include necessary files
 require_once __DIR__ . '/../../config/database.php';
 require_once __DIR__ . '/../../config/security.php';
 require_once __DIR__ . '/../includes/admin_helpers.php';
 
-// Initialize variables
 $currentPage = 'contacts';
 $action = $_GET['action'] ?? 'list';
 $message = '';
@@ -22,10 +19,8 @@ $error = '';
 $contacts = [];
 $columns = [];
 
-// Get current user
 $user = Auth::user();
 
-// Database connection
 $database = new Database();
 $db = $database->getConnection();
 
@@ -90,12 +85,12 @@ function format_contact_value(string $column, $value): string
     switch ($column) {
         case 'message':
         case 'subject':
-            return admin_excerpt($value, 80);
+            return htmlspecialchars(admin_excerpt($value, 80), ENT_QUOTES, 'UTF-8');
         case 'created_at':
         case 'updated_at':
-            return admin_safe(admin_format_date($value, 'M d, Y H:i'));
+            return htmlspecialchars(admin_format_date($value, 'M d, Y H:i'), ENT_QUOTES, 'UTF-8');
         default:
-            return admin_safe($value ?? '');
+            return htmlspecialchars($value ?? '', ENT_QUOTES, 'UTF-8');
     }
 }
 ?>
@@ -117,13 +112,13 @@ function format_contact_value(string $column, $value): string
           
           <?php if ($message): ?>
             <div class="alert alert-success" role="alert">
-              <i class="mdi mdi-check-circle-outline"></i> <?php echo admin_safe($message); ?>
+              <i class="mdi mdi-check-circle-outline"></i> <?php echo htmlspecialchars($message, ENT_QUOTES, 'UTF-8'); ?>
             </div>
           <?php endif; ?>
           
           <?php if ($error): ?>
             <div class="alert alert-danger" role="alert">
-              <i class="mdi mdi-alert-circle"></i> <?php echo admin_safe($error); ?>
+              <i class="mdi mdi-alert-circle"></i> <?php echo htmlspecialchars($error, ENT_QUOTES, 'UTF-8'); ?>
             </div>
           <?php endif; ?>
           
@@ -132,7 +127,7 @@ function format_contact_value(string $column, $value): string
             <thead>
                 <tr>
                     <?php foreach ($columns as $column): ?>
-                        <th><?php echo admin_safe($columnLabels[$column] ?? ucfirst(str_replace('_', ' ', $column))); ?></th>
+                        <th><?php echo htmlspecialchars($columnLabels[$column] ?? ucfirst(str_replace('_', ' ', $column)), ENT_QUOTES, 'UTF-8'); ?></th>
                     <?php endforeach; ?>
                     <?php if ($hasIdColumn): ?>
                         <th>Actions</th>
@@ -155,7 +150,7 @@ function format_contact_value(string $column, $value): string
                           <?php if ($column === 'message'): ?>
                             <details>
                               <summary><?php echo format_contact_value($column, $contact[$column] ?? ''); ?></summary>
-                              <div class="message-full"><?php echo admin_safe($contact[$column] ?? ''); ?></div>
+                              <div class="message-full"><?php echo htmlspecialchars($contact[$column] ?? '', ENT_QUOTES, 'UTF-8'); ?></div>
                             </details>
                           <?php elseif ($column === 'name'): ?>
                             <div class="d-flex align-items-center">
@@ -174,10 +169,10 @@ function format_contact_value(string $column, $value): string
                       <?php if ($hasIdColumn): ?>
                         <td>
                           <div class="d-flex">
-                            <a href="?route=contacts&action=view&id=<?php echo admin_safe($contact['id']); ?>" class="btn btn-outline-primary btn-sm me-2">
+                            <a href="?route=contacts&action=view&id=<?php echo htmlspecialchars($contact['id'], ENT_QUOTES, 'UTF-8'); ?>" class="btn btn-outline-primary btn-sm me-2">
                               <i class="mdi mdi-eye"></i>
                             </a>
-                            <a href="?route=contacts&action=delete&id=<?php echo admin_safe($contact['id']); ?>" 
+                            <a href="?route=contacts&action=delete&id=<?php echo htmlspecialchars($contact['id'], ENT_QUOTES, 'UTF-8'); ?>" 
                               class="btn btn-outline-danger btn-sm"
                               onclick="return confirm('Are you sure you want to delete this message?')">
                               <i class="mdi mdi-delete"></i>

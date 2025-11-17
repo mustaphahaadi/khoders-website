@@ -1,5 +1,5 @@
 <?php
-$file = __DIR__ . '/faq.html';
+$file = __DIR__ . '/mentor-profile.html';
 if (file_exists($file)) {
     readfile($file);
 } else {

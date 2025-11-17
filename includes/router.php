@@ -8,28 +8,28 @@ class SiteRouter {
             'about' => 'pages/about.html',
             'blog' => 'pages/blog.php',
             'blog-details' => 'pages/blog-details.php',
-            'careers' => 'pages/careers.html',
-            'code-of-conduct' => 'pages/code-of-conduct.html',
+            'careers' => 'pages/careers.php',
+            'code-of-conduct' => 'pages/conduct.php',
             'contact' => 'pages/contact.php',
             'courses' => 'pages/courses.php',
             'course-details' => 'pages/course-details.php',
             'enroll' => 'pages/enroll.php',
             'events' => 'pages/events.php',
-            'faq' => 'pages/faq.html',
-            'instructors' => 'pages/instructors.html',
-            'join-program' => 'pages/join-program.html',
+            'faq' => 'pages/faq.php',
+            'instructors' => 'pages/instructors.php',
+            'join-program' => 'pages/join.php',
             'login' => 'pages/login.php',
-            'membership-tiers' => 'pages/membership-tiers.html',
-            'mentor-profile' => 'pages/mentor-profile.html',
-            'privacy-policy' => 'pages/privacy-policy.html',
+            'membership-tiers' => 'pages/membership.php',
+            'mentor-profile' => 'pages/mentor.php',
+            'privacy-policy' => 'pages/privacy.php',
             'programs' => 'pages/programs.php',
             'program-details' => 'pages/program-details.php',
             'projects' => 'pages/projects.php',
             'register' => 'pages/register.php',
-            'resources' => 'pages/resources.html',
-            'services' => 'pages/services.html',
+            'resources' => 'pages/resources.php',
+            'services' => 'pages/services.php',
             'team' => 'pages/team.php',
-            'terms-of-service' => 'pages/terms-of-service.html',
+            'terms-of-service' => 'pages/terms.php',
             '404' => 'pages/404.html'
         ];
         
@@ -53,15 +53,21 @@ class SiteRouter {
         if (empty(self::$pages)) self::init();
         if (empty($page)) $page = 'index';
         
-        // Sanitize page parameter to prevent path traversal
         $page = preg_replace('/[^a-z0-9-]/', '', strtolower($page));
+        
+        if (!isset(self::$pages[$page]) && $page !== 'index') {
+            header('HTTP/1.0 404 Not Found');
+            $page = '404';
+        }
 
-        $dynamicPages = ['events', 'team', 'projects', 'blog', 'blog-details', 'programs', 'program-details', 'courses', 'course-details', 'enroll', 'login'];
+        $dynamicPages = ['events', 'team', 'projects', 'blog', 'blog-details', 'programs', 'program-details', 'courses', 'course-details', 'enroll', 'login', 'careers', 'code-of-conduct', 'faq', 'instructors', 'resources', 'services', 'privacy-policy', 'terms-of-service', 'join-program', 'membership-tiers', 'mentor-profile'];
         $html_content = '';
 
         if ($page === 'index') {
             $filePath = 'pages/index.html';
-            if (file_exists($filePath) && realpath($filePath) === realpath('pages/index.html')) {
+            $realPath = realpath($filePath);
+            $basePath = realpath('pages');
+            if ($realPath && $basePath && strpos($realPath, $basePath) === 0 && file_exists($filePath)) {
                 $html_content = file_get_contents($filePath);
                 if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
                     $html_content = $matches[1];
@@ -87,16 +93,18 @@ class SiteRouter {
                     return;
                 }
                 $html_content = file_get_contents($filePath);
-            if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
-                $html_content = $matches[1];
-            }
+                if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
+                    $html_content = $matches[1];
+                }
             }
         }
         
         if (empty($html_content)) {
             header('HTTP/1.0 404 Not Found');
             $filePath = 'pages/404.html';
-            if (file_exists($filePath) && realpath($filePath) === realpath('pages/404.html')) {
+            $realPath = realpath($filePath);
+            $basePath = realpath('pages');
+            if ($realPath && $basePath && strpos($realPath, $basePath) === 0 && file_exists($filePath)) {
                 $html_content = file_get_contents($filePath);
             }
             if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {

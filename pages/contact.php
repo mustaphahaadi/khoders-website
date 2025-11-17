@@ -13,7 +13,7 @@
   <link href="assets/css/main.css" rel="stylesheet">
 </head>
 <body class="contact-page">
-  <?php include __DIR__ . '/../includes/navigation.php'; ?>
+  <?php include __DIR__ . '/../includes/header/nav.html'; ?>
   <main class="main">
     <div class="page-title light-background">
       <div class="container d-lg-flex justify-content-between align-items-center">

@@ -1,4 +1,4 @@
-<?php require_once __DIR__ . '/../includes/navigation.php'; ?>
+<?php require_once __DIR__ . '/../includes/header/nav.html'; ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>

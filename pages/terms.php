@@ -1,5 +1,5 @@
 <?php
-$file = __DIR__ . '/resources.html';
+$file = __DIR__ . '/terms-of-service.html';
 if (file_exists($file)) {
     $html_content = file_get_contents($file);
     if (preg_match('/<main[^>]*>(.*?)<\/main>/s', $html_content, $matches)) {
