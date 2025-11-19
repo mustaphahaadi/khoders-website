@@ -51,6 +51,18 @@ function is_active($route) {
         <span class="menu-title">Programs</span>
       </a>
     </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('skills') ? 'active' : ''; ?>" href="index.php?route=skills">
+        <i class="menu-icon mdi mdi-code-tags"></i>
+        <span class="menu-title">Skills & Tech Areas</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('resources') || is_active('resource-editor') ? 'active' : ''; ?>" href="index.php?route=resources">
+        <i class="menu-icon mdi mdi-library"></i>
+        <span class="menu-title">Learning Resources</span>
+      </a>
+    </li>
     
     <li class="nav-item nav-category">Member Management</li>
     <li class="nav-item">
@@ -69,6 +81,12 @@ function is_active($route) {
       <a class="nav-link <?php echo is_active('newsletter'); ?>" href="index.php?route=newsletter">
         <i class="menu-icon mdi mdi-email-outline"></i>
         <span class="menu-title">Newsletter</span>
+      </a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link <?php echo is_active('ratings'); ?>" href="index.php?route=ratings">
+        <i class="menu-icon mdi mdi-star"></i>
+        <span class="menu-title">Ratings & Reviews</span>
       </a>
     </li>
     <li class="nav-item">

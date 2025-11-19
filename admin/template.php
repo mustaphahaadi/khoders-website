@@ -42,6 +42,8 @@ ob_start();
   <!-- inject:css -->
   <link rel="stylesheet" href="assets/css/style.css">
   <link rel="stylesheet" href="assets/css/khoders-custom.css">
+  <!-- Custom Enhanced Sidebar Styling -->
+  <link rel="stylesheet" href="assets/css/sidebar-custom.css">
   <!-- endinject -->
   <link rel="shortcut icon" href="../assets/img/khoders/logo.png" />
   <style>

@@ -121,9 +121,12 @@ if (!empty($errors)) {
 }
 
 try {
-    $query = "INSERT INTO contacts (name, email, subject, message, created_at) VALUES (?, ?, ?, ?, NOW())";
+    // Capture IP address for audit trail
+    $ipAddress = Security::getClientIP();
+    
+    $query = "INSERT INTO contacts (name, email, subject, message, ip_address, created_at) VALUES (?, ?, ?, ?, ?, NOW())";
     $stmt = $db->prepare($query);
-    $success = $stmt->execute([$name, $email, $subject, $message]);
+    $success = $stmt->execute([$name, $email, $subject, $message, $ipAddress]);
     
     if ($success) {
         $contactId = $db->lastInsertId();

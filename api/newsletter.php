@@ -113,9 +113,13 @@ try {
         exit;
     }
     
-    $query = "INSERT INTO newsletter (email, created_at) VALUES (?, NOW())";
+    // Capture IP address and source for audit trail
+    $ipAddress = Security::getClientIP();
+    $source = $_SERVER['HTTP_REFERER'] ?? 'direct';
+    
+    $query = "INSERT INTO newsletter (email, source, ip_address, created_at) VALUES (?, ?, ?, NOW())";
     $stmt = $db->prepare($query);
-    $success = $stmt->execute([$email]);
+    $success = $stmt->execute([$email, $source, $ipAddress]);
     
     if ($success) {
         $subscriberId = $db->lastInsertId();

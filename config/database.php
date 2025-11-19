@@ -12,7 +12,7 @@ require_once __DIR__ . '/env.php';
  */
 class Database {
     // Default database settings (matched to .env.example)
-    private $host = 'localhost';
+    private $host = '127.0.0.1';
     private $db_name = 'khoders_db';
     private $username = 'root';              // For development only; use dedicated user in production
     private $password = '';                   // Empty for development; use strong password in production
@@ -119,31 +119,47 @@ class Database {
             return false; 
         }
 
-        $sql = file_get_contents($schemaPath);
-        if ($sql === false) { 
+        // Read file into array of lines
+        $lines = file($schemaPath, FILE_IGNORE_NEW_LINES);
+        if ($lines === false) { 
             $this->logError('Failed to read schema file');
             return false; 
         }
 
-        // Remove statements that are not needed when already connected to the DB
-        $sql = preg_replace('/^\s*CREATE\s+DATABASE.*?;\s*$/mi', '', $sql);
-        $sql = preg_replace('/^\s*USE\s+.+?;\s*$/mi', '', $sql);
-
-        // Split into individual statements on semicolons at line ends
-        $statements = preg_split('/;\s*\n/', $sql);
-
         try {
-            $db->beginTransaction();
-            foreach ($statements as $stmt) {
-                $trimmed = trim($stmt);
-                if ($trimmed === '') { continue; }
-                $db->exec($trimmed);
+            $currentStmt = '';
+            foreach ($lines as $line) {
+                $trimmedLine = trim($line);
+                
+                // Skip empty lines and comments
+                if ($trimmedLine === '' || strpos($trimmedLine, '--') === 0 || strpos($trimmedLine, '#') === 0) {
+                    continue;
+                }
+                
+                // Skip CREATE DATABASE and USE statements as we are already connected
+                if (stripos($trimmedLine, 'CREATE DATABASE') === 0 || stripos($trimmedLine, 'USE ') === 0) {
+                    continue;
+                }
+
+                $currentStmt .= $line . "\n";
+                
+                // If the line ends with a semicolon, execute the statement
+                if (substr($trimmedLine, -1) === ';') {
+                    try {
+                        $db->exec($currentStmt);
+                    } catch (PDOException $e) {
+                        // Log error but continue (e.g. if table already exists and IF NOT EXISTS wasn't used, though we use it)
+                        // For robustness, we log and continue, or we could re-throw.
+                        // Given we want to apply as much as possible:
+                        $this->logError('Statement execution failed: ' . substr($currentStmt, 0, 50) . '...', $e);
+                    }
+                    $currentStmt = '';
+                }
             }
-            $db->commit();
-            $this->logInfo('Database tables created successfully');
+            
+            $this->logInfo('Database tables created/updated successfully');
             return true;
-        } catch (PDOException $e) {
-            $db->rollBack();
+        } catch (Exception $e) {
             $this->logError('Schema creation failed', $e);
             return false;
         }

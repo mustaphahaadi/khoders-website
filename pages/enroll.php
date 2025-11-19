@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../config/csrf.php';
+require_once __DIR__ . '/../config/security.php';
 
 $type = $_GET['type'] ?? '';
 $id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
@@ -8,17 +9,37 @@ $message = '';
 $error = '';
 $item = null;
 
+// Generate CSRF token BEFORE any processing
+$csrfToken = CSRFToken::generate();
+
 $database = new Database();
 $db = $database->getConnection();
 
-if ($db && $id > 0 && in_array($type, ['course', 'program', 'project', 'event'])) {
+// SECURITY FIX: Use strict whitelist for table mapping
+$tableMap = [
+    'course' => 'courses',
+    'program' => 'programs',
+    'project' => 'projects',
+    'event' => 'events'
+];
+
+if ($db && $id > 0 && isset($tableMap[$type])) {
     try {
-        $table = $type === 'course' ? 'courses' : ($type === 'program' ? 'programs' : ($type === 'project' ? 'projects' : 'events'));
+        $table = $tableMap[$type];
+        
+        // Additional security: verify table is in allowed list
+        $allowedTables = ['courses', 'programs', 'projects', 'events'];
+        if (!in_array($table, $allowedTables, true)) {
+            throw new Exception('Invalid table name');
+        }
+        
         $stmt = $db->prepare("SELECT id, title FROM $table WHERE id = ?");
         $stmt->execute([$id]);
         $item = $stmt->fetch(PDO::FETCH_ASSOC);
     } catch(PDOException $e) {
         error_log('[ERROR] Item fetch failed: ' . $e->getMessage());
+    } catch(Exception $e) {
+        error_log('[SECURITY] Invalid table access attempt: ' . $e->getMessage());
     }
 }
 
@@ -32,6 +53,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $error = 'Invalid security token.';
     } else {
         try {
+            // Capture IP address using Security helper
+            $ipAddress = Security::getClientIP();
+            
             $stmt = $db->prepare("INSERT INTO enrollments (enrollment_type, item_id, item_title, first_name, last_name, email, phone, student_id, program, year_of_study, experience_level, motivation, expectations, ip_address) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
             $stmt->execute([
                 $type,
@@ -47,16 +71,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $_POST['experience_level'] ?? 'beginner',
                 $_POST['motivation'] ?? '',
                 $_POST['expectations'] ?? '',
-                $_SERVER['REMOTE_ADDR']
+                $ipAddress
             ]);
             $message = 'Enrollment submitted successfully! We will contact you soon.';
+            
+            // Regenerate CSRF token after successful submission
+            CSRFToken::regenerate();
         } catch(PDOException $e) {
-            $error = 'Enrollment failed: ' . $e->getMessage();
+            error_log('[ERROR] Enrollment failed: ' . $e->getMessage());
+            $error = 'Enrollment failed. Please try again later.';
         }
     }
 }
-
-$csrfToken = CSRFToken::generate();
 ?>
 
 <div class="page-title light-background">

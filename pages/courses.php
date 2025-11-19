@@ -1,197 +1,226 @@
 <?php
-require_once __DIR__ . '/../config/database.php';
+/**
+ * Courses Page - Khoders World
+ * Displays coding courses from database
+ */
 
+require_once __DIR__ . '/../config/database.php';
+require_once __DIR__ . '/../includes/router.php';
+
+// Get database connection
 $database = new Database();
 $db = $database->getConnection();
 
-$programs = [];
-if ($db) {
-    try {
-        $query = "SELECT * FROM courses WHERE status = 'active' ORDER BY id ASC";
-        $stmt = $db->prepare($query);
-        $stmt->execute();
-        $programs = $stmt->fetchAll(PDO::FETCH_ASSOC);
-        
-        // Debug: Check if query returned results
-        if (empty($programs)) {
-            error_log('[DEBUG] No active courses found in database');
-        }
-    } catch(PDOException $e) {
-        error_log('[ERROR] Programs fetch failed: ' . $e->getMessage());
+// Pagination
+$page = isset($_GET['p']) ? max(1, (int)$_GET['p']) : 1;
+$perPage = 6;
+$offset = ($page - 1) * $perPage;
+
+// Level filter
+$level = isset($_GET['level']) ? $_GET['level'] : '';
+$levels = ['beginner', 'intermediate', 'advanced'];
+
+// Build query
+$whereClause = "WHERE status = 'active'";
+$params = [];
+if (!empty($level) && in_array($level, $levels)) {
+    $whereClause .= " AND level = ?";
+    $params[] = $level;
+}
+
+// Get total count
+$countQuery = "SELECT COUNT(*) as total FROM courses $whereClause";
+$countStmt = $db->prepare($countQuery);
+$countStmt->execute($params);
+$totalCourses = $countStmt->fetch()['total'];
+$totalPages = ceil($totalCourses / $perPage);
+
+// Get courses
+$query = "SELECT id, title, description, level, duration, instructor,  price, enrollment_count, rating, image_url, is_featured 
+          FROM courses 
+          $whereClause 
+          ORDER BY is_featured DESC, created_at DESC 
+          LIMIT ? OFFSET ?";
+          
+$params[] = $perPage;
+$params[] = $offset;
+$stmt = $db->prepare($query);
+$stmt->execute($params);
+$courses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+// Format course data
+foreach ($courses as &$course) {
+    if (empty($course['image_url'])) {
+        $course['image_url'] = 'assets/img/courses/course-default.jpg';
     }
-} else {
-    error_log('[ERROR] Database connection failed');
+    if (empty($course['instructor'])) {
+        $course['instructor'] = 'Khoders World Mentors';
+    }
+    $course['price_display'] = ($course['price'] == 0 || empty($course['price'])) ? 'Free' : 'GH₵ ' . number_format($course['price'], 2);
 }
 ?>
-
-<section class="courses-hero section light-background">
-  <div class="hero-content">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="100">
-          <div class="hero-text">
-            <h1>Choose the Learning Path That Matches Your Goals</h1>
-            <p>From your first line of code to advanced innovation projects, KHODERS programs blend mentorship, collaboration, and real-world experience to help you level up fast.</p>
-            <div class="hero-features">
-              <div class="feature">
-                <i class="bi bi-lightning-charge"></i>
-                <span>Project-based curriculum</span>
-              </div>
-              <div class="feature">
-                <i class="bi bi-people"></i>
-                <span>Small peer cohorts</span>
-              </div>
-              <div class="feature">
-                <i class="bi bi-mortarboard"></i>
-                <span>Certified mentors</span>
-              </div>
-            </div>
-            <div class="hero-buttons">
-              <a href="#tracks" class="btn btn-primary">View Learning Tracks</a>
-              <a href="#admissions" class="btn btn-outline">See Admissions</a>
-            </div>
-          </div>
-        </div>
-        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="200">
-          <div class="hero-image">
-            <img src="assets/img/education/courses-1.webp" alt="Students collaborating" class="img-fluid">
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="tracks" class="featured-courses section">
-  <div class="container section-title" data-aos="fade-up">
-    <h2>Learning Tracks</h2>
-    <p>Each program combines workshops, mentorship, and hands-on deliverables so you graduate with real portfolio pieces.</p>
-  </div>
-
-  <div class="container">
-    <?php if (empty($programs)): ?>
-      <div class="alert alert-info text-center">
-        <p>No courses available at the moment. Please check back soon!</p>
-        <p class="small text-muted">If you're an admin, please add courses through the admin panel.</p>
-      </div>
-    <?php else: ?>
-    <div class="row gy-4">
-      <?php foreach($programs as $index => $program): ?>
-      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="<?php echo 100 + ($index * 50); ?>">
-        <div class="course-card">
-          <div class="course-image">
-            <img src="<?php echo htmlspecialchars($program['hero_image'] ?? 'assets/img/education/courses-1.webp'); ?>" alt="<?php echo htmlspecialchars($program['title']); ?>" class="img-fluid">
-            <div class="badge <?php echo $index === 0 ? 'featured' : ($index === 1 ? 'badge-free' : 'badge-new'); ?>">
-              <?php echo $index === 0 ? 'New Cohort' : ($index === 1 ? 'Popular' : 'Expanding'); ?>
-            </div>
-          </div>
-          <div class="course-content">
-            <div class="course-meta">
-              <span class="category"><?php echo htmlspecialchars($program['category'] ?? ''); ?></span>
-              <span class="level"><?php echo htmlspecialchars($program['level'] ?? ''); ?></span>
-            </div>
-            <h3><?php echo htmlspecialchars($program['title'] ?? ''); ?></h3>
-            <p><?php echo htmlspecialchars($program['subtitle'] ?? ''); ?></p>
-            <ul class="course-highlights">
-              <li><i class="bi bi-people"></i> <?php echo (int)($program['members_count'] ?? 0); ?> enrolled</li>
-              <li><i class="bi bi-star-fill"></i> <?php echo number_format((float)($program['rating'] ?? 5.0), 1); ?> rating</li>
-              <li><i class="bi bi-clock"></i> <?php echo htmlspecialchars($program['duration'] ?? '12 weeks'); ?></li>
-            </ul>
-            <a href="index.php?page=course-details&id=<?php echo (int)($program['id'] ?? 0); ?>" class="btn-course">Learn More</a>
-          </div>
-        </div>
-      </div>
-      <?php endforeach; ?>
-    </div>
-    <?php endif; ?>
-  </div>
-</section>
-
-<section class="section light-background">
-  <div class="container" data-aos="fade-up">
-    <div class="row align-items-center gy-4">
-      <div class="col-lg-5">
-        <h2>Program Experience Timeline</h2>
-        <p>Every track is designed around a 12-week experience combining hands-on building, mentorship, and community events.</p>
-        <a href="index.php?page=register" class="btn btn-primary">Talk to an Advisor</a>
-      </div>
-      <div class="col-lg-7">
-        <div class="timeline">
-          <div class="timeline-item">
-            <span class="timeline-badge">Weeks 1-2</span>
-            <div>
-              <h4>Onboarding & Skill Assessment</h4>
-              <p>Kick-off workshop, mentor pairing, and personalized learning plan.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-badge">Weeks 3-6</span>
-            <div>
-              <h4>Core Workshops & Labs</h4>
-              <p>Live sessions, code-alongs, and weekly challenges.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-badge">Weeks 7-10</span>
-            <div>
-              <h4>Applied Project Sprint</h4>
-              <p>Deliver a capstone project with peer feedback.</p>
-            </div>
-          </div>
-          <div class="timeline-item">
-            <span class="timeline-badge">Weeks 11-12</span>
-            <div>
-              <h4>Showcase & Career Prep</h4>
-              <p>Portfolio polishing and Demo Day presentation.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="admissions" class="section admissions-section">
-  <div class="container" data-aos="fade-up">
-    <div class="row gy-5 align-items-start">
-      <div class="col-lg-5">
-        <h2>Admissions & Eligibility</h2>
-        <p>Our programs welcome students excited to dedicate time each week to building their skills.</p>
-        <div class="admission-requirements">
-          <h3>What we look for</h3>
-          <ul>
-            <li><i class="bi bi-check2-circle"></i> Curiosity and commitment to collaborative learning</li>
-            <li><i class="bi bi-check2-circle"></i> Availability for 8-10 hours per week</li>
-            <li><i class="bi bi-check2-circle"></i> Basic familiarity with computers</li>
-            <li><i class="bi bi-check2-circle"></i> Completion of the KHODERS community pledge</li>
-          </ul>
-        </div>
-      </div>
-      <div class="col-lg-7">
-        <div class="application-process">
-          <h3>How to apply</h3>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Courses - Khoders World</title>
+  <meta name="description" content="Learn to code with free and affordable courses from Khoders World">
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+</head>
+<body class="courses-page">
+  <?php include __DIR__ . '/../includes/navigation.php'; ?>
+  
+  <main class="main">
+    <!-- Page Title -->
+    <div class="page-title light-background">
+      <div class="container d-lg-flex justify-content-between align-items-center">
+        <h1 class="mb-2 mb-lg-0">Coding Courses</h1>
+        <nav class="breadcrumbs">
           <ol>
-            <li>Submit the <a href="index.php?page=register">program interest form</a>.</li>
-            <li>Attend a 15-minute fit conversation with a mentor advisor.</li>
-            <li>Complete a short challenge aligned with your track.</li>
-            <li>Receive cohort placement within 5 business days.</li>
+            <li><a href="index.php">Home</a></li>
+            <li class="current">Courses</li>
           </ol>
+        </nav>
+      </div>
+    </div>
+
+    <!-- Courses Section -->
+    <section id="courses" class="courses section">
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Learn to Code</h2>
+        <p>Free and affordable courses designed for student developers</p>
+      </div>
+
+      <div class="container">
+        <!-- Level Filter -->
+        <div class="row mb-4" data-aos="fade-up">
+          <div class="col-12">
+            <div class="btn-group" role="group" aria-label="Course levels">
+              <a href="index.php?page=courses" class="btn btn-outline-primary <?php echo empty($level) ? 'active' : ''; ?>">All Levels</a>
+              <a href="index.php?page=courses&level=beginner" class="btn btn-outline-primary <?php echo $level === 'beginner' ? 'active' : ''; ?>">Beginner</a>
+              <a href="index.php?page=courses&level=intermediate" class="btn btn-outline-primary <?php echo $level === 'intermediate' ? 'active' : ''; ?>">Intermediate</a>
+              <a href="index.php?page=courses&level=advanced" class="btn btn-outline-primary <?php echo $level === 'advanced' ? 'active' : ''; ?>">Advanced</a>
+            </div>
+          </div>
+        </div>
+
+        <?php if (empty($courses)): ?>
+          <!-- Empty State -->
+          <div class="row" data-aos="fade-up">
+            <div class="col-12 text-center py-5">
+              <i class="bi bi-book" style="font-size: 4rem; color: #136ad5;"></i>
+              <h3 class="mt-3">No Courses Available</h3>
+              <p class="text-muted">
+                <?php if (!empty($level)): ?>
+                  No <?php echo $level; ?> courses yet. <a href="index.php?page=courses">View all courses</a>
+                <?php else: ?>
+                  New courses coming soon!
+                <?php endif; ?>
+              </p>
+              </p>
+            </div>
+          </div>
+        <?php else: ?>
+          <!-- Courses Grid -->
+          <div class="row gy-4">
+            <?php foreach ($courses as $course): ?>
+              <div class="col-lg-4 col-md-6 d-flex align-items-stretch" data-aos="zoom-in" data-aos-delay="100">
+                <div class="course-item">
+                  <img src="<?php echo htmlspecialchars($course['image_url']); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($course['title']); ?>">
+                  <div class="course-content">
+                    <div class="d-flex justify-content-between align-items-center mb-3">
+                      <p class="category"><?php echo htmlspecialchars($course['level']); ?></p>
+                      <p class="price"><?php echo $course['price_display']; ?></p>
+                    </div>
+
+                    <h3><a href="index.php?page=course-details&id=<?php echo $course['id']; ?>"><?php echo htmlspecialchars($course['title']); ?></a></h3>
+                    <p class="description"><?php echo htmlspecialchars(substr(strip_tags($course['description']), 0, 100)) . '...'; ?></p>
+                    <div class="trainer d-flex justify-content-between align-items-center">
+                      <div class="trainer-profile d-flex align-items-center">
+                        <img src="assets/img/trainers/trainer-1.jpg" class="img-fluid" alt="">
+                        <span><?php echo htmlspecialchars($course['instructor']); ?></span>
+                      </div>
+                      <div class="trainer-rank d-flex align-items-center">
+                        <i class="bi bi-person user-icon"></i>&nbsp;<?php echo $course['enrollment_count']; ?>
+                        &nbsp;&nbsp;
+                        <i class="bi bi-heart heart-icon"></i>&nbsp;<?php echo $course['rating']; ?>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <?php endforeach; ?>
+          </div>
+        <?php endif; ?>
+        <!-- Redundant closing tags below will be removed by replacing the messed up block -->
+
+
+          <!-- Pagination -->
+          <?php if ($totalPages > 1): ?>
+            <div class="row mt-5" data-aos="fade-up">
+              <div class="col-12">
+                <nav aria-label="Courses pagination">
+                  <ul class="pagination justify-content-center">
+                    <?php if ($page > 1): ?>
+                      <li class="page-item">
+                        <a class="page-link" href="index.php?page=courses<?php echo !empty($level) ? '&level=' . $level : ''; ?>&p=<?php echo $page - 1; ?>">Previous</a>
+                      </li>
+                    <?php endif; ?>
+                    
+                    <?php for ($i = 1; $i <= $totalPages; $i++): ?>
+                      <li class="page-item <?php echo $i === $page ? 'active' : ''; ?>">
+                        <a class="page-link" href="index.php?page=courses<?php echo !empty($level) ? '&level=' . $level : ''; ?>&p=<?php echo $i; ?>"><?php echo $i; ?></a>
+                      </li>
+                    <?php endfor; ?>
+                    
+                    <?php if ($page < $totalPages): ?>
+                      <li class="page-item">
+                        <a class="page-link" href="index.php?page=courses<?php echo !empty($level) ? '&level=' . $level : ''; ?>&p=<?php echo $page + 1; ?>">Next</a>
+                      </li>
+                    <?php endif; ?>
+                  </ul>
+                </nav>
+              </div>
+            </div>
+          <?php endif; ?>
+        <?php endif; ?>
+      </div>
+    </section>
+
+    <!-- Why Learn With Us CTA -->
+    <section class="cta-section py-5 bg-light">
+      <div class="container text-center" data-aos="fade-up">
+        <h2>Why Learn With Khoders World?</h2>
+        <div class="row mt-4">
+          <div class="col-md-4">
+            <i class="bi bi-people-fill" style="font-size: 3rem; color: #136ad5;"></i>
+            <h5 class="mt-3">Peer Learning</h5>
+            <p>Learn alongside fellow students</p>
+          </div>
+          <div class="col-md-4">
+            <i class="bi bi-award-fill" style="font-size: 3rem; color: #136ad5;"></i>
+            <h5 class="mt-3">Expert Mentors</h5>
+            <p>Guidance from industry professionals</p>
+          </div>
+          <div class="col-md-4">
+            <i class="bi bi-cash-coin" style="font-size: 3rem; color: #136ad5;"></i>
+            <h5 class="mt-3">Affordable</h5>
+            <p>Free and student-friendly pricing</p>
+          </div>
         </div>
       </div>
-    </div>
-  </div>
-</section>
+    </section>
+  </main>
 
-<section class="section cta-section accent-background">
-  <div class="container" data-aos="zoom-in">
-    <div class="row align-items-center">
-      <div class="col-lg-8">
-        <h2>Ready to take the next step?</h2>
-        <p>Apply now to join our next cohort and gain access to mentors, industry projects, and a supportive tech community.</p>
-      </div>
-      <div class="col-lg-4 text-lg-end">
-        <a href="index.php?page=register" class="btn btn-light">Submit Your Application</a>
-      </div>
-    </div>
-  </div>
-</section>
+  <?php include __DIR__ . '/../includes/footer.php'; ?>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+</body>
+</html>

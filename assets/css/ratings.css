@@ -1,0 +1,277 @@
+/**
+ * Ratings & Reviews System - CSS Styling
+ * Modern, clean rating widgets
+ */
+
+/* ============================================
+   RATING DISPLAY (Read-only)
+   ============================================ */
+.rating-display {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.rating-display .stars {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 18px;
+}
+
+.rating-display .stars i {
+    line-height: 1;
+}
+
+.rating-display .rating-value {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+}
+
+.rating-display .rating-count {
+    font-size: 14px;
+    color: #6c757d;
+}
+
+/* ============================================
+   RATING INPUT (Interactive)
+   ============================================ */
+.rating-input {
+    display: inline-flex;
+    gap: 5px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.rating-input .star {
+    font-size: 32px;
+    color: #ddd;
+    transition: color 0.2s ease, transform 0.2s ease;
+    cursor: pointer;
+}
+
+.rating-input .star:hover {
+    transform: scale(1.1);
+}
+
+.rating-input .star.active {
+    color: #ffc107;
+}
+
+/* ============================================
+   REVIEW FORM
+   ============================================ */
+.review-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 30px;
+}
+
+.review-form .rating-input {
+    margin-bottom: 15px;
+}
+
+.review-form textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 14px;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 15px;
+}
+
+.review-form textarea:focus {
+    outline: none;
+    border-color: #136ad5;
+    box-shadow: 0 0 0 3px rgba(19, 106, 213, 0.1);
+}
+
+.review-form label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 15px;
+    cursor: pointer;
+}
+
+.review-form button[type="submit"] {
+    background: #136ad5;
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.review-form button[type="submit"]:hover:not(:disabled) {
+    background: #0d4fa3;
+}
+
+.review-form button[type="submit"]:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* ============================================
+   RATING STATISTICS
+   ============================================ */
+.rating-statistics {
+    background: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #e9ecef;
+}
+
+.rating-distribution {
+    padding: 10px 0;
+}
+
+.rating-distribution .progress {
+    background-color: #e9ecef;
+}
+
+/* ============================================
+   REVIEWS LIST
+   ============================================ */
+.reviews-list {
+    margin-top: 20px;
+}
+
+.review-item {
+    background: #fff;
+    transition: box-shadow 0.3s ease;
+}
+
+.review-item:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-stars {
+    display: inline-flex;
+    gap: 2px;
+    font-size: 14px;
+    margin-top: 2px;
+}
+
+.review-item strong {
+    color: #333;
+    font-size: 15px;
+}
+
+.review-item p {
+    color: #555;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* ============================================
+   ADMIN RATING STARS
+   ============================================ */
+.table .rating-stars {
+    display: flex;
+    gap: 2px;
+    font-size: 16px;
+}
+
+.table .rating-stars .text-warning {
+    color: #ffc107 !important;
+}
+
+.table .rating-stars .text-muted {
+    color: #dee2e6 !important;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+    .rating-display .stars {
+        font-size: 16px;
+    }
+
+    .rating-input .star {
+        font-size: 28px;
+    }
+
+    .rating-statistics {
+        padding: 15px;
+    }
+
+    .review-item {
+        padding: 15px;
+    }
+}
+
+/* ============================================
+   ACCESSIBILITY
+   ============================================ */
+.rating-input:focus-within {
+    outline: 2px solid #136ad5;
+    outline-offset: 4px;
+    border-radius: 4px;
+}
+
+.star:focus {
+    outline: 2px solid #136ad5;
+    outline-offset: 2px;
+    border-radius: 2px;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.review-item {
+    animation: fadeIn 0.3s ease;
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+.reviews-list.loading {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.reviews-list.loading::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 40px;
+    height: 40px;
+    border: 4px solid #f3f3f3;
+    border-top: 4px solid #136ad5;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: translate(-50%, -50%) rotate(0deg);
+    }
+
+    100% {
+        transform: translate(-50%, -50%) rotate(360deg);
+    }
+}

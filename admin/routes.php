@@ -77,6 +77,21 @@ Router::register('blog-editor', 'pages/blog-editor.php', [
     'title' => 'Blog Editor - KHODERS WORLD Admin'
 ]);
 
+Router::register('skills', 'pages/skills.php', [
+    'name' => 'skills',
+    'title' => 'Skills Management - KHODERS WORLD Admin'
+]);
+
+Router::register('resources', 'pages/resources.php', [
+    'name' => 'resources',
+    'title' => 'Learning Resources - KHODERS WORLD Admin'
+]);
+
+Router::register('resource-editor', 'pages/resource-editor.php', [
+    'name' => 'resource-editor',
+    'title' => 'Resource Editor - KHODERS WORLD Admin'
+]);
+
 // Member Management
 Router::register('members', 'pages/members.php', [
     'name' => 'members',
@@ -91,6 +106,11 @@ Router::register('contacts', 'pages/contacts.php', [
 Router::register('newsletter', 'pages/newsletter.php', [
     'name' => 'newsletter',
     'title' => 'Newsletter - KHODERS WORLD Admin'
+]);
+
+Router::register('ratings', 'pages/ratings.php', [
+    'name' => 'ratings',
+    'title' => 'Ratings & Reviews - KHODERS WORLD Admin'
 ]);
 
 Router::register('enrollments', 'pages/enrollments.php', [

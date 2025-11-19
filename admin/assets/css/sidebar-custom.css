@@ -1,0 +1,290 @@
+/**
+ * KHODERS WORLD Admin Panel - Enhanced Sidebar Styling
+ * Modern, clean, and highly visible design
+ */
+
+/* ============================================
+   SIDEBAR CONTAINER
+   ============================================ */
+.sidebar {
+    background: linear-gradient(180deg, #1a1d29 0%, #252936 100%) !important;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* ============================================
+   NAV CATEGORY HEADERS
+   ============================================ */
+.sidebar .nav .nav-item.nav-category {
+    color: #8b92a9 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 1.2px !important;
+    padding: 20px 25px 10px 25px !important;
+    margin-top: 15px !important;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.sidebar .nav .nav-item.nav-category:first-of-type {
+    border-top: none;
+    margin-top: 0;
+}
+
+/* ============================================
+   NAV LINKS - DEFAULT STATE
+   ============================================ */
+.sidebar .nav .nav-item .nav-link {
+    display: flex !important;
+    align-items: center !important;
+    padding: 14px 25px !important;
+    color: #c2c8d6 !important;
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    transition: all 0.3s ease !important;
+    border-left: 3px solid transparent !important;
+    margin: 2px 0 !important;
+    position: relative !important;
+}
+
+.sidebar .nav .nav-item .nav-link:hover {
+    background: rgba(19, 106, 213, 0.1) !important;
+    color: #ffffff !important;
+    border-left-color: #136ad5 !important;
+    padding-left: 28px !important;
+}
+
+/* ============================================
+   NAV LINKS - ACTIVE STATE
+   ============================================ */
+.sidebar .nav .nav-item .nav-link.active {
+    background: linear-gradient(90deg, rgba(19, 106, 213, 0.15) 0%, rgba(19, 106, 213, 0.05) 100%) !important;
+    color: #ffffff !important;
+    border-left-color: #136ad5 !important;
+    font-weight: 600 !important;
+}
+
+.sidebar .nav .nav-item .nav-link.active::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #136ad5 0%, #0d4fa3 100%);
+}
+
+/* ============================================
+   ICONS
+   ============================================ */
+.sidebar .nav .nav-item .nav-link .menu-icon {
+    font-size: 20px !important;
+    margin-right: 15px !important;
+    color: #8b92a9 !important;
+    min-width: 24px !important;
+    text-align: center !important;
+    transition: all 0.3s ease !important;
+}
+
+.sidebar .nav .nav-item .nav-link:hover .menu-icon,
+.sidebar .nav .nav-item .nav-link.active .menu-icon {
+    color: #136ad5 !important;
+    transform: scale(1.1);
+}
+
+/* ============================================
+   MENU TITLE TEXT
+   ============================================ */
+.sidebar .nav .nav-item .nav-link .menu-title {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    color: inherit !important;
+    white-space: nowrap !important;
+    line-height: 1.4 !important;
+}
+
+.sidebar .nav .nav-item .nav-link.active .menu-title {
+    font-weight: 600 !important;
+}
+
+/* ============================================
+   BADGES & COUNTERS (if added in future)
+   ============================================ */
+.sidebar .nav .nav-item .nav-link .badge {
+    margin-left: auto;
+    font-size: 10px;
+    padding: 3px 7px;
+    border-radius: 10px;
+    font-weight: 600;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+.sidebar::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.02);
+}
+
+.sidebar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+}
+
+.sidebar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* ============================================
+   RESPONSIVE BEHAVIOR
+   ============================================ */
+@media (max-width: 991px) {
+    .sidebar {
+        box-shadow: 4px 0 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .sidebar .nav .nav-item .nav-link {
+        padding: 16px 20px !important;
+    }
+    
+    .sidebar .nav .nav-item.nav-category {
+        padding: 18px 20px 8px 20px !important;
+    }
+}
+
+/* ============================================
+   HOVER EFFECTS & ANIMATIONS
+   ============================================ */
+.sidebar .nav .nav-item .nav-link {
+    overflow: hidden;
+}
+
+.sidebar .nav .nav-item .nav-link::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #136ad5;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.sidebar .nav .nav-item .nav-link.active::after {
+    opacity: 0;
+}
+
+/* ============================================
+   DIVIDERS BETWEEN SECTIONS
+   ============================================ */
+.sidebar .nav .nav-item.nav-category + .nav-item {
+    margin-top: 5px;
+}
+
+/* ============================================
+   FOCUS STATES FOR ACCESSIBILITY
+   ============================================ */
+.sidebar .nav .nav-item .nav-link:focus {
+    outline: 2px solid #136ad5;
+    outline-offset: -2px;
+    box-shadow: 0 0 0 3px rgba(19, 106, 213, 0.2);
+}
+
+/* ============================================
+   SPECIAL ITEMS (Logout, View Website)
+   ============================================ */
+.sidebar .nav .nav-item:last-child .nav-link {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 20px !important;
+    color: #ff6b6b !important;
+}
+
+.sidebar .nav .nav-item:last-child .nav-link:hover {
+    background: rgba(255, 107, 107, 0.1) !important;
+    border-left-color: #ff6b6b !important;
+}
+
+.sidebar .nav .nav-item:last-child .nav-link .menu-icon {
+    color: #ff6b6b !important;
+}
+
+/* View Website Link */
+.sidebar .nav .nav-item:nth-last-child(2) .nav-link {
+    color: #4caf50 !important;
+}
+
+.sidebar .nav .nav-item:nth-last-child(2) .nav-link:hover {
+    background: rgba(76, 175, 80, 0.1) !important;
+    border-left-color: #4caf50 !important;
+}
+
+.sidebar .nav .nav-item:nth-last-child(2) .nav-link .menu-icon {
+    color: #4caf50 !important;
+}
+
+/* ============================================
+   LOADING STATE (if needed)
+   ============================================ */
+.sidebar.loading::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #136ad5, transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+/* ============================================
+   SIDEBAR BRAND/LOGO AREA (if exists)
+   ============================================ */
+.sidebar .sidebar-brand {
+    padding: 25px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.sidebar .sidebar-brand h3 {
+    color: #ffffff;
+    font-size: 18px;
+    font-weight: 700;
+    margin: 0;
+    letter-spacing: 0.5px;
+}
+
+/* ============================================
+   IMPROVED READABILITY
+   ============================================ */
+.sidebar * {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Ensure text is always readable */
+.sidebar .nav .nav-item .nav-link,
+.sidebar .nav .nav-item.nav-category {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+/* ============================================
+   DARK MODE COMPATIBILITY (future)
+   ============================================ */
+@media (prefers-color-scheme: dark) {
+    .sidebar {
+        background: linear-gradient(180deg, #0f1117 0%, #1a1d29 100%) !important;
+    }
+}

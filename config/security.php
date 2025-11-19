@@ -176,14 +176,21 @@ class Security {
     }
     
     /**
-     * Hash password securely
+     * Hash password securely with fallback support
+     * Uses Argon2ID if available, falls back to BCRYPT
      */
     public static function hashPassword($password) {
-        return password_hash($password, PASSWORD_ARGON2ID, [
-            'memory_cost' => 65536,
-            'time_cost' => 4,
-            'threads' => 3
-        ]);
+        // Check if Argon2ID is available (requires PHP 7.3+ and libargon2)
+        if (defined('PASSWORD_ARGON2ID')) {
+            return password_hash($password, PASSWORD_ARGON2ID, [
+                'memory_cost' => 65536,
+                'time_cost' => 4,
+                'threads' => 3
+            ]);
+        }
+        
+        // Fallback to BCRYPT for compatibility
+        return password_hash($password, PASSWORD_BCRYPT, ['cost' => 12]);
     }
     
     /**

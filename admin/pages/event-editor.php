@@ -328,6 +328,8 @@ $csrfToken = Security::generateCSRFToken();
   </div>
 </div>
 
+<!-- TinyMCE WYSIWYG Editor -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
 function previewImage(input, previewId) {
     const preview = document.getElementById(previewId);

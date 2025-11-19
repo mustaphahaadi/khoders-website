@@ -121,10 +121,11 @@ if (empty($email)) {
 if (empty($experience)) {
     $errors[] = 'Experience level is required';
 } else {
-    // Normalise to match ENUM('Beginner','Intermediate','Advanced')
-    $normalizedExperience = ucfirst(strtolower($experience));
-    if (!in_array($normalizedExperience, ['Beginner', 'Intermediate', 'Advanced'])) {
-        $errors[] = 'Invalid experience level';
+    // Normalize to match schema ENUM('beginner', 'some-experience', 'intermediate', 'advanced')
+    $normalizedExperience = strtolower($experience);
+    $allowedLevels = ['beginner', 'some-experience', 'intermediate', 'advanced'];
+    if (!in_array($normalizedExperience, $allowedLevels, true)) {
+        $errors[] = 'Invalid experience level. Must be: beginner, some-experience, intermediate, or advanced';
     } else {
         $experience = $normalizedExperience;
     }
@@ -168,8 +169,8 @@ try {
     $sanitizedInterests = array_map([Security::class, 'sanitizeInput'], (array) $interests);
     $interestsJson = json_encode($sanitizedInterests);
     
-    // Insert new member aligned with current schema
-    $query = "INSERT INTO members (first_name, last_name, email, phone, student_id, program, year, experience, interests, additional_info, ip_address)
+    // Insert new member aligned with current schema (using 'level' column)
+    $query = "INSERT INTO members (first_name, last_name, email, phone, student_id, program, year, level, interests, additional_info, ip_address)
               VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $db->prepare($query);
     $success = $stmt->execute([
@@ -180,7 +181,7 @@ try {
         $studentId,
         $program,
         $year,
-        $experience,
+        $experience, // This now contains the normalized level value
         $interestsJson,
         $additionalInfo,
         $ipAddress

@@ -31,6 +31,7 @@ $post = [
     'featured_image_alt' => '',
     'category' => '',
     'tags' => '',
+    'is_featured' => 0,
     'status' => 'draft'
 ];
 
@@ -85,6 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_post'])) {
         $post['featured_image_alt'] = $_POST['featured_image_alt'] ?? '';
         $post['category'] = $_POST['category'] ?? '';
         $post['tags'] = $_POST['tags'] ?? '';
+        $post['is_featured'] = isset($_POST['is_featured']) ? 1 : 0;
         $post['status'] = $_POST['status'] ?? 'draft';
         
         // Handle featured image upload if file is provided
@@ -117,7 +119,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_post'])) {
             try {
                 if ($action === 'edit' && $post_id > 0) {
                     // Update existing blog post
-                    $stmt = $db->prepare("UPDATE blog_posts SET title = ?, slug = ?, content = ?, excerpt = ?, author = ?, featured_image = ?, featured_image_alt = ?, category = ?, tags = ?, status = ?, updated_at = NOW() WHERE id = ?");
+                    $stmt = $db->prepare("UPDATE blog_posts SET title = ?, slug = ?, content = ?, excerpt = ?, author = ?, featured_image = ?, featured_image_alt = ?, category = ?, tags = ?, is_featured = ?, status = ?, updated_at = NOW() WHERE id = ?");
                     $stmt->execute([
                         $post['title'],
                         $post['slug'],
@@ -128,13 +130,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_post'])) {
                         $post['featured_image_alt'],
                         $post['category'],
                         $post['tags'],
+                        $post['is_featured'],
                         $post['status'],
                         $post_id
                     ]);
                     $message = 'Blog post updated successfully.';
                 } else {
                     // Insert new blog post
-                    $stmt = $db->prepare("INSERT INTO blog_posts (title, slug, content, excerpt, author, featured_image, featured_image_alt, category, tags, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
+                    $stmt = $db->prepare("INSERT INTO blog_posts (title, slug, content, excerpt, author, featured_image, featured_image_alt, category, tags, is_featured, status, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, NOW(), NOW())");
                     $stmt->execute([
                         $post['title'],
                         $post['slug'],
@@ -145,6 +148,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['save_post'])) {
                         $post['featured_image_alt'],
                         $post['category'],
                         $post['tags'],
+                        $post['is_featured'],
                         $post['status']
                     ]);
                     $message = 'Blog post created successfully.';
@@ -226,9 +230,9 @@ $pageTitle = ($action === 'edit') ? 'Edit Blog Post' : 'Create New Blog Post';
             
             <div class="mb-3">
               <label for="content" class="form-label">Content <span class="text-danger">*</span></label>
-              <textarea class="form-control" id="content" name="content" 
+              <textarea class="form-control tinymce-editor" id="content" name="content" 
                         rows="8" placeholder="Write your blog post content here" required><?php echo htmlspecialchars($post['content']); ?></textarea>
-              <small class="form-text text-muted">You can use HTML tags for formatting.</small>
+              <small class="form-text text-muted">Rich text editor with formatting options.</small>
             </div>
             
             <div class="row">
@@ -289,6 +293,15 @@ $pageTitle = ($action === 'edit') ? 'Edit Blog Post' : 'Create New Blog Post';
               </select>
             </div>
             
+            <div class="mb-3">
+              <div class="form-check">
+                <input class="form-check-input" type="checkbox" id="is_featured" name="is_featured" <?php echo $post['is_featured'] ? 'checked' : ''; ?>>
+                <label class="form-check-label" for="is_featured">
+                  <strong>⭐ Featured Post</strong> <small class="text-muted">(Display prominently on homepage)</small>
+                </label>
+              </div>
+            </div>
+            
             <div class="d-flex gap-2">
               <button type="submit" class="btn btn-primary">
                 <i class="mdi mdi-content-save"></i> <?php echo ($action === 'edit') ? 'Update' : 'Create'; ?> Post
@@ -328,4 +341,18 @@ function generateSlug() {
         document.getElementById('slug').value = slug;
     }
 }
+</script>
+
+<!-- TinyMCE WYSIWYG Editor -->
+<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+<script>
+tinymce.init({
+    selector: '.tinymce-editor',
+    height: 500,
+    menubar: true,
+    plugins: 'lists link image code table wordcount fullscreen preview',
+    toolbar: 'undo redo | formatselect | bold italic underline | alignleft aligncenter alignright | bullist numlist | link image | code fullscreen preview',
+    branding: false,
+    content_style: 'body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; font-size: 14px; }'
+});
 </script>

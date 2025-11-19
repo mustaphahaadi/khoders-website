@@ -33,11 +33,8 @@ function render_page($content, $page_title = '', $meta_data = []) {
     // Include header
     include 'header.php';
     
-    // Include navigation
-    $nav_file = 'includes/header/nav.html';
-    if (file_exists($nav_file)) {
-        include $nav_file;
-    }
+    // Include navigation - use PHP navigation for dynamic routing
+    require_once 'navigation.php';
     
     // Output the content
     echo $content;
