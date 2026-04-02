@@ -156,10 +156,7 @@ foreach ($courses as &$course) {
               </div>
             <?php endforeach; ?>
           </div>
-        <?php endif; ?>
-        <!-- Redundant closing tags below will be removed by replacing the messed up block -->
-
-
+        
           <!-- Pagination -->
           <?php if ($totalPages > 1): ?>
             <div class="row mt-5" data-aos="fade-up">

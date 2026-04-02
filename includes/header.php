@@ -51,5 +51,18 @@ if (empty($meta_keywords)) {
 
     <!-- Main CSS File -->
     <link href="assets/css/main.css" rel="stylesheet">
+    
+    <!-- Theme Detection (Prevents FOUC) -->
+    <script>
+        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+    </script>
 </head>
-<body>
+<body class="">
+    <!-- Apply theme class immediately after body open to prevent flash -->
+    <script>
+        if (document.documentElement.getAttribute('data-theme') === 'dark') {
+            document.body.classList.add('dark-background');
+        }
+    </script>

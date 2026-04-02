@@ -48,6 +48,10 @@ function get_nav_links() {
             <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
         </nav>
 
+        <a href="#" id="theme-toggle" class="me-3 ms-auto ms-xl-3 text-white fs-5" style="text-decoration: none" aria-label="Toggle Dark Mode" title="Toggle Dark Mode">
+            <i class="bi bi-moon-stars" id="theme-icon"></i>
+        </a>
+
         <?php if ($isLoggedIn): ?>
           <!-- Logged In: Show Dashboard Dropdown -->
           <div class="dropdown">

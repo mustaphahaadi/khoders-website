@@ -158,4 +158,41 @@
     });
   });
 
+  /**
+   * Theme Toggle
+   */
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeIcon = document.getElementById('theme-icon');
+
+  function updateThemeIcon() {
+    if (document.body.classList.contains('dark-background')) {
+      themeIcon.classList.remove('bi-moon-stars');
+      themeIcon.classList.add('bi-sun');
+    } else {
+      themeIcon.classList.remove('bi-sun');
+      themeIcon.classList.add('bi-moon-stars');
+    }
+  }
+
+  if (themeToggle) {
+    // Set initial icon on load
+    updateThemeIcon();
+
+    themeToggle.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      if (document.body.classList.contains('dark-background')) {
+        document.body.classList.remove('dark-background');
+        document.documentElement.removeAttribute('data-theme');
+        localStorage.setItem('theme', 'light');
+      } else {
+        document.body.classList.add('dark-background');
+        document.documentElement.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+      }
+      
+      updateThemeIcon();
+    });
+  }
+
 })();
